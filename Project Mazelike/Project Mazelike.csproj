@@ -9,7 +9,7 @@
     <ProjectGuid>{6DA8D09E-6B31-432C-B83B-45492044BCA8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Project_Mazelike</RootNamespace>
+    <RootNamespace>ProjectMazelike</RootNamespace>
     <AssemblyName>Project Mazelike</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
@@ -44,6 +44,7 @@
     <Compile Include="Code\Data\Cell.cs" />
     <Compile Include="Code\Data\Maze.cs" />
     <Compile Include="Code\Data\MazeGenerator.cs" />
+    <Compile Include="Code\Model\GameManager.cs" />
     <Compile Include="Code\ProjectMazelike.cs" />
     <Compile Include="Code\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

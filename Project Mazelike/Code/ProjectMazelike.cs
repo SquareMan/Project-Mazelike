@@ -1,23 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 
 namespace ProjectMazelike {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class ProjectMazelike : Game {
-        //TODO: Remove this test block
-        //-----------------------------
-        Maze testMaze;
-        //------------------------------
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        GameManager gameManager;
 
         public ProjectMazelike() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            gameManager = new GameManager(5, 5);
         }
 
         /// <summary>
@@ -28,8 +27,15 @@ namespace ProjectMazelike {
         /// </summary>
         protected override void Initialize() {
             // TODO: Add your initialization logic here
-            testMaze = new Maze(5, 5);
-            
+            gameManager.Initialize(GraphicsDevice);
+
+            for (int i = 0; i < testTexData.Length; i++) {
+                testTexData[i] = Color.White;
+            }
+
+            testTex = new Texture2D(GraphicsDevice, testRect.Width, testRect.Height);
+            testTex.SetData(testTexData);
+
             base.Initialize();
         }
 
@@ -66,14 +72,23 @@ namespace ProjectMazelike {
             base.Update(gameTime);
         }
 
+        static Rectangle testRect = new Rectangle(10, 10, 100, 100);
+        Color[] testTexData = new Color[testRect.Width * testRect.Height];
+        Texture2D testTex;
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            spriteBatch.Begin();
+            //spriteBatch.Draw(testTex, testRect, Color.White);
+            gameManager.DrawMaze(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
