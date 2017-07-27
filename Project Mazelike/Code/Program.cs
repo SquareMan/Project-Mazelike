@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Project_Mazelike.Code {
+namespace ProjectMazelike {
 #if WINDOWS || LINUX
     /// <summary>
     /// The main class.
@@ -11,7 +11,7 @@ namespace Project_Mazelike.Code {
         /// </summary>
         [STAThread]
         static void Main() {
-            using (var game = new Game1())
+            using (var game = new ProjectMazelike())
                 game.Run();
         }
     }

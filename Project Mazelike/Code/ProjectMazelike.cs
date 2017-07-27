@@ -2,15 +2,20 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Project_Mazelike.Code {
+namespace ProjectMazelike {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game {
+    public class ProjectMazelike : Game {
+        //TODO: Remove this test block
+        //-----------------------------
+        Maze testMaze;
+        //------------------------------
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        public Game1() {
+        public ProjectMazelike() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -23,7 +28,8 @@ namespace Project_Mazelike.Code {
         /// </summary>
         protected override void Initialize() {
             // TODO: Add your initialization logic here
-
+            testMaze = new Maze(5, 5);
+            
             base.Initialize();
         }
 

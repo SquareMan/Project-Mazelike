@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project_Mazelike.Code.Data {
+namespace ProjectMazelike {
     class Maze {
-        public Maze() {
+        protected Cell[,] cells;
 
+        public Maze(int width, int height) {
+            cells = new Cell[width, height];
         }
     }
 }
