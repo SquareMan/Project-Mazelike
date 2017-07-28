@@ -24,7 +24,7 @@ namespace ProjectMazelike {
         }
 
         public void Initialize(GraphicsDevice graphicsDevice) {
-            mazeGenerator = new MazeGenerator();
+            mazeGenerator = new MazeGeneratorImperfect(.33f);
             mazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
 
             SetupTextures(graphicsDevice);

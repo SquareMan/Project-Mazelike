@@ -9,10 +9,10 @@ namespace ProjectMazelike {
     class MazeGenerator {
 
         protected Maze maze;
-        Cell currentCell;
-        Stack<Cell> stack;
+        protected Cell currentCell;
+        protected Stack<Cell> stack;
 
-        Random rand;
+        protected Random rand;
 
         public MazeGenerator(int randomSeed = -1) {
             if(randomSeed == -1) {
@@ -21,7 +21,7 @@ namespace ProjectMazelike {
             rand = new Random(randomSeed);
         }
 
-        public void GenerateMaze(int width, int height) {
+        public virtual void GenerateMaze(int width, int height) {
             maze = new Maze(width, height);
             stack = new Stack<Cell>();
 
@@ -58,7 +58,7 @@ namespace ProjectMazelike {
             return maze;
         }
         
-        void EnterCell(Cell current, Cell next) {
+        protected void EnterCell(Cell current, Cell next) {
             //Find the direction
 
             //Remove the walls between current and next

@@ -26,6 +26,41 @@ namespace ProjectMazelike {
             this.maze = maze;
         }
 
+        //TODO: These neighbor methods are very similar. Find a way to combine them?
+
+        public List<Cell>GetWalledNeighbors() {
+            List<Cell> neighbors = new List<Cell>();
+            //Add North Neighbor
+            if (Y - 1 >= 0) {
+                Cell cell = maze.GetCell(X, Y - 1);
+                if (northWall) {
+                    neighbors.Add(cell);
+                }
+            }
+            //Add South Neighbor
+            if (Y + 1 < maze.Height) {
+                Cell cell = maze.GetCell(X, Y + 1);
+                if (southWall) {
+                    neighbors.Add(cell);
+                }
+            }
+            //Add West Neighbor
+            if (X - 1 >= 0) {
+                Cell cell = maze.GetCell(X - 1, Y);
+                if (westWall) {
+                    neighbors.Add(cell);
+                }
+            }
+            //Add East Neighbor
+            if (X + 1 < maze.Width) {
+                Cell cell = maze.GetCell(X + 1, Y);
+                if (eastWall) {
+                    neighbors.Add(cell);
+                }
+            }
+            return neighbors;
+        }
+
         public List<Cell> GetUnvisitedNeighbors() {
             List<Cell> neighbors = new List<Cell>();
             //Add North Neighbor
@@ -57,6 +92,23 @@ namespace ProjectMazelike {
                 }
             }
             return neighbors;
+        }
+
+        public int GetNumberOfWalls() {
+            int walls = 0;
+            if(northWall) {
+                walls++;
+            }
+            if(southWall) {
+                walls++;
+            }
+            if(westWall) {
+                walls++;
+            }
+            if(eastWall) {
+                walls++;
+            }
+            return walls;
         }
 
         public void Visit() {
