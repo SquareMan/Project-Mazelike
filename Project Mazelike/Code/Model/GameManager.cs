@@ -25,7 +25,7 @@ namespace ProjectMazelike {
 
         public void Initialize(GraphicsDevice graphicsDevice) {
             mazeGenerator = new MazeGenerator();
-            mazeGenerator.GenerateMaze(5, 5);
+            mazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
 
             SetupTextures(graphicsDevice);
         }
