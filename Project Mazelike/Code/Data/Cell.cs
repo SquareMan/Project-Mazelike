@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,25 +26,41 @@ namespace ProjectMazelike {
             this.maze = maze;
         }
 
-        public List<Cell> GetNeighbors() {
+        public List<Cell> GetUnvisitedNeighbors() {
             List<Cell> neighbors = new List<Cell>();
             //Add North Neighbor
             if (Y - 1 >= 0) {
-                neighbors.Add(maze.GetCell(X, Y - 1));
+                Cell cell = maze.GetCell(X, Y - 1);
+                if (cell.Visited == false) {
+                    neighbors.Add(cell);
+                }
             }
             //Add South Neighbor
             if (Y + 1 < maze.Height) {
-                neighbors.Add(maze.GetCell(X, Y + 1));
+                Cell cell = maze.GetCell(X, Y + 1);
+                if (cell.Visited == false) {
+                    neighbors.Add(cell);
+                }
             }
             //Add West Neighbor
             if (X - 1 >= 0) {
-                neighbors.Add(maze.GetCell(X - 1, Y));
+                Cell cell = maze.GetCell(X - 1, Y);
+                if (cell.Visited == false) {
+                    neighbors.Add(cell);
+                }
             }
             //Add East Neighbor
             if (X + 1 < maze.Width) {
-                neighbors.Add(maze.GetCell(X + 1, Y));
+                Cell cell = maze.GetCell(X + 1, Y);
+                if (cell.Visited == false) {
+                    neighbors.Add(cell);
+                }
             }
             return neighbors;
+        }
+
+        public void Visit() {
+            Visited = true;
         }
 
         public int X { get => x; protected set => x = value; }

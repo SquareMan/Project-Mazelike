@@ -27,8 +27,10 @@ namespace ProjectMazelike {
             mazeGenerator = new MazeGenerator();
             mazeGenerator.GenerateMaze(5, 5);
 
-            Maze ourMaze = mazeGenerator.GetMaze();
+            SetupTextures(graphicsDevice);
+        }
 
+        void SetupTextures(GraphicsDevice graphicsDevice) {
             //Create Temporary Texture for a Cell
             Color[] data = new Color[cellSize * cellSize];
             for (int i = 0; i < data.Length; i++) {
@@ -38,6 +40,7 @@ namespace ProjectMazelike {
             cellTexture = new Texture2D(graphicsDevice, cellSize, cellSize);
             cellTexture.SetData(data);
 
+            //Create Temporary Texture for a Wall
             data = new Color[wallSize * wallSize];
             for (int i = 0; i < data.Length; i++) {
                 data[i] = Color.White;
@@ -50,13 +53,15 @@ namespace ProjectMazelike {
         public void DrawMaze(SpriteBatch spriteBatch) {
             //Get the cell array from our maze
             Maze ourMaze = mazeGenerator.GetMaze();
-            //loop through each cell
+
+            //loop through each cell and draw them
             foreach (Cell cell in ourMaze.GetCellArray()) {
                 //Draw rectangle at cell's position
                 Rectangle rect = new Rectangle(cell.X * cellSize, cell.Y * cellSize, cellSize, cellSize);
                 spriteBatch.Draw(cellTexture, rect, Color.White);
             }
 
+            //Loop through each cell and draw walls
             foreach (Cell cell in ourMaze.GetCellArray()) {
 
                 Rectangle rect;
