@@ -24,7 +24,7 @@ namespace ProjectMazelike {
         }
 
         public void Initialize(GraphicsDevice graphicsDevice) {
-            mazeGenerator = new MazeGeneratorImperfect(.33f);
+            mazeGenerator = new MazeGeneratorImperfect(0.33f);
             mazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
 
             SetupTextures(graphicsDevice);
@@ -58,7 +58,7 @@ namespace ProjectMazelike {
             foreach (Cell cell in ourMaze.GetCellArray()) {
                 //Draw rectangle at cell's position
                 Rectangle rect = new Rectangle(cell.X * cellSize, cell.Y * cellSize, cellSize, cellSize);
-                spriteBatch.Draw(cellTexture, rect, Color.White);
+                spriteBatch.Draw(cellTexture, rect, cell.Visited ? Color.White : Color.Green);
             }
 
             //Loop through each cell and draw walls
@@ -66,20 +66,15 @@ namespace ProjectMazelike {
 
                 Rectangle rect;
                 //Draw rectangle at wall positions
-                if (cell.northWall) {
-                    rect = new Rectangle(cell.X * cellSize, cell.Y * cellSize - (wallSize / 2), cellSize, wallSize);
-                    spriteBatch.Draw(wallTexture, rect, Color.Black);
-                }
-                if (cell.southWall) {
-                    rect = new Rectangle(cell.X * cellSize, cell.Y * cellSize + (cellSize - wallSize / 2), cellSize, wallSize);
-                    spriteBatch.Draw(wallTexture, rect, Color.Black);
-                }
-                if (cell.westWall) {
-                    rect = new Rectangle(cell.X * cellSize - (wallSize / 2), cell.Y * cellSize, wallSize, cellSize);
-                    spriteBatch.Draw(wallTexture, rect, Color.Black);
-                }
-                if (cell.eastWall) {
+                //Since walls are shared between cells, we only need to draw a maximum of two per cell, they must be connected
+                //  i.e North/East, North/West, South/East, South/West
+                //  This will not draw the walls on the edge of the screen, but they do exist.
+                if (cell.WallStatus(Cell.Direction.East)) {
                     rect = new Rectangle(cell.X * cellSize + (cellSize - wallSize / 2), cell.Y * cellSize, wallSize, cellSize);
+                    spriteBatch.Draw(wallTexture, rect, Color.Black);
+                }
+                if (cell.WallStatus(Cell.Direction.South)) {
+                    rect = new Rectangle(cell.X * cellSize, cell.Y * cellSize + (cellSize - wallSize / 2), cellSize, wallSize);
                     spriteBatch.Draw(wallTexture, rect, Color.Black);
                 }
             }

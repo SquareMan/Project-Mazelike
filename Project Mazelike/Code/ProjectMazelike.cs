@@ -16,7 +16,7 @@ namespace ProjectMazelike {
         public ProjectMazelike() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            gameManager = new GameManager(15, 15);
+            gameManager = new GameManager(8, 8);
         }
 
         /// <summary>

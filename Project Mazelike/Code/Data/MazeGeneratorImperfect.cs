@@ -29,8 +29,6 @@ namespace ProjectMazelike {
             foreach (Cell cell in maze.GetCellArray()) {
                 if (cell.GetNumberOfWalls() >= 3) {
                     //This is a dead end. We should now Reverse the maze process, maybe....
-                    Debug.WriteLine("Dead End at (" + cell.X + "," + cell.Y + ")");
-
                     
                     //Decide if we should remove the dead end
                     if (rand.NextDouble() < chance) {
@@ -40,6 +38,34 @@ namespace ProjectMazelike {
                     }
                 }
             }
+
+            //Now continue removing dead ends until there are none, leaving only loops
+            Boolean deadEndsRemain = true;
+            while (deadEndsRemain) {
+                deadEnds = new List<Cell>();
+                deadEndsRemain = false;
+                foreach (Cell cell in maze.GetCellArray()) {
+                    if (cell.connectedCells.Count == 1) {
+                        deadEndsRemain = true;
+
+                        //Reset this cell
+                        ResetCell(cell);
+                    }
+                }
+            }
+        }
+
+        public void ResetCell(Cell cell) {
+            List<Cell> cellsToDisconnect = new List<Cell>();
+            foreach (Cell connected in cell.connectedCells) {
+                cellsToDisconnect.Add(connected);
+            }
+
+            foreach (Cell c in cellsToDisconnect) {
+                Cell.Disconnect(cell, c);
+            }
+
+            cell.Visit(false);
         }
     }
 }

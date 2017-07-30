@@ -58,33 +58,11 @@ namespace ProjectMazelike {
             return maze;
         }
         
-        protected void EnterCell(Cell current, Cell next) {
-            //Find the direction
+        protected virtual void EnterCell(Cell current, Cell next) {
+            //Connect the two cells
+            Cell.Connect(current, next);
 
-            //Remove the walls between current and next
-            if(current.X != next.X) {
-                //We are moving horizontally
-                if(next.X > current.X) {
-                    //We moved to the Right
-                    current.eastWall = false;
-                    next.westWall = false;
-                } else if(next.X < current.X) {
-                    //We moved to the Left
-                    current.westWall = false;
-                    next.eastWall = false;
-                }
-            } else if (current.Y != next.Y) {
-                //We are moving vertically
-                if(next.Y > current.Y) {
-                    //We are moving down
-                    current.southWall = false;
-                    next.northWall = false;
-                } else if(next.Y < current.Y) {
-                    //We are moving up
-                    current.northWall = false;
-                    next.southWall = false;
-                }
-            }
+            //Mark the cell as visited
             next.Visit();
 
             //Set our current cell to the be next cell

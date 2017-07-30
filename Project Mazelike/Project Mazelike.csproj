@@ -42,6 +42,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Code\Data\Cell.cs" />
+    <Compile Include="Code\Data\Dungeon.cs" />
+    <Compile Include="Code\Data\DungeonGenerator.cs" />
     <Compile Include="Code\Data\Maze.cs" />
     <Compile Include="Code\Data\MazeGenerator.cs" />
     <Compile Include="Code\Data\MazeGeneratorImperfect.cs" />
