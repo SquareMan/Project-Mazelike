@@ -17,7 +17,7 @@ namespace ProjectMazelike {
 
         protected Maze maze;
 
-        //TODO: Does th cell itself need to care about being 'Visited'?
+        //TODO: Does the cell itself need to care about being 'Visited'?
         //          This might be more of just a MazeGnerator thing
         //          Add an array/list of visited cells instead?
         private Boolean visited = false;
