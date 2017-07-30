@@ -8,15 +8,19 @@ namespace ProjectMazelike {
     /// This is the main type for your game.
     /// </summary>
     public class ProjectMazelike : Game {
+        public static readonly int MazeWidth = 8;
+        public static readonly int MazeHeight = 8;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         GameManager gameManager;
+        MouseManager mouseManager;
 
         public ProjectMazelike() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            gameManager = new GameManager(8, 8);
+            gameManager = new GameManager(MazeWidth, MazeHeight);
+            mouseManager = new MouseManager();
         }
 
         /// <summary>
@@ -28,6 +32,8 @@ namespace ProjectMazelike {
         protected override void Initialize() {
             // TODO: Add your initialization logic here
             gameManager.Initialize(GraphicsDevice);
+
+            IsMouseVisible = true;
 
             base.Initialize();
         }
@@ -61,6 +67,8 @@ namespace ProjectMazelike {
                 Exit();
 
             // TODO: Add your update logic here
+
+            mouseManager.Update(gameTime);
 
             base.Update(gameTime);
         }

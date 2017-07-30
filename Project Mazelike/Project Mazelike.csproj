@@ -48,6 +48,7 @@
     <Compile Include="Code\Data\MazeGenerator.cs" />
     <Compile Include="Code\Data\MazeGeneratorImperfect.cs" />
     <Compile Include="Code\Model\GameManager.cs" />
+    <Compile Include="Code\Model\MouseManager.cs" />
     <Compile Include="Code\ProjectMazelike.cs" />
     <Compile Include="Code\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

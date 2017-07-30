@@ -8,24 +8,30 @@ using System.Threading.Tasks;
 
 namespace ProjectMazelike {
     class GameManager {
+        public static GameManager instance;
+
         public int mazeWidth;
         public int mazeHeight;
         
-        MazeGenerator mazeGenerator;
+        MazeGenerator ourMazeGenerator;
 
         public int cellSize = 20;
         public int wallSize = 2;
         Texture2D cellTexture;
         Texture2D wallTexture;
 
+        public MazeGenerator MazeGenerator { get => ourMazeGenerator; protected set => ourMazeGenerator = value; }
+
         public GameManager(int mazeWidth, int mazeHeight) {
+            GameManager.instance = this;
+
             this.mazeWidth = mazeWidth;
             this.mazeHeight = mazeHeight;
         }
 
         public void Initialize(GraphicsDevice graphicsDevice) {
-            mazeGenerator = new MazeGeneratorImperfect(0.33f);
-            mazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
+            MazeGenerator = new MazeGeneratorImperfect(.33f);
+            MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
 
             SetupTextures(graphicsDevice);
         }
@@ -50,15 +56,32 @@ namespace ProjectMazelike {
             wallTexture.SetData(data);
         }
 
+        //DEBUG
+        //TODO: REMOVE ME
+        public void CycleGenerator() {
+            if(MazeGenerator.GetType() == typeof(MazeGenerator)) {
+                MazeGenerator = new MazeGeneratorImperfect(.33f);
+                MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
+            } else {
+                MazeGenerator = new MazeGenerator();
+                MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
+            }
+        }
+
         public void DrawMaze(SpriteBatch spriteBatch) {
             //Get the cell array from our maze
-            Maze ourMaze = mazeGenerator.GetMaze();
+            Maze ourMaze = MazeGenerator.GetMaze();
 
             //loop through each cell and draw them
+            List<Cell> unvisitedCells = new List<Cell>();
             foreach (Cell cell in ourMaze.GetCellArray()) {
                 //Draw rectangle at cell's position
                 Rectangle rect = new Rectangle(cell.X * cellSize, cell.Y * cellSize, cellSize, cellSize);
-                spriteBatch.Draw(cellTexture, rect, cell.Visited ? Color.White : Color.Green);
+                if (cell.Visited) {
+                    spriteBatch.Draw(cellTexture, rect, Color.White);
+                } else {
+                    unvisitedCells.Add(cell);
+                }
             }
 
             //Loop through each cell and draw walls
@@ -77,6 +100,11 @@ namespace ProjectMazelike {
                     rect = new Rectangle(cell.X * cellSize, cell.Y * cellSize + (cellSize - wallSize / 2), cellSize, wallSize);
                     spriteBatch.Draw(wallTexture, rect, Color.Black);
                 }
+            }
+
+            foreach (Cell cell in unvisitedCells) {
+                Rectangle rect = new Rectangle(cell.X * cellSize, cell.Y * cellSize, cellSize, cellSize);
+                spriteBatch.Draw(cellTexture, rect, Color.Gray);
             }
         }
     }
