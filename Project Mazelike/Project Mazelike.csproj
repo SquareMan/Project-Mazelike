@@ -44,10 +44,13 @@
     <Compile Include="Code\Data\Cell.cs" />
     <Compile Include="Code\Data\Dungeon.cs" />
     <Compile Include="Code\Data\DungeonGenerator.cs" />
+    <Compile Include="Code\Data\Map.cs" />
     <Compile Include="Code\Data\Maze.cs" />
     <Compile Include="Code\Data\MazeGenerator.cs" />
     <Compile Include="Code\Data\MazeGeneratorImperfect.cs" />
+    <Compile Include="Code\Data\Player.cs" />
     <Compile Include="Code\Model\GameManager.cs" />
+    <Compile Include="Code\Model\GraphicsManager.cs" />
     <Compile Include="Code\Model\MouseManager.cs" />
     <Compile Include="Code\ProjectMazelike.cs" />
     <Compile Include="Code\Program.cs" />
@@ -66,6 +69,7 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+    <None Include="Content\Graphics\Player.xnb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

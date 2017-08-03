@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Diagnostics;
 
 namespace ProjectMazelike {
@@ -13,7 +14,9 @@ namespace ProjectMazelike {
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
         GameManager gameManager;
+        GraphicsManager graphicsManager;
         MouseManager mouseManager;
 
         public ProjectMazelike() {
@@ -30,9 +33,11 @@ namespace ProjectMazelike {
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize() {
+            spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: Add your initialization logic here
+            graphicsManager = new GraphicsManager(this, spriteBatch);
             gameManager.Initialize(GraphicsDevice);
-
+            Components.Add(graphicsManager);
             IsMouseVisible = true;
 
             base.Initialize();
@@ -44,7 +49,8 @@ namespace ProjectMazelike {
         /// </summary>
         protected override void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            //spriteBatch = new SpriteBatch(GraphicsDevice);
+            //graphicsManager.Initialize(spriteBatch, GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -82,9 +88,9 @@ namespace ProjectMazelike {
             // TODO: Add your drawing code here
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
-            gameManager.DrawMaze(spriteBatch);
-            spriteBatch.End();
+            //spriteBatch.Begin();
+            //graphicsManager.Draw();
+            //spriteBatch.End();
 
             base.Draw(gameTime);
         }
