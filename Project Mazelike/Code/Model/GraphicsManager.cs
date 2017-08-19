@@ -12,7 +12,6 @@ namespace ProjectMazelike {
         public static int wallSize = 2;
         Texture2D cellTexture;
         Texture2D wallTexture;
-        Texture2D playerTexture;
 
         SpriteBatch spriteBatch;
 
@@ -27,7 +26,6 @@ namespace ProjectMazelike {
 
         protected override void LoadContent() {
             base.LoadContent();
-            //playerTexture = Game.Content.Load<Texture2D>("Graphics\\player");
         }
 
         void SetupTextures() {

@@ -52,6 +52,10 @@
     <Compile Include="Code\Model\GameManager.cs" />
     <Compile Include="Code\Model\GraphicsManager.cs" />
     <Compile Include="Code\Model\MouseManager.cs" />
+    <Compile Include="Code\Model\Screen.cs" />
+    <Compile Include="Code\Model\ScreenComponent.cs" />
+    <Compile Include="Code\Model\ScreenComponentCell.cs" />
+    <Compile Include="Code\Model\ScreenComponentPlayer.cs" />
     <Compile Include="Code\Model\TextureManager.cs" />
     <Compile Include="Code\ProjectMazelike.cs" />
     <Compile Include="Code\Program.cs" />

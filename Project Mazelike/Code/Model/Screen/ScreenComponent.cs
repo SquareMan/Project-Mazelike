@@ -2,18 +2,13 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectMazelike {
-    class Player {
-        public Map currentMap;
-        public Point position;
+    abstract class ScreenComponent {
 
-        public Player(Game game, Point position) {
-            this.position = position;
-        }
+        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
     }
 }
