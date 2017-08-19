@@ -13,7 +13,7 @@ namespace ProjectMazelike {
         public static readonly int MazeHeight = 8;
 
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public SpriteBatch spriteBatch;
 
         GameManager gameManager;
         GraphicsManager graphicsManager;
@@ -22,7 +22,7 @@ namespace ProjectMazelike {
         public ProjectMazelike() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            gameManager = new GameManager(MazeWidth, MazeHeight);
+            gameManager = new GameManager(this, MazeWidth, MazeHeight);
             mouseManager = new MouseManager();
         }
 
@@ -53,6 +53,7 @@ namespace ProjectMazelike {
             //graphicsManager.Initialize(spriteBatch, GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            TextureManager.LoadTextures(Content);
         }
 
         /// <summary>

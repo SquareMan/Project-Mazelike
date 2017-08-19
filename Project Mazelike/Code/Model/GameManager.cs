@@ -12,6 +12,8 @@ namespace ProjectMazelike {
 
         public int mazeWidth;
         public int mazeHeight;
+
+        protected Game game;
         
         MazeGenerator ourMazeGenerator;
         Player thePlayer;
@@ -19,13 +21,15 @@ namespace ProjectMazelike {
         public MazeGenerator MazeGenerator { get => ourMazeGenerator; protected set => ourMazeGenerator = value; }
         public Player Player { get => thePlayer; protected set => thePlayer = value; }
 
-        public GameManager(int mazeWidth, int mazeHeight) {
+        public GameManager(Game game, int mazeWidth, int mazeHeight) {
             GameManager.instance = this;
+            this.game = game;
 
             this.mazeWidth = mazeWidth;
             this.mazeHeight = mazeHeight;
 
-            thePlayer = new Player();
+            thePlayer = new Player(game);
+            game.Components.Add(thePlayer);
         }
 
         public void Initialize(GraphicsDevice graphicsDevice) {

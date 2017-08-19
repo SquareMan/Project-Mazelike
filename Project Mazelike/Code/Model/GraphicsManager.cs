@@ -27,7 +27,7 @@ namespace ProjectMazelike {
 
         protected override void LoadContent() {
             base.LoadContent();
-            playerTexture = Game.Content.Load<Texture2D>("Graphics\\player");
+            //playerTexture = Game.Content.Load<Texture2D>("Graphics\\player");
         }
 
         void SetupTextures() {

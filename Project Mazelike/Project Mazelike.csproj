@@ -52,6 +52,7 @@
     <Compile Include="Code\Model\GameManager.cs" />
     <Compile Include="Code\Model\GraphicsManager.cs" />
     <Compile Include="Code\Model\MouseManager.cs" />
+    <Compile Include="Code\Model\TextureManager.cs" />
     <Compile Include="Code\ProjectMazelike.cs" />
     <Compile Include="Code\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
