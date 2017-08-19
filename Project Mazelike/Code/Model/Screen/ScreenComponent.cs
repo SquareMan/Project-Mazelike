@@ -8,7 +8,10 @@ using System.Threading.Tasks;
 
 namespace ProjectMazelike {
     abstract class ScreenComponent {
+        public DrawLayer Layer { get; set; }
 
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
     }
+
+    public enum DrawLayer { Background, Player, Foreground }
 }

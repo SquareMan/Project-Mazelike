@@ -12,7 +12,7 @@ namespace ProjectMazelike {
         public Map currentMap;
         public Point position;
 
-        public Player(Game game, Point position) {
+        public Player(Point position) {
             this.position = position;
         }
     }

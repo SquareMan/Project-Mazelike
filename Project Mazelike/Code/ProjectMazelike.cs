@@ -13,11 +13,13 @@ namespace ProjectMazelike {
         public static readonly int MazeHeight = 8;
 
         GraphicsDeviceManager graphics;
-        public SpriteBatch spriteBatch;
+        SpriteBatch spriteBatch;
 
         GameManager gameManager;
         GraphicsManager graphicsManager;
         MouseManager mouseManager;
+
+        public SpriteBatch SpriteBatch { get => spriteBatch; private set => spriteBatch = value; }
 
         public ProjectMazelike() {
             graphics = new GraphicsDeviceManager(this);

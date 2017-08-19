@@ -10,12 +10,13 @@ namespace ProjectMazelike {
     class ScreenComponentPlayer : ScreenComponent {
         Player player;
 
-        public ScreenComponentPlayer(Player player) {
+        public ScreenComponentPlayer(Player player, DrawLayer layer) {
             this.player = player;
+            Layer = layer;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
-            spriteBatch.Draw(TextureManager.GetTexture("Player"), new Vector2(10, 3) * GraphicsManager.cellSize, null, Color.White);
+            spriteBatch.Draw(TextureManager.GetTexture("Player"), player.position.ToVector2() * ScreenComponentMaze.cellSize, null, Color.White);
         }
     }
 }

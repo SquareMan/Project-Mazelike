@@ -41,21 +41,21 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Code\Data\Cell.cs" />
+    <Compile Include="Code\Data\Generation\Cell.cs" />
     <Compile Include="Code\Data\Dungeon.cs" />
-    <Compile Include="Code\Data\DungeonGenerator.cs" />
+    <Compile Include="Code\Data\Generation\DungeonGenerator.cs" />
     <Compile Include="Code\Data\Map.cs" />
-    <Compile Include="Code\Data\Maze.cs" />
-    <Compile Include="Code\Data\MazeGenerator.cs" />
-    <Compile Include="Code\Data\MazeGeneratorImperfect.cs" />
+    <Compile Include="Code\Data\Generation\Maze.cs" />
+    <Compile Include="Code\Data\Generation\MazeGenerator.cs" />
+    <Compile Include="Code\Data\Generation\MazeGeneratorImperfect.cs" />
     <Compile Include="Code\Data\Player.cs" />
     <Compile Include="Code\Model\GameManager.cs" />
     <Compile Include="Code\Model\GraphicsManager.cs" />
     <Compile Include="Code\Model\MouseManager.cs" />
-    <Compile Include="Code\Model\Screen.cs" />
-    <Compile Include="Code\Model\ScreenComponent.cs" />
-    <Compile Include="Code\Model\ScreenComponentCell.cs" />
-    <Compile Include="Code\Model\ScreenComponentPlayer.cs" />
+    <Compile Include="Code\Model\Screen\Screen.cs" />
+    <Compile Include="Code\Model\Screen\ScreenComponent.cs" />
+    <Compile Include="Code\Model\Screen\ScreenComponentMaze.cs" />
+    <Compile Include="Code\Model\Screen\ScreenComponentPlayer.cs" />
     <Compile Include="Code\Model\TextureManager.cs" />
     <Compile Include="Code\ProjectMazelike.cs" />
     <Compile Include="Code\Program.cs" />

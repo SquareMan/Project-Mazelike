@@ -16,6 +16,31 @@ namespace ProjectMazelike {
             textureMap = new Dictionary<string, Texture2D>();
 
             textureMap.Add("Player", content.Load<Texture2D>("Graphics\\player"));
+
+            //DEBUG MAZE CELL TEXTURE
+            SetupTextures();
+        }
+
+        static void SetupTextures() {
+            //Create Temporary Texture for a Cell
+            Color[] data = new Color[ScreenComponentMaze.cellSize * ScreenComponentMaze.cellSize];
+            for (int i = 0; i < data.Length; i++) {
+                data[i] = Color.White;
+            }
+
+            Texture2D cellTexture = new Texture2D(GameManager.Game.GraphicsDevice, ScreenComponentMaze.cellSize, ScreenComponentMaze.cellSize);
+            cellTexture.SetData(data);
+            textureMap.Add("Cell", cellTexture);
+
+            //Create Temporary Texture for a Wall
+            data = new Color[ScreenComponentMaze.wallSize * ScreenComponentMaze.wallSize];
+            for (int i = 0; i < data.Length; i++) {
+                data[i] = Color.White;
+            }
+
+            Texture2D wallTexture = new Texture2D(GameManager.Game.GraphicsDevice, ScreenComponentMaze.wallSize, ScreenComponentMaze.wallSize);
+            wallTexture.SetData(data);
+            textureMap.Add("Wall", wallTexture);
         }
 
         public static Texture2D GetTexture(String name) {
