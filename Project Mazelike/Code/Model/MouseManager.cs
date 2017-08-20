@@ -20,10 +20,10 @@ namespace ProjectMazelike {
             currentState = Mouse.GetState();
 
             if (IsLeftReleased(currentState, lastState)) {
-                GameManager.instance.MazeGenerator.GenerateMaze(ProjectMazelike.MazeWidth, ProjectMazelike.MazeHeight);
+                GameManager.Instance.NewMaze();
             }
             if(IsRightReleased(currentState, lastState)) {
-                GameManager.instance.CycleGenerator();
+                GameManager.Instance.CycleGenerator();
             }
 
             lastState = currentState;

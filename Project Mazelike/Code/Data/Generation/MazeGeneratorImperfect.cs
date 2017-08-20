@@ -21,7 +21,7 @@ namespace ProjectMazelike {
             this.chance = MathHelper.Clamp(chance, 0f, 1f);
         }
 
-        public override void GenerateMaze(int width, int height) {
+        public override Maze GenerateMaze(int width, int height) {
             base.GenerateMaze(width, height);
 
             //Find dead ends
@@ -53,6 +53,8 @@ namespace ProjectMazelike {
                     }
                 }
             }
+
+            return maze;
         }
 
         public void ResetCell(Cell cell) {

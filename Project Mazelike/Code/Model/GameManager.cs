@@ -8,45 +8,71 @@ using System.Threading.Tasks;
 
 namespace ProjectMazelike {
     class GameManager {
-        public static GameManager instance;
+        public static GameManager Instance;
+        public static ProjectMazelike Game;
 
         public int mazeWidth;
         public int mazeHeight;
         
+        public Screen screen;
+        public ScreenComponentMaze mazeComponent;
         MazeGenerator ourMazeGenerator;
         Player thePlayer;
 
         public MazeGenerator MazeGenerator { get => ourMazeGenerator; protected set => ourMazeGenerator = value; }
+
         public Player Player { get => thePlayer; protected set => thePlayer = value; }
 
-        public GameManager(int mazeWidth, int mazeHeight) {
-            GameManager.instance = this;
+        public GameManager(ProjectMazelike game, int mazeWidth, int mazeHeight) {
+            //Assign Static Values
+            Instance = this;
+            GameManager.Game = game;
 
             this.mazeWidth = mazeWidth;
             this.mazeHeight = mazeHeight;
 
-            thePlayer = new Player();
+            screen = new Screen(game);
+            game.Components.Add(screen);
+
+            thePlayer = new Player(new Point(3));
+            screen.AddComponent(new ScreenComponentPlayer(thePlayer, DrawLayer.Player));
         }
 
         public void Initialize(GraphicsDevice graphicsDevice) {
             MazeGenerator = new MazeGeneratorImperfect(.33f);
-            MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
+            NewMaze();
         }
 
         public Maze GetMaze() {
             return MazeGenerator.GetMaze();
         }
 
+        public void NewMaze() {
+            if (mazeComponent != null)
+                screen.RemoveComponent(mazeComponent);
+
+            Maze generatedMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
+
+            mazeComponent = new ScreenComponentMaze(generatedMaze, DrawLayer.Background);
+            screen.AddComponent(mazeComponent);
+        }
+
         //DEBUG
         //TODO: REMOVE ME
         public void CycleGenerator() {
+            screen.RemoveComponent(mazeComponent);
+            Maze newMaze;
+
             if(MazeGenerator.GetType() == typeof(MazeGenerator)) {
                 MazeGenerator = new MazeGeneratorImperfect(.33f);
-                MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
+                newMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
             } else {
                 MazeGenerator = new MazeGenerator();
-                MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
+                newMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
             }
+
+            mazeComponent = new ScreenComponentMaze(newMaze, DrawLayer.Background);
+            screen.AddComponent(mazeComponent);
         }
     }
 }

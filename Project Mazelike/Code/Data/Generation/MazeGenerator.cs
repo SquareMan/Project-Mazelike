@@ -21,7 +21,7 @@ namespace ProjectMazelike {
             rand = new Random(randomSeed);
         }
 
-        public virtual void GenerateMaze(int width, int height) {
+        public virtual Maze GenerateMaze(int width, int height) {
             maze = new Maze(width, height);
             stack = new Stack<Cell>();
 
@@ -51,7 +51,7 @@ namespace ProjectMazelike {
                     unvistedCells = false;
                 }                
             }
-
+            return maze;
         }
 
         public Maze GetMaze() {
