@@ -9,6 +9,7 @@ using System.Diagnostics;
 namespace ProjectMazelike {
     class Screen : DrawableGameComponent {
 
+        //Index is in order of draw layers, stores a list of every ScreenComponent on that layer
         public List<ScreenComponent>[] components;
 
         public Screen(Game game) : base(game) {

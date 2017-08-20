@@ -20,11 +20,7 @@ namespace ProjectMazelike {
             currentState = Mouse.GetState();
 
             if (IsLeftReleased(currentState, lastState)) {
-                GameManager.Instance.screen.RemoveComponent(GameManager.Instance.mazeComponent);
-
-                Maze newMaze = GameManager.Instance.MazeGenerator.GenerateMaze(ProjectMazelike.MazeWidth, ProjectMazelike.MazeHeight);
-                GameManager.Instance.mazeComponent = new ScreenComponentMaze(newMaze, DrawLayer.Background);
-                GameManager.Instance.screen.AddComponent(GameManager.Instance.mazeComponent);
+                GameManager.Instance.NewMaze();
             }
             if(IsRightReleased(currentState, lastState)) {
                 GameManager.Instance.CycleGenerator();

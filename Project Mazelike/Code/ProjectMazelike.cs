@@ -16,7 +16,6 @@ namespace ProjectMazelike {
         SpriteBatch spriteBatch;
 
         GameManager gameManager;
-        GraphicsManager graphicsManager;
         MouseManager mouseManager;
 
         public SpriteBatch SpriteBatch { get => spriteBatch; private set => spriteBatch = value; }
@@ -37,7 +36,6 @@ namespace ProjectMazelike {
         protected override void Initialize() {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: Add your initialization logic here
-            graphicsManager = new GraphicsManager(this, spriteBatch);
             gameManager.Initialize(GraphicsDevice);
 
             IsMouseVisible = true;
@@ -52,7 +50,6 @@ namespace ProjectMazelike {
         protected override void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
             //spriteBatch = new SpriteBatch(GraphicsDevice);
-            //graphicsManager.Initialize(spriteBatch, GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
             TextureManager.LoadTextures(Content);
@@ -76,7 +73,6 @@ namespace ProjectMazelike {
                 Exit();
 
             // TODO: Add your update logic here
-
             mouseManager.Update(gameTime);
 
             base.Update(gameTime);
@@ -87,13 +83,8 @@ namespace ProjectMazelike {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
-
             // TODO: Add your drawing code here
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            //spriteBatch.Begin();
-            //graphicsManager.Draw();
-            //spriteBatch.End();
 
             base.Draw(gameTime);
         }

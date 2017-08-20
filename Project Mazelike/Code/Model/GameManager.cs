@@ -17,11 +17,10 @@ namespace ProjectMazelike {
         public Screen screen;
         public ScreenComponentMaze mazeComponent;
         MazeGenerator ourMazeGenerator;
-        //Maze generatedMaze;
         Player thePlayer;
 
         public MazeGenerator MazeGenerator { get => ourMazeGenerator; protected set => ourMazeGenerator = value; }
-        //public Maze GeneratedMaze { get => generatedMaze; protected set => generatedMaze = value; }
+
         public Player Player { get => thePlayer; protected set => thePlayer = value; }
 
         public GameManager(ProjectMazelike game, int mazeWidth, int mazeHeight) {
@@ -41,14 +40,21 @@ namespace ProjectMazelike {
 
         public void Initialize(GraphicsDevice graphicsDevice) {
             MazeGenerator = new MazeGeneratorImperfect(.33f);
-            Maze generatedMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
-
-            mazeComponent = new ScreenComponentMaze(generatedMaze, DrawLayer.Background);
-            screen.AddComponent(mazeComponent);
+            NewMaze();
         }
 
         public Maze GetMaze() {
             return MazeGenerator.GetMaze();
+        }
+
+        public void NewMaze() {
+            if (mazeComponent != null)
+                screen.RemoveComponent(mazeComponent);
+
+            Maze generatedMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
+
+            mazeComponent = new ScreenComponentMaze(generatedMaze, DrawLayer.Background);
+            screen.AddComponent(mazeComponent);
         }
 
         //DEBUG
