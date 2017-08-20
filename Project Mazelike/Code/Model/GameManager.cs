@@ -17,11 +17,11 @@ namespace ProjectMazelike {
         public Screen screen;
         public ScreenComponentMaze mazeComponent;
         MazeGenerator ourMazeGenerator;
-        Maze generatedMaze;
+        //Maze generatedMaze;
         Player thePlayer;
 
         public MazeGenerator MazeGenerator { get => ourMazeGenerator; protected set => ourMazeGenerator = value; }
-        public Maze GeneratedMaze { get => generatedMaze; protected set => generatedMaze = value; }
+        //public Maze GeneratedMaze { get => generatedMaze; protected set => generatedMaze = value; }
         public Player Player { get => thePlayer; protected set => thePlayer = value; }
 
         public GameManager(ProjectMazelike game, int mazeWidth, int mazeHeight) {
@@ -41,7 +41,7 @@ namespace ProjectMazelike {
 
         public void Initialize(GraphicsDevice graphicsDevice) {
             MazeGenerator = new MazeGeneratorImperfect(.33f);
-            generatedMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
+            Maze generatedMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
 
             mazeComponent = new ScreenComponentMaze(generatedMaze, DrawLayer.Background);
             screen.AddComponent(mazeComponent);
@@ -55,16 +55,17 @@ namespace ProjectMazelike {
         //TODO: REMOVE ME
         public void CycleGenerator() {
             screen.RemoveComponent(mazeComponent);
+            Maze newMaze;
 
             if(MazeGenerator.GetType() == typeof(MazeGenerator)) {
                 MazeGenerator = new MazeGeneratorImperfect(.33f);
-                GeneratedMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
+                newMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
             } else {
                 MazeGenerator = new MazeGenerator();
-                GeneratedMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
+                newMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
             }
 
-            mazeComponent = new ScreenComponentMaze(GeneratedMaze, DrawLayer.Background);
+            mazeComponent = new ScreenComponentMaze(newMaze, DrawLayer.Background);
             screen.AddComponent(mazeComponent);
         }
     }

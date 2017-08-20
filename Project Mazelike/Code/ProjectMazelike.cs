@@ -39,7 +39,7 @@ namespace ProjectMazelike {
             // TODO: Add your initialization logic here
             graphicsManager = new GraphicsManager(this, spriteBatch);
             gameManager.Initialize(GraphicsDevice);
-            Components.Add(graphicsManager);
+
             IsMouseVisible = true;
 
             base.Initialize();
