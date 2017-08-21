@@ -30,15 +30,16 @@ namespace ProjectMazelike {
 
             this.mazeWidth = mazeWidth;
             this.mazeHeight = mazeHeight;
-
-            screen = new Screen(game);
-            game.Components.Add(screen);
-
-            thePlayer = new Player(new Point(3));
-            screen.AddComponent(new ScreenComponentPlayer(thePlayer, DrawLayer.Player));
         }
 
         public void Initialize(GraphicsDevice graphicsDevice) {
+
+            screen = new Screen(Game);
+            Game.Components.Add(screen);
+
+            thePlayer = new Player(new Point(3));
+            screen.AddComponent(new ScreenComponentPlayer(thePlayer, DrawLayer.Player));
+
             MazeGenerator = new MazeGeneratorImperfect(.33f);
             NewMaze();
         }
