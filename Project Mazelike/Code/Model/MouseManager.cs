@@ -12,6 +12,8 @@ namespace ProjectMazelike {
         MouseState currentState;
         MouseState lastState;
 
+        float zoomSensitivity = .001f;
+
         public MouseManager() {
 
         }
@@ -25,6 +27,7 @@ namespace ProjectMazelike {
             if(IsRightReleased(currentState, lastState)) {
                 GameManager.Instance.CycleGenerator();
             }
+            GameManager.Instance.screen.Camera.Scale += GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
 
             lastState = currentState;
         }
@@ -41,6 +44,10 @@ namespace ProjectMazelike {
                 return true;
             }
             return false;
+        }
+
+        public static int GetScrollWhellAmount(MouseState currentState, MouseState lastState) {
+            return currentState.ScrollWheelValue - lastState.ScrollWheelValue;
         }
     }
 }

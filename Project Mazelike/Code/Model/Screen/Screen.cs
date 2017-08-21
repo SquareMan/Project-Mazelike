@@ -5,12 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectMazelike {
     class Screen : DrawableGameComponent {
+        public Boolean canBeRotated = false;
 
         //Index is in order of draw layers, stores a list of every ScreenComponent on that layer
         public List<ScreenComponent>[] components;
+        
+        public Camera Camera { get; set; }
 
         public Screen(Game game) : base(game) {
             //Create an array of lists of game components, corresponding to their draw layer
@@ -18,6 +22,10 @@ namespace ProjectMazelike {
             for(int i = 0; i < components.Length; i++) {
                 components[i] = new List<ScreenComponent>();
             }
+            
+            //Create a new camera with origin at the top left corner
+            Camera = new Camera(GraphicsDevice.Viewport, Vector2.Zero + new Vector2(GraphicsDevice.Viewport.Width/2, GraphicsDevice.Viewport.Height/2));
+            Camera.MoveCamera(new Vector2(-10));
         }
 
         /// <summary>
@@ -29,6 +37,10 @@ namespace ProjectMazelike {
             components[(int)sc.Layer].Add(sc);
         }
 
+        /// <summary>
+        /// Unregister a previously registered component
+        /// </summary>
+        /// <param name="sc">The ScreenComponent to be removed</param>
         public void RemoveComponent(ScreenComponent sc) {
             components[(int)sc.Layer].Add(sc);
         }
@@ -39,7 +51,7 @@ namespace ProjectMazelike {
             //Draw all objects that belong to this screen according to what they are and their draw layer
 
             for(int i = 0; i < Enum.GetNames(typeof(DrawLayer)).Length; i++) {
-                ((ProjectMazelike)Game).SpriteBatch.Begin();
+                ((ProjectMazelike)Game).SpriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Camera.TransformMatrix);
                 foreach (ScreenComponent sc in components[i]) {
                     sc.Draw(gameTime, ((ProjectMazelike)Game).SpriteBatch);
                 }

@@ -50,7 +50,9 @@
     <Compile Include="Code\Data\Generation\MazeGeneratorImperfect.cs" />
     <Compile Include="Code\Data\Player.cs" />
     <Compile Include="Code\Model\GameManager.cs" />
+    <Compile Include="Code\Model\KeyboardManager.cs" />
     <Compile Include="Code\Model\MouseManager.cs" />
+    <Compile Include="Code\Model\Screen\Camera.cs" />
     <Compile Include="Code\Model\Screen\Screen.cs" />
     <Compile Include="Code\Model\Screen\ScreenComponent.cs" />
     <Compile Include="Code\Model\Screen\ScreenComponentMaze.cs" />
