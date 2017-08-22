@@ -15,5 +15,9 @@ namespace ProjectMazelike {
         public Player(Point position) {
             this.position = position;
         }
+
+        public void SetMap(Map newMap) {
+            currentMap = newMap;
+        }
     }
 }

@@ -19,19 +19,19 @@ namespace ProjectMazelike {
 
             //Scroll the camera
             if (currentState.IsKeyDown(Keys.Right))
-                GameManager.Instance.screen.Camera.MoveCamera(Vector2.UnitX * scrollSpeed);
+                GameManager.Instance.Screen.Camera.MoveCamera(Vector2.UnitX * scrollSpeed);
             if (currentState.IsKeyDown(Keys.Left))
-                GameManager.Instance.screen.Camera.MoveCamera(-Vector2.UnitX * scrollSpeed);
+                GameManager.Instance.Screen.Camera.MoveCamera(-Vector2.UnitX * scrollSpeed);
             if (currentState.IsKeyDown(Keys.Down))
-                GameManager.Instance.screen.Camera.MoveCamera(Vector2.UnitY * scrollSpeed);
+                GameManager.Instance.Screen.Camera.MoveCamera(Vector2.UnitY * scrollSpeed);
             if (currentState.IsKeyDown(Keys.Up))
-                GameManager.Instance.screen.Camera.MoveCamera(-Vector2.UnitY * scrollSpeed);
+                GameManager.Instance.Screen.Camera.MoveCamera(-Vector2.UnitY * scrollSpeed);
 
-            if(GameManager.Instance.screen.canBeRotated) {
+            if(GameManager.Instance.Screen.canBeRotated) {
                 if (currentState.IsKeyDown(Keys.E))
-                    GameManager.Instance.screen.Camera.Rotation += rotationSpeed;
+                    GameManager.Instance.Screen.Camera.Rotation += rotationSpeed;
                 if (currentState.IsKeyDown(Keys.Q))
-                    GameManager.Instance.screen.Camera.Rotation -= rotationSpeed;
+                    GameManager.Instance.Screen.Camera.Rotation -= rotationSpeed;
             }
 
             lastState = currentState;

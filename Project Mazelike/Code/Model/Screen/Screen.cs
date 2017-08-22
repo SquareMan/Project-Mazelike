@@ -9,6 +9,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectMazelike {
     class Screen : DrawableGameComponent {
+        //SpriteBatch Information
+        public BlendState BlendState { get; set; }
+        public SamplerState SamplerState { get; set; }
+        public DepthStencilState DepthStencilState { get; set; }
+        public RasterizerState RasterizerState { get; set; }
+        public Effect Effect { get; set; }
+
         public Boolean canBeRotated = false;
 
         //Index is in order of draw layers, stores a list of every ScreenComponent on that layer
@@ -51,7 +58,7 @@ namespace ProjectMazelike {
             //Draw all objects that belong to this screen according to what they are and their draw layer
 
             for(int i = 0; i < Enum.GetNames(typeof(DrawLayer)).Length; i++) {
-                ((ProjectMazelike)Game).SpriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Camera.TransformMatrix);
+                ((ProjectMazelike)Game).SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Camera.TransformMatrix);
                 foreach (ScreenComponent sc in components[i]) {
                     sc.Draw(gameTime, ((ProjectMazelike)Game).SpriteBatch);
                 }

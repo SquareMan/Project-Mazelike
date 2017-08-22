@@ -23,7 +23,7 @@ namespace ProjectMazelike {
             if(IsRightReleased(currentState, lastState)) {
                 GameManager.Instance.CycleGenerator();
             }
-            GameManager.Instance.screen.Camera.Scale += GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
+            GameManager.Instance.Screen.Camera.Scale += GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
 
             lastState = currentState;
         }

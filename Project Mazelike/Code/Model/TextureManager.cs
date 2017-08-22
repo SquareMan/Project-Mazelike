@@ -12,10 +12,13 @@ namespace ProjectMazelike {
     static class TextureManager {
         static Dictionary<String, Texture2D> textureMap;
 
+        private static String missingTexture = "MISSINGTEXTURE";
+
         public static void LoadTextures(ContentManager content) {
             textureMap = new Dictionary<string, Texture2D>();
-
+            textureMap.Add(missingTexture, content.Load<Texture2D>("Graphics\\Tiles\\MissingTile"));
             textureMap.Add("Player", content.Load<Texture2D>("Graphics\\player"));
+            textureMap.Add("Floor", content.Load<Texture2D>("Graphics\\Tiles\\Floor"));
 
             //DEBUG MAZE CELL TEXTURE
             SetupTextures();
@@ -44,12 +47,12 @@ namespace ProjectMazelike {
         }
 
         public static Texture2D GetTexture(String name) {
-            if(textureMap[name] != null) {
+            if (textureMap.Keys.Contains(name)) {
                 return textureMap[name];
             }
 
             Debug.WriteLine(String.Format("Texture with name {0} was attempted to be retrieved but does not exist", name));
-            return null;
+            return textureMap[missingTexture];
         }
     }
 }
