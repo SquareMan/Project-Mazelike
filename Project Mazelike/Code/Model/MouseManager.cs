@@ -8,17 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectMazelike {
-    class MouseManager {
-        MouseState currentState;
-        MouseState lastState;
+    static class MouseManager {
+        public static float zoomSensitivity = .001f;
 
-        float zoomSensitivity = .001f;
+        static MouseState currentState;
+        static MouseState lastState;
 
-        public MouseManager() {
-
-        }
-
-        public void Update(GameTime gameTime) {
+        public static void Update(GameTime gameTime) {
             currentState = Mouse.GetState();
 
             if (IsLeftReleased(currentState, lastState)) {

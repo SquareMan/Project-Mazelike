@@ -7,18 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectMazelike {
-    class KeyboardManager {
-        KeyboardState currentState;
-        KeyboardState lastState;
+    static class KeyboardManager {
+        static KeyboardState currentState;
+        static KeyboardState lastState;
 
-        float scrollSpeed = 4;
-        float rotationSpeed = MathHelper.Pi / 32;
+        static float scrollSpeed = 4;
+        static float rotationSpeed = MathHelper.Pi / 32;
 
-        public KeyboardManager() {
-
-        }
-
-        public void Update(GameTime gameTime) {
+        public static void Update(GameTime gameTime) {
             currentState = Keyboard.GetState();
 
             //Scroll the camera
@@ -41,7 +37,7 @@ namespace ProjectMazelike {
             lastState = currentState;
         }
 
-        public Boolean IsButtonReleased(KeyboardState currentState, KeyboardState lastState, Keys key) {
+        public static Boolean IsButtonReleased(KeyboardState currentState, KeyboardState lastState, Keys key) {
             return currentState.IsKeyUp(key) && lastState.IsKeyDown(key);
         }
     }

@@ -16,8 +16,6 @@ namespace ProjectMazelike {
         SpriteBatch spriteBatch;
 
         GameManager gameManager;
-        MouseManager mouseManager;
-        KeyboardManager keyboardManager;
 
         public SpriteBatch SpriteBatch { get => spriteBatch; private set => spriteBatch = value; }
 
@@ -26,8 +24,6 @@ namespace ProjectMazelike {
 
             Content.RootDirectory = "Content";
             gameManager = new GameManager(this, MazeWidth, MazeHeight);
-            mouseManager = new MouseManager();
-            keyboardManager = new KeyboardManager();
         }
 
         /// <summary>
@@ -76,8 +72,8 @@ namespace ProjectMazelike {
                 Exit();
 
             // TODO: Add your update logic here
-            mouseManager.Update(gameTime);
-            keyboardManager.Update(gameTime);
+            MouseManager.Update(gameTime);
+            KeyboardManager.Update(gameTime);
 
             base.Update(gameTime);
         }
