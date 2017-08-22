@@ -17,12 +17,16 @@ namespace ProjectMazelike {
         public static void Update(GameTime gameTime) {
             currentState = Mouse.GetState();
 
-            if (IsLeftReleased(currentState, lastState)) {
-                GameManager.Instance.NewMaze();
+            if (GameManager.Instance.DEBUGDrawMaze) {
+                if (IsLeftReleased(currentState, lastState)) {
+                    GameManager.Instance.NewMaze();
+                }
+                if (IsRightReleased(currentState, lastState)) {
+                    GameManager.Instance.CycleGenerator();
+                }
             }
-            if(IsRightReleased(currentState, lastState)) {
-                GameManager.Instance.CycleGenerator();
-            }
+
+            //Zoom the game camera in and out
             GameManager.Instance.Screen.Camera.Scale += GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
 
             lastState = currentState;

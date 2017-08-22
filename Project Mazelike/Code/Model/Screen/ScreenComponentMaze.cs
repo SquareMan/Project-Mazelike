@@ -41,11 +41,11 @@ namespace ProjectMazelike {
                 //  This will not draw the walls on the edge of the screen, but they do exist.
                 if (cell.WallStatus(Cell.Direction.East)) {
                     rect = new Rectangle(cell.X * cellSize + (cellSize - wallSize / 2), cell.Y * cellSize, wallSize, cellSize);
-                    spriteBatch.Draw(TextureManager.GetTexture("Wall"), rect, Color.Black);
+                    spriteBatch.Draw(TextureManager.GetTexture("Maze Wall"), rect, Color.Black);
                 }
                 if (cell.WallStatus(Cell.Direction.South)) {
                     rect = new Rectangle(cell.X * cellSize, cell.Y * cellSize + (cellSize - wallSize / 2), cellSize, wallSize);
-                    spriteBatch.Draw(TextureManager.GetTexture("Wall"), rect, Color.Black);
+                    spriteBatch.Draw(TextureManager.GetTexture("Maze Wall"), rect, Color.Black);
                 }
             }
 

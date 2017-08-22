@@ -8,14 +8,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectMazelike {
     class ScreenComponentTile : ScreenComponent {
-        Point position;
+        Tile tile;
 
-        public ScreenComponentTile(Point position, DrawLayer layer) : base(layer) {
-            this.position = position;
+        public ScreenComponentTile(Tile tile, DrawLayer layer) : base(layer) {
+            this.tile = tile;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
-            spriteBatch.Draw(TextureManager.GetTexture("Floor"), position.ToVector2() * ScreenComponentMaze.cellSize, Color.White);
+            spriteBatch.Draw(TextureManager.GetTexture(tile.TileType.ToString()), tile.Position.ToVector2() * ScreenComponentMaze.cellSize, Color.White);
         }
     }
 }

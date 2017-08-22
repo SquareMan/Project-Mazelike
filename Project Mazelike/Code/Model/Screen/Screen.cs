@@ -32,7 +32,6 @@ namespace ProjectMazelike {
             
             //Create a new camera with origin at the top left corner
             Camera = new Camera(GraphicsDevice.Viewport, Vector2.Zero + new Vector2(GraphicsDevice.Viewport.Width/2, GraphicsDevice.Viewport.Height/2));
-            Camera.MoveCamera(new Vector2(-10));
         }
 
         /// <summary>

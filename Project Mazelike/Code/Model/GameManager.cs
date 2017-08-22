@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace ProjectMazelike {
     class GameManager {
+        public Boolean DEBUGDrawMaze = false;
+
         public static GameManager Instance;
         public static ProjectMazelike Game;
 
@@ -22,6 +24,7 @@ namespace ProjectMazelike {
         public MazeGenerator MazeGenerator { get => ourMazeGenerator; protected set => ourMazeGenerator = value; }
 
         public Player Player { get => thePlayer; protected set => thePlayer = value; }
+
 
         Map testMap;
         Dictionary<Tile, ScreenComponent> tileToScreenComponentMap;
@@ -38,7 +41,6 @@ namespace ProjectMazelike {
         }
 
         public void Initialize(GraphicsDevice graphicsDevice) {
-
             Screen = new Screen(Game);
             Screen.SamplerState = SamplerState.PointClamp;
             Game.Components.Add(Screen);
@@ -51,7 +53,7 @@ namespace ProjectMazelike {
 
             testMap = new Map(ProjectMazelike.MazeWidth, ProjectMazelike.MazeHeight);
             foreach(Tile t in testMap.Tiles) {
-                tileToScreenComponentMap.Add(t, new ScreenComponentTile(t.Position, DrawLayer.Background));
+                tileToScreenComponentMap.Add(t, new ScreenComponentTile(t, DrawLayer.Background));
                 Screen.AddComponent(tileToScreenComponentMap[t]);
             }
         }
@@ -59,15 +61,17 @@ namespace ProjectMazelike {
         public Maze GetMaze() {
             return MazeGenerator.GetMaze();
         }
-
+        
         public void NewMaze() {
             if (mazeComponent != null)
                 Screen.RemoveComponent(mazeComponent);
 
             Maze generatedMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
-
-            mazeComponent = new ScreenComponentMaze(generatedMaze, DrawLayer.Background);
-            Screen.AddComponent(mazeComponent);
+            
+            if (DEBUGDrawMaze) {
+                mazeComponent = new ScreenComponentMaze(generatedMaze, DrawLayer.Background);
+                Screen.AddComponent(mazeComponent);
+            }
         }
 
         //DEBUG
@@ -84,8 +88,10 @@ namespace ProjectMazelike {
                 newMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
             }
 
-            mazeComponent = new ScreenComponentMaze(newMaze, DrawLayer.Background);
-            Screen.AddComponent(mazeComponent);
+            if (DEBUGDrawMaze) {
+                mazeComponent = new ScreenComponentMaze(newMaze, DrawLayer.Background);
+                Screen.AddComponent(mazeComponent);
+            }
         }
     }
 }
