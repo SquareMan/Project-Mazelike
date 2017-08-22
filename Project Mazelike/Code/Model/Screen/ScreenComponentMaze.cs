@@ -13,9 +13,8 @@ namespace ProjectMazelike {
 
         Maze maze;
 
-        public ScreenComponentMaze(Maze maze, DrawLayer layer) {
+        public ScreenComponentMaze(Maze maze, DrawLayer layer) : base(layer) {
             this.maze = maze;
-            Layer = layer;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {

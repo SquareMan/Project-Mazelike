@@ -10,9 +10,8 @@ namespace ProjectMazelike {
     class ScreenComponentPlayer : ScreenComponent {
         Player player;
 
-        public ScreenComponentPlayer(Player player, DrawLayer layer) {
+        public ScreenComponentPlayer(Player player, DrawLayer layer) : base(layer) {
             this.player = player;
-            Layer = layer;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {

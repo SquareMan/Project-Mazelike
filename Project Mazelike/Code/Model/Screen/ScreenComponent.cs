@@ -10,6 +10,10 @@ namespace ProjectMazelike {
     abstract class ScreenComponent {
         public DrawLayer Layer { get; set; }
 
+        protected ScreenComponent(DrawLayer layer) {
+            this.Layer = layer;
+        }
+
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
     }
 
