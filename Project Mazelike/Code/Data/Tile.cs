@@ -10,12 +10,13 @@ namespace ProjectMazelike {
         public TileType TileType { get; protected set; }
         public Point Position { get; set; }
 
-        public delegate void TileChangedDelegate();
-        public event TileChangedDelegate OnTileChanged;
-
         public Tile(Point position, TileType type) {
             this.Position = position;
             this.TileType = type;
+        }
+
+        public void SetTileType(TileType newType) {
+            TileType = newType;
         }
     }
 

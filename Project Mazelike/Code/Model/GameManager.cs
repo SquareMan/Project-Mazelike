@@ -15,9 +15,8 @@ namespace ProjectMazelike {
 
         public int mazeWidth;
         public int mazeHeight;
-        
-        public Screen Screen { get; set; }
-        public ScreenComponentMaze mazeComponent;
+
+        public ScreenManager screenManager;
         MazeGenerator ourMazeGenerator;
         Player thePlayer;
 
@@ -37,25 +36,35 @@ namespace ProjectMazelike {
             this.mazeWidth = mazeWidth;
             this.mazeHeight = mazeHeight;
 
+            screenManager = new ScreenManager();
+
             tileToScreenComponentMap = new Dictionary<Tile, ScreenComponent>();
         }
 
         public void Initialize(GraphicsDevice graphicsDevice) {
-            Screen = new Screen(Game);
-            Screen.SamplerState = SamplerState.PointClamp;
-            Game.Components.Add(Screen);
+            screenManager.AddScreen("Game");
+            screenManager.AddScreen("Pause");
+            screenManager.SetActiveScreen("Game");
+
+            screenManager.GetScreen("Game").SamplerState = SamplerState.PointClamp;
+
+            screenManager.GetScreen("Pause").canBeRotated = true;
 
             thePlayer = new Player(new Point(3));
-            Screen.AddComponent(new ScreenComponentPlayer(thePlayer, DrawLayer.Player));
+            screenManager.GetScreen("Game").AddComponent(new ScreenComponentPlayer(thePlayer, DrawLayer.Player));
 
             MazeGenerator = new MazeGeneratorImperfect(.33f);
             NewMaze();
 
+            screenManager.GetScreen("Pause").AddComponent(new ScreenComponentMaze(MazeGenerator.GetMaze(), DrawLayer.Background));
+
             testMap = new Map(ProjectMazelike.MazeWidth, ProjectMazelike.MazeHeight);
             foreach(Tile t in testMap.Tiles) {
                 tileToScreenComponentMap.Add(t, new ScreenComponentTile(t, DrawLayer.Background));
-                Screen.AddComponent(tileToScreenComponentMap[t]);
+                screenManager.GetScreen("Game").AddComponent(tileToScreenComponentMap[t]);
             }
+            thePlayer.SetMap(testMap);
+            testMap.Tiles[3, 3].SetTileType(TileType.Wall);
         }
 
         public Maze GetMaze() {
@@ -63,35 +72,7 @@ namespace ProjectMazelike {
         }
         
         public void NewMaze() {
-            if (mazeComponent != null)
-                Screen.RemoveComponent(mazeComponent);
-
-            Maze generatedMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
-            
-            if (DEBUGDrawMaze) {
-                mazeComponent = new ScreenComponentMaze(generatedMaze, DrawLayer.Background);
-                Screen.AddComponent(mazeComponent);
-            }
-        }
-
-        //DEBUG
-        //TODO: REMOVE ME
-        public void CycleGenerator() {
-            Screen.RemoveComponent(mazeComponent);
-            Maze newMaze;
-
-            if(MazeGenerator.GetType() == typeof(MazeGenerator)) {
-                MazeGenerator = new MazeGeneratorImperfect(.33f);
-                newMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
-            } else {
-                MazeGenerator = new MazeGenerator();
-                newMaze = MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
-            }
-
-            if (DEBUGDrawMaze) {
-                mazeComponent = new ScreenComponentMaze(newMaze, DrawLayer.Background);
-                Screen.AddComponent(mazeComponent);
-            }
+            MazeGenerator.GenerateMaze(mazeWidth, mazeHeight);
         }
     }
 }

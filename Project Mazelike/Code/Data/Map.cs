@@ -18,5 +18,21 @@ namespace ProjectMazelike {
                 }
             }
         }
+
+        public Boolean CanEnter(int x, int y) {
+            if (x < 0 || x >= Tiles.GetLength(0) || y < 0 || y >= Tiles.GetLength(1)) {
+                //Coordinate is outside of the map
+                return false;
+            }
+            if (Tiles[x, y] == null) {
+                //Tile at coordinate doesnt exist
+                return false;
+            }
+
+            if (Tiles[x, y].TileType == TileType.Wall)
+                return false;
+
+            return true;
+        }
     }
 }

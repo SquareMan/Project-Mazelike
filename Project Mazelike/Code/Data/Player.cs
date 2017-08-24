@@ -16,6 +16,11 @@ namespace ProjectMazelike {
             this.position = position;
         }
 
+        public void Move(int deltaX, int deltaY) {
+            if (currentMap.CanEnter(position.X + deltaX, position.Y + deltaY))
+                position += new Point(deltaX, deltaY);
+        }
+
         public void SetMap(Map newMap) {
             currentMap = newMap;
         }

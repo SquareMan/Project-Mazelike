@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectMazelike {
     class Screen : DrawableGameComponent {
+        public Boolean Enabled = true;
+
         //SpriteBatch Information
         public BlendState BlendState { get; set; }
         public SamplerState SamplerState { get; set; }
@@ -52,6 +54,9 @@ namespace ProjectMazelike {
         }
 
         public override void Draw(GameTime gameTime) {
+            if (!Enabled)
+                return;
+
             base.Draw(gameTime);
 
             //Draw all objects that belong to this screen according to what they are and their draw layer

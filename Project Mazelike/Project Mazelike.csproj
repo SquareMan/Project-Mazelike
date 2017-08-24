@@ -53,6 +53,7 @@
     <Compile Include="Code\Model\GameManager.cs" />
     <Compile Include="Code\Model\KeyboardManager.cs" />
     <Compile Include="Code\Model\MouseManager.cs" />
+    <Compile Include="Code\Model\ScreenManager.cs" />
     <Compile Include="Code\Model\Screen\ScreenComponentTile.cs" />
     <Compile Include="Code\Model\Screen\Camera.cs" />
     <Compile Include="Code\Model\Screen\Screen.cs" />
