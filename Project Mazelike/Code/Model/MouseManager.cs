@@ -11,10 +11,11 @@ namespace ProjectMazelike {
     static class MouseManager {
         public static float zoomSensitivity = .001f;
 
-        static MouseState currentState;
-        static MouseState lastState;
+        public static MouseState currentState { get; private set; }
+        public static MouseState lastState { get; private set; }
 
         public static void Update(GameTime gameTime) {
+            lastState = currentState;
             currentState = Mouse.GetState();
 
             if(currentState.LeftButton == ButtonState.Pressed) {
@@ -26,18 +27,16 @@ namespace ProjectMazelike {
 
             //Zoom the game camera in and out
             GameManager.Instance.screenManager.ActiveScreen.Camera.Scale += GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
-
-            lastState = currentState;
         }
 
-        public static Boolean IsLeftReleased(MouseState currentState, MouseState lastState) {
+        public static Boolean IsLeftReleased() {
             if (lastState.LeftButton == ButtonState.Pressed && currentState.LeftButton == ButtonState.Released) {
                 return true;
             }
             return false;
         }
 
-        public static Boolean IsRightReleased(MouseState currentState, MouseState lastState) {
+        public static Boolean IsRightReleased() {
             if (lastState.RightButton == ButtonState.Pressed && currentState.RightButton == ButtonState.Released) {
                 return true;
             }

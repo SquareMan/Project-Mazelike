@@ -57,6 +57,9 @@ namespace ProjectMazelike {
             NewMaze();
 
             screenManager.GetScreen("Pause").AddComponent(new ScreenComponentMaze(MazeGenerator.GetMaze(), DrawLayer.Background));
+            ScreenComponentButton button = new ScreenComponentButton(new Point(Game.GraphicsDevice.Viewport.Width / 2 - 100, Game.GraphicsDevice.Viewport.Height / 2 - 40), DrawLayer.Background);
+            button.OnClicked += () => { Game.Exit(); };
+            screenManager.GetScreen("Pause").AddComponent(button);
 
             testMap = new Map(ProjectMazelike.MazeWidth, ProjectMazelike.MazeHeight);
             foreach(Tile t in testMap.Tiles) {

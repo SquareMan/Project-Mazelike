@@ -17,20 +17,22 @@ namespace ProjectMazelike {
 
         public void SetActiveScreen(String name) {
             foreach (string n in Screens.Keys) {
+                Screens[n].Visible = false;
                 Screens[n].Enabled = false;
             }
 
             if (Screens.Keys.Contains(name)) {
                 ActiveScreen = Screens[name];
+                ActiveScreen.Visible = true;
                 ActiveScreen.Enabled = true;
+            } else {
+                Debug.WriteLine(String.Format("Screen with name {0} was attempted to be set as active but does not exist", name));
             }
-
-            Debug.WriteLine(String.Format("Screen with name {0} was attempted to be set as active but does not exist", name));
         }
 
         public void AddScreen(String name) {
             Screen newScreen = new Screen(GameManager.Game);
-            newScreen.Enabled = false;
+            newScreen.Visible = false;
             Screens.Add(name, newScreen);
             GameManager.Game.Components.Add(newScreen);
         }
