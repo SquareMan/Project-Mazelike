@@ -29,6 +29,10 @@ namespace ProjectMazelike {
             GameManager.Instance.screenManager.ActiveScreen.Camera.Scale += GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
         }
 
+        public static Vector2 GetPositionInWorldSpace(Camera camera) {
+            return Vector2.Transform(currentState.Position.ToVector2(), Matrix.Invert(camera.TransformMatrix));
+        }
+
         public static Boolean IsLeftReleased() {
             if (lastState.LeftButton == ButtonState.Pressed && currentState.LeftButton == ButtonState.Released) {
                 return true;

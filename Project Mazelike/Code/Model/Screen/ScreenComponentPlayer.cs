@@ -10,7 +10,7 @@ namespace ProjectMazelike {
     class ScreenComponentPlayer : ScreenComponent {
         Player player;
 
-        public ScreenComponentPlayer(Player player, DrawLayer layer) : base(layer) {
+        public ScreenComponentPlayer(Player player, Screen screen, DrawLayer layer) : base(screen, layer) {
             this.player = player;
         }
 

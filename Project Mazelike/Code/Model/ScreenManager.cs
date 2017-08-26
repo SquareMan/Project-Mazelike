@@ -30,11 +30,12 @@ namespace ProjectMazelike {
             }
         }
 
-        public void AddScreen(String name) {
+        public Screen AddScreen(String name) {
             Screen newScreen = new Screen(GameManager.Game);
             newScreen.Visible = false;
             Screens.Add(name, newScreen);
             GameManager.Game.Components.Add(newScreen);
+            return newScreen;
         }
 
         public Screen GetScreen(String name) {

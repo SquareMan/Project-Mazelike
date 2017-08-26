@@ -13,19 +13,28 @@ namespace ProjectMazelike {
         Point position;
         Rectangle rect;
 
-        public ScreenComponentButton(Point position, DrawLayer layer) : base(layer) {
+        public ScreenComponentButton(Point position, Screen screen, DrawLayer layer) : base(screen, layer) {
             this.position = position;
+
+            this.drawInWorldSpace = false;
+            this.rotatable = false;
+
+            //TODO: FIXME THIS IS REALLY BAD
+            //Area rectangle size currently hardcoded
             rect = new Rectangle(position.X, position.Y, 200, 80);
         }
 
         public event ClickedDelegate OnClicked;
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
-            spriteBatch.Draw(TextureManager.GetTexture("Button"), position.ToVector2(), Color.White);
+            spriteBatch.Draw(TextureManager.GetTexture("Button"),
+                             drawInWorldSpace? position.ToVector2() : Vector2.Transform(position.ToVector2(), Matrix.Invert(Screen.Camera.TransformMatrix)),
+                             Color.White);
         }
 
         public override void Update(GameTime gameTime) {
-            if (MouseManager.IsLeftReleased() && rect.Intersects(new Rectangle(MouseManager.currentState.Position, new Point(1)))) {
+            if (MouseManager.IsLeftReleased() && rect.Intersects(
+                new Rectangle(drawInWorldSpace? MouseManager.GetPositionInWorldSpace(Screen.Camera).ToPoint() : MouseManager.currentState.Position, new Point(1)))) {
                 OnClicked?.Invoke();
             }
         }

@@ -13,7 +13,7 @@ namespace ProjectMazelike {
 
         Maze maze;
 
-        public ScreenComponentMaze(Maze maze, DrawLayer layer) : base(layer) {
+        public ScreenComponentMaze(Maze maze, Screen screen, DrawLayer layer) : base(screen, layer) {
             this.maze = maze;
         }
 

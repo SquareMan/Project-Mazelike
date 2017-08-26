@@ -10,7 +10,7 @@ namespace ProjectMazelike {
     class ScreenComponentTile : ScreenComponent {
         Tile tile;
 
-        public ScreenComponentTile(Tile tile, DrawLayer layer) : base(layer) {
+        public ScreenComponentTile(Tile tile, Screen screen, DrawLayer layer) : base(screen, layer) {
             this.tile = tile;
         }
 
