@@ -10,11 +10,10 @@ using System.Diagnostics;
 
 namespace ProjectMazelike {
     class ScreenComponentButton : ScreenComponent, IClickable {
-        Point position;
         Rectangle rect;
 
         public ScreenComponentButton(Point position, Screen screen, DrawLayer layer) : base(screen, layer) {
-            this.position = position;
+            this.Position = position;
 
             this.drawInWorldSpace = false;
             this.rotatable = false;
@@ -27,14 +26,12 @@ namespace ProjectMazelike {
         public event ClickedDelegate OnClicked;
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
-            spriteBatch.Draw(TextureManager.GetTexture("Button"),
-                             drawInWorldSpace? position.ToVector2() : Vector2.Transform(position.ToVector2(), Matrix.Invert(Screen.Camera.TransformMatrix)),
-                             Color.White);
+            DrawWithTransformation(spriteBatch, TextureManager.GetTexture("Button"));
         }
 
         public override void Update(GameTime gameTime) {
             if (MouseManager.IsLeftReleased() && rect.Intersects(
-                new Rectangle(drawInWorldSpace? MouseManager.GetPositionInWorldSpace(Screen.Camera).ToPoint() : MouseManager.currentState.Position, new Point(1)))) {
+                new Rectangle(drawInWorldSpace? MouseManager.GetPositionInWorldSpace(Screen).ToPoint() : MouseManager.currentState.Position, new Point(1)))) {
                 OnClicked?.Invoke();
             }
         }

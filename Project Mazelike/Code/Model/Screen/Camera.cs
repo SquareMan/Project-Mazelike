@@ -25,6 +25,26 @@ namespace ProjectMazelike {
             }
         }
 
+        public Matrix GetTransformMatrix(Boolean position = true, Boolean rotation = true, Boolean scale = true) {
+            Matrix transform = Matrix.Identity;
+
+            //Do applicable transformations
+            if(position) {
+                transform *= Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0));
+            }
+            if(rotation) {
+                transform *= Matrix.CreateRotationZ(Rotation);
+            }
+            if(scale) {
+                transform *= Matrix.CreateScale(Scale);
+            }
+
+            //Center the camera around (0,0)
+            transform *= Matrix.CreateTranslation(new Vector3(Bounds.Width * 0.5f, Bounds.Height * 0.5f, 0));
+
+            return transform;
+        }
+
         public Camera(Viewport viewport) {
             this.Bounds = viewport.Bounds;
             this.Position = Vector2.Zero;

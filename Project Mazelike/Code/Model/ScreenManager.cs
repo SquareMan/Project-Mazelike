@@ -30,9 +30,10 @@ namespace ProjectMazelike {
             }
         }
 
-        public Screen AddScreen(String name) {
-            Screen newScreen = new Screen(GameManager.Game);
+        public Screen AddScreen(String name, Boolean moveable = true, Boolean rotatable = true, Boolean scaleable = true) {
+            Screen newScreen = new Screen(GameManager.Game, moveable, rotatable, scaleable);
             newScreen.Visible = false;
+            newScreen.Enabled = false;
             Screens.Add(name, newScreen);
             GameManager.Game.Components.Add(newScreen);
             return newScreen;

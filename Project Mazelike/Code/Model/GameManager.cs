@@ -48,12 +48,11 @@ namespace ProjectMazelike {
             thePlayer = new Player(new Point(3));
 
             //Setup screens
-            Screen gameScreen = screenManager.AddScreen("Game");
+            Screen gameScreen = screenManager.AddScreen("Game", true, false, true);
             gameScreen.SamplerState = SamplerState.PointClamp;
 
-            Screen pauseScreen = screenManager.AddScreen("Pause");
+            Screen pauseScreen = screenManager.AddScreen("Pause", false, false, false);
             pauseScreen.SamplerState = SamplerState.PointClamp;
-            pauseScreen.canBeRotated = true;
 
             screenManager.SetActiveScreen("Game");
 

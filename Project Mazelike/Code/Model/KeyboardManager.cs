@@ -38,12 +38,10 @@ namespace ProjectMazelike {
             }
 
             //Rotate ActiveScreen if possible
-            if (GameManager.Instance.screenManager.ActiveScreen.canBeRotated) {
-                if (currentState.IsKeyDown(Keys.E))
-                    GameManager.Instance.screenManager.ActiveScreen.Camera.Rotation += rotationSpeed;
-                if (currentState.IsKeyDown(Keys.Q))
-                    GameManager.Instance.screenManager.ActiveScreen.Camera.Rotation -= rotationSpeed;
-            }
+            if (currentState.IsKeyDown(Keys.E))
+                GameManager.Instance.screenManager.ActiveScreen.Camera.Rotation += rotationSpeed;
+            if (currentState.IsKeyDown(Keys.Q))
+                GameManager.Instance.screenManager.ActiveScreen.Camera.Rotation -= rotationSpeed;
         }
 
         public static Boolean IsButtonReleased(Keys key) {

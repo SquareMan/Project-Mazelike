@@ -26,11 +26,12 @@ namespace ProjectMazelike {
             }
 
             //Zoom the game camera in and out
-            GameManager.Instance.screenManager.ActiveScreen.Camera.Scale += GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
+            //if(GameManager.Instance.screenManager.ActiveScreen.canBeZoomed)
+                GameManager.Instance.screenManager.ActiveScreen.Camera.Scale += GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
         }
 
-        public static Vector2 GetPositionInWorldSpace(Camera camera) {
-            return Vector2.Transform(currentState.Position.ToVector2(), Matrix.Invert(camera.TransformMatrix));
+        public static Vector2 GetPositionInWorldSpace(Screen screen) {
+            return Vector2.Transform(currentState.Position.ToVector2(), Matrix.Invert(screen.Camera.GetTransformMatrix(screen.canBeMoved, screen.canBeRotated, screen.canBeZoomed)));
         }
 
         public static Boolean IsLeftReleased() {

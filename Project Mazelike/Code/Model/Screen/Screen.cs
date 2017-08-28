@@ -16,20 +16,26 @@ namespace ProjectMazelike {
         public RasterizerState RasterizerState { get; set; }
         public Effect Effect { get; set; }
 
-        public Boolean canBeRotated = false;
+        public Boolean canBeMoved;
+        public Boolean canBeRotated;
+        public Boolean canBeZoomed;
 
         //Index is in order of draw layers, stores a list of every ScreenComponent on that layer
         public List<ScreenComponent>[] components;
         
         public Camera Camera { get; set; }
 
-        public Screen(Game game) : base(game) {
+        public Screen(Game game, Boolean moveable, Boolean rotatable, Boolean scaleable) : base(game) {
+            this.canBeMoved = moveable;
+            this.canBeRotated = rotatable;
+            this.canBeZoomed = scaleable;
+
             //Create an array of lists of game components, corresponding to their draw layer
             components = new List<ScreenComponent>[Enum.GetNames(typeof(DrawLayer)).Length];
             for(int i = 0; i < components.Length; i++) {
                 components[i] = new List<ScreenComponent>();
             }
-            
+
             //Create a new camera with origin at the top left corner
             Camera = new Camera(GraphicsDevice.Viewport, Vector2.Zero + new Vector2(GraphicsDevice.Viewport.Width/2, GraphicsDevice.Viewport.Height/2));
         }
@@ -65,9 +71,8 @@ namespace ProjectMazelike {
             base.Draw(gameTime);
 
             //Draw all objects that belong to this screen according to what they are and their draw layer
-
             for(int i = 0; i < Enum.GetNames(typeof(DrawLayer)).Length; i++) {
-                ((ProjectMazelike)Game).SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Camera.TransformMatrix);
+                ((ProjectMazelike)Game).SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Camera.GetTransformMatrix(canBeMoved, canBeRotated, canBeZoomed));
                 foreach (ScreenComponent sc in components[i]) {
                     sc.Draw(gameTime, ((ProjectMazelike)Game).SpriteBatch);
                 }

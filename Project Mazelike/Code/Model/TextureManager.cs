@@ -19,7 +19,6 @@ namespace ProjectMazelike {
             textureMap.Add(missingTexture, content.Load<Texture2D>("Graphics\\Tiles\\MissingTile"));
             textureMap.Add("Player", content.Load<Texture2D>("Graphics\\player"));
             textureMap.Add("Button", content.Load<Texture2D>("Graphics\\UI\\Button"));
-            //textureMap.Add("Floor", content.Load<Texture2D>("Graphics\\Tiles\\Floor"));
             LoadTileTextures(content);
 
             //DEBUG MAZE CELL TEXTURE
