@@ -42,7 +42,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Code\Data\Generation\Cell.cs" />
-    <Compile Include="Code\Data\Dungeon.cs" />
     <Compile Include="Code\Data\Generation\DungeonGenerator.cs" />
     <Compile Include="Code\Data\Map.cs" />
     <Compile Include="Code\Data\Generation\Maze.cs" />
@@ -81,11 +80,14 @@
     <Content Include="Content\Graphics\Tiles\MissingTile.png" />
     <Content Include="Content\Graphics\Tiles\Wall.png" />
     <Content Include="Content\Graphics\UI\Button.png" />
+    <Content Include="Content\XML\RoomExample2.xml" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
-    <None Include="Content\XML\RoomExample.xml" />
+    <None Include="Content\XML\RoomExample.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

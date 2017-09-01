@@ -57,12 +57,13 @@ namespace ProjectMazelike {
             screenManager.SetActiveScreen("Game");
 
             //Game Screen Components
-            testMap = Map.TestMap();// new Map(ProjectMazelike.MazeWidth, ProjectMazelike.MazeHeight);
-            foreach(Tile t in testMap.Tiles) {
-                tileToScreenComponentMap.Add(t, new ScreenComponentTile(t, gameScreen, DrawLayer.Background));
-                screenManager.GetScreen("Game").AddComponent(tileToScreenComponentMap[t]);
-            }
-            thePlayer.SetMap(testMap);
+            //testMap = Map.TestMap("RoomExample");
+            //foreach(Tile t in testMap.Tiles) {
+            //    tileToScreenComponentMap.Add(t, new ScreenComponentTile(t, gameScreen, DrawLayer.Background));
+            //    screenManager.GetScreen("Game").AddComponent(tileToScreenComponentMap[t]);
+            //}
+            //thePlayer.SetMap(testMap);
+            ChangeMap("RoomExample");
 
             gameScreen.AddComponent(new ScreenComponentPlayer(thePlayer, gameScreen, DrawLayer.Player));
 
@@ -77,9 +78,30 @@ namespace ProjectMazelike {
                                            pauseScreen,
                                            DrawLayer.UI);
 
-            //Make button close the game
+            //Make button change map the game
             button.OnClicked += () => { Game.Exit(); };
             pauseScreen.AddComponent(button);
+
+            ScreenComponentButton mapButton = new ScreenComponentButton(
+                                           new Point(Game.GraphicsDevice.Viewport.Width - 125,
+                                                     5),
+                                           120,
+                                           80,
+                                           pauseScreen,
+                                           DrawLayer.UI);
+
+            //Make button close the game
+            mapButton.OnClicked += () => { ChangeMap("RoomExample2"); };
+            gameScreen.AddComponent(mapButton);
+        }
+
+        public void ChangeMap(string map) {
+            testMap = Map.TestMap(map);
+            foreach (Tile t in testMap.Tiles) {
+                tileToScreenComponentMap[t] = new ScreenComponentTile(t, screenManager.GetScreen("Game"), DrawLayer.Background);
+                screenManager.GetScreen("Game").AddComponent(tileToScreenComponentMap[t]);
+            }
+            thePlayer.SetMap(testMap);
         }
 
         public Maze GetMaze() {

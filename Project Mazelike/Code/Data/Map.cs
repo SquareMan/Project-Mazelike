@@ -12,6 +12,7 @@ using System.Diagnostics;
 namespace ProjectMazelike {
     class Map {
         public Tile[,] Tiles { get; set; }
+        public Point PlayerStart { get; protected set; }
 
         public Map(int width, int height) {
             Tiles = new Tile[width, height];
@@ -23,26 +24,36 @@ namespace ProjectMazelike {
             }
         }
 
-        public static Map TestMap() {
+        /// <summary>
+        /// Extremely experimental map loading
+        /// </summary>
+        /// <param name="fileName">name of the XML file for the map</param>
+        /// <returns></returns>
+        public static Map TestMap(string fileName) {
             Map testMap = null;
 
-            XmlReader reader = XmlReader.Create(new System.IO.FileStream("Content/XML/RoomExample.xml", System.IO.FileMode.Open));
+            XmlReader reader = XmlReader.Create(new System.IO.FileStream("Content/XML/" + fileName + ".xml", System.IO.FileMode.Open));
             while(reader.Read()) {
                 if(reader.NodeType == XmlNodeType.Element) {
+                    //Initialize the map based on specified size
                     if (reader.Name == "room") {
                         testMap = new Map(int.Parse(reader.GetAttribute("width")), int.Parse(reader.GetAttribute("height")));
                     }
 
+                    //Load tile information
                     if(reader.Name == "tile") {
-                        int x, y;
-                        TileType type;
-                        x = int.Parse(reader.GetAttribute("x"));
-                        y = int.Parse(reader.GetAttribute("y"));
-                        type = (TileType)Enum.Parse(typeof(TileType), reader.GetAttribute("type"));
-
-                        Debug.WriteLine(String.Format("Tile Type of {0} at ({1},{2})", type, x, y));
+                        int x = int.Parse(reader.GetAttribute("x"));
+                        int y = int.Parse(reader.GetAttribute("y"));
+                        TileType type = (TileType)Enum.Parse(typeof(TileType), reader.GetAttribute("type"));
 
                         testMap.Tiles[x, y].SetTileType(type);
+                    }
+
+                    //Set the players starting point
+                    if(reader.Name == "player") {
+                        int x = int.Parse(reader.GetAttribute("x"));
+                        int y = int.Parse(reader.GetAttribute("y"));
+                        testMap.PlayerStart = new Point(x, y);
                     }
                 }
             }

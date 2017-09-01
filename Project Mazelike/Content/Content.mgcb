@@ -76,3 +76,6 @@
 #begin XML/RoomExample.xml
 /copy:XML/RoomExample.xml
 
+#begin XML/RoomExample2.xml
+/copy:XML/RoomExample2.xml
+

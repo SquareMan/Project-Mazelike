@@ -23,6 +23,7 @@ namespace ProjectMazelike {
 
         public void SetMap(Map newMap) {
             currentMap = newMap;
+            position = newMap.PlayerStart;
         }
     }
 }
