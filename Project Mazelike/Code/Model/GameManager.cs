@@ -46,24 +46,23 @@ namespace ProjectMazelike {
             NewMaze();
 
             thePlayer = new Player(new Point(3));
-
+            
             //Setup screens
             Screen gameScreen = screenManager.AddScreen("Game", true, false, true);
             gameScreen.SamplerState = SamplerState.PointClamp;
 
-            Screen pauseScreen = screenManager.AddScreen("Pause", false, false, false);
+            Screen pauseScreen = screenManager.AddScreen("Pause", true, false, true);
             pauseScreen.SamplerState = SamplerState.PointClamp;
 
             screenManager.SetActiveScreen("Game");
 
             //Game Screen Components
-            testMap = new Map(ProjectMazelike.MazeWidth, ProjectMazelike.MazeHeight);
+            testMap = Map.TestMap();// new Map(ProjectMazelike.MazeWidth, ProjectMazelike.MazeHeight);
             foreach(Tile t in testMap.Tiles) {
                 tileToScreenComponentMap.Add(t, new ScreenComponentTile(t, gameScreen, DrawLayer.Background));
                 screenManager.GetScreen("Game").AddComponent(tileToScreenComponentMap[t]);
             }
             thePlayer.SetMap(testMap);
-            testMap.Tiles[3, 3].SetTileType(TileType.Wall);
 
             gameScreen.AddComponent(new ScreenComponentPlayer(thePlayer, gameScreen, DrawLayer.Player));
 
@@ -71,8 +70,10 @@ namespace ProjectMazelike {
             pauseScreen.AddComponent(new ScreenComponentMaze(MazeGenerator.GetMaze(), pauseScreen, DrawLayer.Background));
 
             ScreenComponentButton button = new ScreenComponentButton(
-                                           new Point(Game.GraphicsDevice.Viewport.Width / 2 - 100,
-                                                     Game.GraphicsDevice.Viewport.Height / 2 - 40),
+                                           new Point(Game.GraphicsDevice.Viewport.Width / 2 - 120,
+                                                     Game.GraphicsDevice.Viewport.Height / 2 - 60),
+                                           240,
+                                           120,
                                            pauseScreen,
                                            DrawLayer.UI);
 

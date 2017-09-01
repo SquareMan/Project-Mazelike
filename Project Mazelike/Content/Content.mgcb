@@ -73,3 +73,6 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/UI/Button.png
 
+#begin XML/RoomExample.xml
+/copy:XML/RoomExample.xml
+

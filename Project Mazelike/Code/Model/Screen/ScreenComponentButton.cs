@@ -10,27 +10,30 @@ using System.Diagnostics;
 
 namespace ProjectMazelike {
     class ScreenComponentButton : ScreenComponent, IClickable {
-        Rectangle rect;
+        Rectangle bounds;
+        TextureNineSlice texture;
 
-        public ScreenComponentButton(Point position, Screen screen, DrawLayer layer) : base(screen, layer) {
+        public ScreenComponentButton(Point position, int width, int height, Screen screen, DrawLayer layer) : base(screen, layer) {
             this.Position = position;
 
             this.drawInWorldSpace = false;
             this.rotatable = false;
 
-            //TODO: FIXME THIS IS REALLY BAD
-            //Area rectangle size currently hardcoded
-            rect = new Rectangle(position.X, position.Y, 200, 80);
+            this.bounds = new Rectangle(position.X, position.Y, width, height);
         }
 
         public event ClickedDelegate OnClicked;
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
-            DrawWithTransformation(spriteBatch, TextureManager.GetTexture("Button"));
+            if(texture == null) {
+                texture = new TextureNineSlice(TextureManager.GetTexture("Button"), bounds.Width, bounds.Height, 8, 8, 8, 8);
+            }
+            
+            texture.Draw(spriteBatch, Position.ToVector2());
         }
 
         public override void Update(GameTime gameTime) {
-            if (MouseManager.IsLeftReleased() && rect.Intersects(
+            if (MouseManager.IsLeftReleased() && bounds.Intersects(
                 new Rectangle(drawInWorldSpace? MouseManager.GetPositionInWorldSpace(Screen).ToPoint() : MouseManager.currentState.Position, new Point(1)))) {
                 OnClicked?.Invoke();
             }

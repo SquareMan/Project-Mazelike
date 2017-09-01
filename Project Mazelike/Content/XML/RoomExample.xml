@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset>
+    <room width="10" height=" 8">
+      <tile type="Wall" x="8" y="4" />
+      <tile type="Wall" x="5" y="3" />
+      <tile type="Wall" x="3" y="4" />
+      <tile type="Wall" x="4" y="4" />
+    </room>
+  </Asset>
+</XnaContent>
