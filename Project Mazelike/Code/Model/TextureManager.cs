@@ -12,16 +12,26 @@ namespace ProjectMazelike {
     static class TextureManager {
         static Dictionary<String, Texture2D> textureMap;
 
+        private static String missingTexture = "MISSINGTEXTURE";
+
         public static void LoadTextures(ContentManager content) {
             textureMap = new Dictionary<string, Texture2D>();
-
+            textureMap.Add(missingTexture, content.Load<Texture2D>("Graphics\\Tiles\\MissingTile"));
             textureMap.Add("Player", content.Load<Texture2D>("Graphics\\player"));
+            textureMap.Add("Button", content.Load<Texture2D>("Graphics\\UI\\Button"));
+            LoadTileTextures(content);
 
             //DEBUG MAZE CELL TEXTURE
-            SetupTextures();
+            SetupMazeTextures();
         }
 
-        static void SetupTextures() {
+        static void LoadTileTextures(ContentManager content) {
+            foreach (string name in Enum.GetNames(typeof(TileType))) {
+                textureMap.Add(name, content.Load<Texture2D>("Graphics\\Tiles\\" + name));
+            }
+        }
+
+        static void SetupMazeTextures() {
             //Create Temporary Texture for a Cell
             Color[] data = new Color[ScreenComponentMaze.cellSize * ScreenComponentMaze.cellSize];
             for (int i = 0; i < data.Length; i++) {
@@ -40,16 +50,16 @@ namespace ProjectMazelike {
 
             Texture2D wallTexture = new Texture2D(GameManager.Game.GraphicsDevice, ScreenComponentMaze.wallSize, ScreenComponentMaze.wallSize);
             wallTexture.SetData(data);
-            textureMap.Add("Wall", wallTexture);
+            textureMap.Add("Maze Wall", wallTexture);
         }
 
         public static Texture2D GetTexture(String name) {
-            if(textureMap[name] != null) {
+            if (textureMap.Keys.Contains(name)) {
                 return textureMap[name];
             }
 
             Debug.WriteLine(String.Format("Texture with name {0} was attempted to be retrieved but does not exist", name));
-            return null;
+            return textureMap[missingTexture];
         }
     }
 }

@@ -4,12 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike
-{
-    class Dungeon
-    {
-        public Dungeon() {
-
-        }
+namespace ProjectMazelike {
+    interface IClickable {
+        event ScreenComponent.ClickedDelegate OnClicked;
     }
 }

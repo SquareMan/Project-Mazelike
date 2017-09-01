@@ -8,10 +8,13 @@ namespace ProjectMazelike
 {
     class DungeonGenerator {
         Maze maze;
-        Dungeon newDungeon;
 
-        public DungeonGenerator() {
+        public DungeonGenerator(Maze baseMaze) {
+            this.maze = baseMaze;
+        }
 
+        public Maze GetMaze() {
+            return maze;
         }
     }
 }

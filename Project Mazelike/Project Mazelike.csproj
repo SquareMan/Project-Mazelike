@@ -42,7 +42,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Code\Data\Generation\Cell.cs" />
-    <Compile Include="Code\Data\Dungeon.cs" />
     <Compile Include="Code\Data\Generation\DungeonGenerator.cs" />
     <Compile Include="Code\Data\Map.cs" />
     <Compile Include="Code\Data\Generation\Maze.cs" />
@@ -52,12 +51,17 @@
     <Compile Include="Code\Model\GameManager.cs" />
     <Compile Include="Code\Model\KeyboardManager.cs" />
     <Compile Include="Code\Model\MouseManager.cs" />
+    <Compile Include="Code\Model\ScreenManager.cs" />
+    <Compile Include="Code\Model\Screen\IClickable.cs" />
+    <Compile Include="Code\Model\Screen\ScreenComponentTile.cs" />
     <Compile Include="Code\Model\Screen\Camera.cs" />
     <Compile Include="Code\Model\Screen\Screen.cs" />
     <Compile Include="Code\Model\Screen\ScreenComponent.cs" />
     <Compile Include="Code\Model\Screen\ScreenComponentMaze.cs" />
     <Compile Include="Code\Model\Screen\ScreenComponentPlayer.cs" />
+    <Compile Include="Code\Model\Screen\ScreenComponentButton.cs" />
     <Compile Include="Code\Model\TextureManager.cs" />
+    <Compile Include="Code\Model\TextureNineSlice.cs" />
     <Compile Include="Code\ProjectMazelike.cs" />
     <Compile Include="Code\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,12 +74,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Graphics\Player.png" />
+    <Content Include="Content\Graphics\Tiles\Floor.png" />
+    <Content Include="Content\Graphics\Tiles\MissingTile.png" />
+    <Content Include="Content\Graphics\Tiles\Wall.png" />
+    <Content Include="Content\Graphics\UI\Button.png" />
+    <Content Include="Content\XML\RoomExample2.xml" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
-    <None Include="Content\Graphics\Player.xnb" />
+    <None Include="Content\XML\RoomExample.xml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
