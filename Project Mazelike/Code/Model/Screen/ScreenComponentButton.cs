@@ -11,7 +11,7 @@ using System.Diagnostics;
 namespace ProjectMazelike {
     class ScreenComponentButton : ScreenComponent, IClickable {
         Rectangle bounds;
-        TextureNineSlice texture;
+        SpriteNineSlice sprite;
 
         public ScreenComponentButton(Point position, int width, int height, Screen screen, DrawLayer layer) : base(screen, layer) {
             this.Position = position;
@@ -25,11 +25,11 @@ namespace ProjectMazelike {
         public event ClickedDelegate OnClicked;
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
-            if(texture == null) {
-                texture = new TextureNineSlice(TextureManager.GetTexture("Button"), bounds.Width, bounds.Height, 8, 8, 8, 8);
+            if(sprite == null) {
+                sprite = new SpriteNineSlice(TextureManager.GetTexture("Button"), Position.ToVector2(), bounds.Width, bounds.Height, 8, 8, 8, 8);
             }
             
-            texture.Draw(spriteBatch, Position.ToVector2());
+            sprite.Draw(spriteBatch, Position.ToVector2());
         }
 
         public override void Update(GameTime gameTime) {

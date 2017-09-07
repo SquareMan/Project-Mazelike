@@ -7,9 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectMazelike {
-    class TextureNineSlice {
+    class SpriteNineSlice {
+        public Vector2 position;
         public int width;
         public int height;
+
+        public Rectangle Bounds {
+            get {
+                return new Rectangle((int)position.X, (int)position.Y, width, height);
+            }
+        }
 
         int leftSlice;
         int rightSlice;
@@ -27,8 +34,9 @@ namespace ProjectMazelike {
         /// <param name="rightSlice">pixels from the right to slice image</param>
         /// <param name="topSlice">pixels from the top to slice image</param>
         /// <param name="bottomSlice">pixels from the bottom to slice image</param>
-        public TextureNineSlice(Texture2D texture, int width, int height, int leftSlice, int rightSlice, int topSlice, int bottomSlice) {
+        public SpriteNineSlice(Texture2D texture, Vector2 position, int width, int height, int leftSlice, int rightSlice, int topSlice, int bottomSlice) {
             this.texture = texture;
+            this.position = position;
             this.width = width;
             this.height = height;
 
@@ -43,8 +51,12 @@ namespace ProjectMazelike {
             return texture;
         }
 
+        public Rectangle[] GetDestinationPatches() {
+            return CreatePatches(Bounds);
+        }
+
         public void Draw(SpriteBatch spriteBatch, Vector2 position) {
-            Rectangle[] destPatches = CreatePatches(new Rectangle(position.ToPoint().X, position.ToPoint().Y, width, height));
+            Rectangle[] destPatches = CreatePatches(Bounds);
 
             for (int i = 0; i < sourcePatches.Length; i++) {
                 spriteBatch.Draw(texture, destPatches[i], sourcePatches[i], Color.White);

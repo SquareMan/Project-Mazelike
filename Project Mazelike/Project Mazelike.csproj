@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Code\Data\Generation\Cell.cs" />
     <Compile Include="Code\Data\Generation\DungeonGenerator.cs" />
+    <Compile Include="Code\Data\IEntity.cs" />
     <Compile Include="Code\Data\Map.cs" />
     <Compile Include="Code\Data\Generation\Maze.cs" />
     <Compile Include="Code\Data\Generation\MazeGenerator.cs" />
@@ -62,7 +63,7 @@
     <Compile Include="Code\Model\Screen\ScreenComponentPlayer.cs" />
     <Compile Include="Code\Model\Screen\ScreenComponentButton.cs" />
     <Compile Include="Code\Model\TextureManager.cs" />
-    <Compile Include="Code\Model\TextureNineSlice.cs" />
+    <Compile Include="Code\Model\SpriteNineSlice.cs" />
     <Compile Include="Code\ProjectMazelike.cs" />
     <Compile Include="Code\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
