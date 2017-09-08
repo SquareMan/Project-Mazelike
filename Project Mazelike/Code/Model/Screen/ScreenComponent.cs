@@ -10,7 +10,7 @@ namespace ProjectMazelike {
     abstract class ScreenComponent {
         public Screen Screen { get; protected set; }
         public DrawLayer Layer { get; set; }
-        public Point Position { get; protected set; }
+        public Vector2 Position { get; protected set; }
 
         public Boolean drawInWorldSpace = true;
         public Boolean rotatable = true;
@@ -25,7 +25,7 @@ namespace ProjectMazelike {
         protected void DrawWithTransformation(SpriteBatch spriteBatch, Texture2D texture) {
             spriteBatch.Draw(
                 texture,
-                drawInWorldSpace ? Position.ToVector2() : Vector2.Transform(Position.ToVector2(), Matrix.Invert(Screen.Camera.GetTransformMatrix(Screen.canBeMoved, Screen.canBeRotated, Screen.canBeZoomed))),
+                drawInWorldSpace ? Position : Vector2.Transform(Position, Matrix.Invert(Screen.Camera.GetTransformMatrix(Screen.canBeMoved, Screen.canBeRotated, Screen.canBeZoomed))),
                 null,
                 Color.White,
                 rotatable ? 0f : -Screen.Camera.Rotation,

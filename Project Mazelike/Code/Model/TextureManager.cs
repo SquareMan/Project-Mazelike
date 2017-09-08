@@ -26,7 +26,7 @@ namespace ProjectMazelike {
         }
 
         static void LoadTileTextures(ContentManager content) {
-            foreach (string name in Enum.GetNames(typeof(TileType))) {
+            foreach (string name in Tile.GameTiles.Keys) {
                 textureMap.Add(name, content.Load<Texture2D>("Graphics\\Tiles\\" + name));
             }
         }

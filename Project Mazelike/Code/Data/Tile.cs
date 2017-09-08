@@ -7,16 +7,20 @@ using System.Threading.Tasks;
 
 namespace ProjectMazelike {
     class Tile {
-        public TileType TileType { get; protected set; }
-        public Point Position { get; set; }
+        public static readonly Dictionary<string, Tile> GameTiles = new Dictionary<string, Tile>();
 
-        public Tile(Point position, TileType type) {
-            this.Position = position;
+        public static readonly Tile TileFloor = new Tile("Floor", TileType.Floor);
+        public static readonly Tile TileWall = new Tile("Wall", TileType.Wall);
+
+        public TileType TileType { get; protected set; }
+
+        protected Tile(string ID, TileType type) {
+            GameTiles.Add(ID, this);
             this.TileType = type;
         }
 
-        public void SetTileType(TileType newType) {
-            TileType = newType;
+        public static Tile GetTile(string blockID) {
+            return GameTiles[blockID];
         }
     }
 

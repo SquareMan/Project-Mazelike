@@ -12,6 +12,7 @@ using System.Diagnostics;
 namespace ProjectMazelike {
     class Map {
         public Tile[,] Tiles { get; set; }
+        public Player Player { get; set; }
         public Point PlayerStart { get; protected set; }
 
         public Map(int width, int height) {
@@ -19,46 +20,44 @@ namespace ProjectMazelike {
 
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
-                    Tiles[x, y] = new Tile(new Point(x, y), TileType.Floor);
+                    Tiles[x, y] = Tile.TileFloor;
                 }
             }
         }
 
-        /// <summary>
-        /// Extremely experimental map loading
-        /// </summary>
-        /// <param name="fileName">name of the XML file for the map</param>
-        /// <returns></returns>
-        public static Map TestMap(string fileName) {
-            Map testMap = null;
+        public Map(Room[,] rooms) {
+            int totalWidth = rooms.GetLength(0) * 10;
+            int totalHeight = rooms.GetLength(1) * 10;
+            Tiles = new Tile[totalWidth, totalHeight];
 
-            XmlReader reader = XmlReader.Create(new System.IO.FileStream("Content/XML/" + fileName + ".xml", System.IO.FileMode.Open));
-            while(reader.Read()) {
-                if(reader.NodeType == XmlNodeType.Element) {
-                    //Initialize the map based on specified size
-                    if (reader.Name == "room") {
-                        testMap = new Map(int.Parse(reader.GetAttribute("width")), int.Parse(reader.GetAttribute("height")));
-                    }
-
-                    //Load tile information
-                    if(reader.Name == "tile") {
-                        int x = int.Parse(reader.GetAttribute("x"));
-                        int y = int.Parse(reader.GetAttribute("y"));
-                        TileType type = (TileType)Enum.Parse(typeof(TileType), reader.GetAttribute("type"));
-
-                        testMap.Tiles[x, y].SetTileType(type);
-                    }
-
-                    //Set the players starting point
-                    if(reader.Name == "player") {
-                        int x = int.Parse(reader.GetAttribute("x"));
-                        int y = int.Parse(reader.GetAttribute("y"));
-                        testMap.PlayerStart = new Point(x, y);
+            for (int i = 0; i < rooms.GetLength(0); i++) {
+                for (int j = 0; j < rooms.GetLength(1); j++) {
+                    for (int x = 0; x < rooms[i,j].tiles.GetLength(0); x++) {
+                        for (int y = 0; y < rooms[i,j].tiles.GetLength(1); y++) {
+                            Tiles[(10 * i) + x, (10 * j) + y] = rooms[i, j].tiles[x, y];
+                        }
                     }
                 }
             }
 
-            return testMap;
+            PlayerStart = new Point(2, 2);
+        }
+
+        public static Room[,] TestRoomArray() {
+            Room[,] rooms = new Room[2,2];
+            Random rand = new Random();
+
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    if (rand.Next() % 2 == 0) {
+                        rooms[i, j] = new Room("RoomExample");
+                    } else {
+                        rooms[i, j] = new Room("RoomExample2");
+                    }
+                }
+            }
+
+            return rooms;
         }
 
         public Boolean CanEnter(int x, int y) {

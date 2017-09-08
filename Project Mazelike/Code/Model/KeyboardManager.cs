@@ -20,16 +20,16 @@ namespace ProjectMazelike {
 
             //Player movement
             if (IsButtonReleased(Keys.Right))
-                GameManager.Instance.Player.Move(1, 0);
+                GameManager.Instance.Player.Move(Vector2.UnitX);
             if (IsButtonReleased(Keys.Left))
-                GameManager.Instance.Player.Move(-1, 0);
+                GameManager.Instance.Player.Move(-Vector2.UnitX);
             if (IsButtonReleased(Keys.Down))
-                GameManager.Instance.Player.Move(0, 1);
+                GameManager.Instance.Player.Move(Vector2.UnitY);
             if (IsButtonReleased(Keys.Up))
-                GameManager.Instance.Player.Move(0, -1);
+                GameManager.Instance.Player.Move(-Vector2.UnitY);
 
             //Test for Screen Switching
-            if (IsButtonReleased(Keys.T)) {
+            if (IsButtonReleased(Keys.Escape)) {
                 if(GameManager.Instance.screenManager.ActiveScreen == GameManager.Instance.screenManager.GetScreen("Game")) {
                     GameManager.Instance.screenManager.SetActiveScreen("Pause");
                 } else {

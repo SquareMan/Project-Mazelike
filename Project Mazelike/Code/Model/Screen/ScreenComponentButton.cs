@@ -13,23 +13,23 @@ namespace ProjectMazelike {
         Rectangle bounds;
         SpriteNineSlice sprite;
 
-        public ScreenComponentButton(Point position, int width, int height, Screen screen, DrawLayer layer) : base(screen, layer) {
+        public ScreenComponentButton(Vector2 position, int width, int height, Screen screen, DrawLayer layer) : base(screen, layer) {
             this.Position = position;
 
             this.drawInWorldSpace = false;
             this.rotatable = false;
 
-            this.bounds = new Rectangle(position.X, position.Y, width, height);
+            this.bounds = new Rectangle((int)position.X, (int)position.Y, width, height);
         }
 
         public event ClickedDelegate OnClicked;
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
             if(sprite == null) {
-                sprite = new SpriteNineSlice(TextureManager.GetTexture("Button"), Position.ToVector2(), bounds.Width, bounds.Height, 8, 8, 8, 8);
+                sprite = new SpriteNineSlice(TextureManager.GetTexture("Button"), Position, bounds.Width, bounds.Height, 8, 8, 8, 8);
             }
             
-            sprite.Draw(spriteBatch, Position.ToVector2());
+            sprite.Draw(spriteBatch, Position);
         }
 
         public override void Update(GameTime gameTime) {

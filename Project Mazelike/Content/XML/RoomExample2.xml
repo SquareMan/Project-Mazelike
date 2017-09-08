@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent>
   <Asset>
-    <room width="30" height=" 10">
+    <room width="10" height=" 10">
       <tile type="Wall" x="6" y="2" />
       <tile type="Wall" x="6" y="3" />
       <tile type="Wall" x="6" y="4" />

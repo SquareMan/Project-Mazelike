@@ -33,20 +33,29 @@ namespace ProjectMazelike {
         }
 
         public int GetHealth() {
-            throw new NotImplementedException();
+            return health;
         }
         
-        public void Move(int deltaX, int deltaY) {
-            if (currentMap.CanEnter(position.X + deltaX, position.Y + deltaY))
-                position += new Point(deltaX, deltaY);
-        }
+        //public void Move(int deltaX, int deltaY) {
+        //    if (currentMap.CanEnter(position.X + deltaX, position.Y + deltaY))
+        //        position += new Point(deltaX, deltaY);
+        //}
 
         public void Move(Vector2 direction) {
-            throw new NotImplementedException();
+            direction.Normalize();
+            Point newTile = position + direction.ToPoint();
+
+            if (currentMap.CanEnter(newTile.X, newTile.Y))
+                position = newTile;
         }
 
         public void SetMap(Map newMap) {
+            if (currentMap != null) {
+                currentMap.Player = null;
+            }
             currentMap = newMap;
+
+            newMap.Player = this;
             position = newMap.PlayerStart;
         }
     }
