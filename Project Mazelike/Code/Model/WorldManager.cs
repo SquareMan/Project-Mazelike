@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace ProjectMazelike {
     class WorldManager {
+        World world;
 
+        public WorldManager() { }
+
+        public void GenerateWorld() {
+
+        }
     }
 }

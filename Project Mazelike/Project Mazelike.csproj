@@ -51,6 +51,7 @@
     <Compile Include="Code\Data\Player.cs" />
     <Compile Include="Code\Data\Room.cs" />
     <Compile Include="Code\Data\Tile.cs" />
+    <Compile Include="Code\Data\World.cs" />
     <Compile Include="Code\Model\GameManager.cs" />
     <Compile Include="Code\Model\KeyboardManager.cs" />
     <Compile Include="Code\Model\MouseManager.cs" />

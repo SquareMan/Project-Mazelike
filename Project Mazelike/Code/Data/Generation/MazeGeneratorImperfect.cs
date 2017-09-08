@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike {
+namespace ProjectMazelike.Generation {
     //This generator creates an imperfect maze with loops by
     //finding dead ends and entering a neighbor from them
     class MazeGeneratorImperfect : MazeGenerator {

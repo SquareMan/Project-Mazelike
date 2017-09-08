@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike {
+namespace ProjectMazelike.Generation {
     class Cell {
 
         public enum Direction { NONE, North, East, South, West };

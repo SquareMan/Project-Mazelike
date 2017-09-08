@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike {
+namespace ProjectMazelike.Generation {
     class MazeGenerator {
 
         protected Maze maze;
