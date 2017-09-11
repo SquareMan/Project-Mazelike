@@ -17,11 +17,12 @@ namespace ProjectMazelike {
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
             for (int x = 0; x < map.Tiles.GetLength(0); x++) {
                 for (int y = 0; y < map.Tiles.GetLength(1); y++) {
-                    spriteBatch.Draw(TextureManager.GetTexture(map.Tiles[x,y].TileType.ToString()), (new Vector2(x,y) * ScreenComponentMaze.cellSize) + Position, Color.White);
+                    spriteBatch.Draw(TextureManager.GetTexture(map.Tiles[x,y].ID), (new Vector2(x,y) * ScreenComponentMaze.cellSize) + Position, Color.White);
                 }
             }
 
-            spriteBatch.Draw(TextureManager.GetTexture("Player"), map.Player.position.ToVector2() * ScreenComponentMaze.cellSize, null, Color.White);
+            if(map.Player != null)
+                spriteBatch.Draw(TextureManager.GetTexture("Player"), map.Player.position.ToVector2() * ScreenComponentMaze.cellSize, null, Color.White);
         }
     }
 }

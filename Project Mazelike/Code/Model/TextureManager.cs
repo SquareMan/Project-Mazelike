@@ -26,8 +26,12 @@ namespace ProjectMazelike {
         }
 
         static void LoadTileTextures(ContentManager content) {
-            foreach (string name in Tile.GameTiles.Keys) {
-                textureMap.Add(name, content.Load<Texture2D>("Graphics\\Tiles\\" + name));
+            foreach (string name in Tile.tilePrototypes.Keys) {
+                try {
+                    textureMap.Add(name, content.Load<Texture2D>("Graphics\\Tiles\\" + name));
+                } catch {
+                    Debug.WriteLine("Texture for Tile: " + name + " Does not exist");
+                }
             }
         }
 
@@ -38,7 +42,7 @@ namespace ProjectMazelike {
                 data[i] = Color.White;
             }
 
-            Texture2D cellTexture = new Texture2D(GameManager.Game.GraphicsDevice, ScreenComponentMaze.cellSize, ScreenComponentMaze.cellSize);
+            Texture2D cellTexture = new Texture2D(ProjectMazelike.Game.GraphicsDevice, ScreenComponentMaze.cellSize, ScreenComponentMaze.cellSize);
             cellTexture.SetData(data);
             textureMap.Add("Cell", cellTexture);
 
@@ -48,7 +52,7 @@ namespace ProjectMazelike {
                 data[i] = Color.White;
             }
 
-            Texture2D wallTexture = new Texture2D(GameManager.Game.GraphicsDevice, ScreenComponentMaze.wallSize, ScreenComponentMaze.wallSize);
+            Texture2D wallTexture = new Texture2D(ProjectMazelike.Game.GraphicsDevice, ScreenComponentMaze.wallSize, ScreenComponentMaze.wallSize);
             wallTexture.SetData(data);
             textureMap.Add("Maze Wall", wallTexture);
         }

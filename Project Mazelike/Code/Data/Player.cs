@@ -15,6 +15,7 @@ namespace ProjectMazelike {
 
         public Map currentMap;
         public Point position;
+        public Tile currentTile;
 
         //This will likely become more complicated when factoring in leveling up, weapons, etc.
         int health = 100;
@@ -45,8 +46,12 @@ namespace ProjectMazelike {
             direction.Normalize();
             Point newTile = position + direction.ToPoint();
 
-            if (currentMap.CanEnter(newTile.X, newTile.Y))
+            if (currentMap.CanEnter(newTile.X, newTile.Y)) {
+                currentTile.LeaveTile(this);
                 position = newTile;
+                currentTile = currentMap.Tiles[position.X, position.Y];
+                currentTile.EnterTile(this);
+            }
         }
 
         public void SetMap(Map newMap) {
@@ -55,8 +60,14 @@ namespace ProjectMazelike {
             }
             currentMap = newMap;
 
+            if(currentTile != null) {
+                currentTile.LeaveTile(this);
+            }
+
             newMap.Player = this;
             position = newMap.PlayerStart;
+            currentTile = newMap.Tiles[position.X, position.Y];
+            currentTile.EnterTile(this);
         }
     }
 }

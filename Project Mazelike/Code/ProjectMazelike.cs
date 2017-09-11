@@ -9,21 +9,21 @@ namespace ProjectMazelike {
     /// This is the main type for your game.
     /// </summary>
     public class ProjectMazelike : Game {
-        public static readonly int MazeWidth = 8;
-        public static readonly int MazeHeight = 8;
+        public static ProjectMazelike Game { get; protected set; }
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
-        GameManager gameManager;
+        
+        WorldManager worldManager;
 
         public SpriteBatch SpriteBatch { get => spriteBatch; private set => spriteBatch = value; }
 
         public ProjectMazelike() {
+            Game = this;
+
             graphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
-            gameManager = new GameManager(this, MazeWidth, MazeHeight);
         }
 
         /// <summary>
@@ -34,10 +34,24 @@ namespace ProjectMazelike {
         /// </summary>
         protected override void Initialize() {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            // TODO: Add your initialization logic here
-            gameManager.Initialize(GraphicsDevice);
+
+            ScreenManager.Initialize();
+            worldManager = new WorldManager();
 
             IsMouseVisible = true;
+
+            //Pause Screen Components
+            ScreenComponentButton button = new ScreenComponentButton(
+                                           new Vector2(GraphicsDevice.Viewport.Width / 2 - 120,
+                                                       GraphicsDevice.Viewport.Height / 2 - 60),
+                                           240,
+                                           120,
+                                           ScreenManager.pauseScreen,
+                                           DrawLayer.UI);
+
+            //Make button change map the game
+            button.OnClicked += () => { Exit(); };
+            ScreenManager.pauseScreen.AddComponent(button);
 
             base.Initialize();
         }
@@ -47,10 +61,6 @@ namespace ProjectMazelike {
         /// all of your content.
         /// </summary>
         protected override void LoadContent() {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            //spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
             TextureManager.LoadTextures(Content);
         }
 
@@ -68,10 +78,6 @@ namespace ProjectMazelike {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
-            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            //    Exit();
-
-            // TODO: Add your update logic here
             MouseManager.Update(gameTime);
             KeyboardManager.Update(gameTime);
 
@@ -83,7 +89,6 @@ namespace ProjectMazelike {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
-            // TODO: Add your drawing code here
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             base.Draw(gameTime);

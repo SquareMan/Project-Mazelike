@@ -13,7 +13,7 @@ namespace ProjectMazelike {
         public Room(string fileName) {
             tiles = new Tile[1, 1];
 
-            FileStream stream = new FileStream("Content/XML/" + fileName + ".xml", System.IO.FileMode.Open);
+            FileStream stream = new FileStream("Content/XML/" + fileName + ".xml", FileMode.Open);
             XmlReader reader = XmlReader.Create(stream);
             while (reader.Read()) {
                 if (reader.NodeType == XmlNodeType.Element) {
@@ -22,7 +22,7 @@ namespace ProjectMazelike {
                         tiles = new Tile[int.Parse(reader.GetAttribute("width")), int.Parse(reader.GetAttribute("height"))];
                         for (int x = 0; x < tiles.GetLength(0); x++) {
                             for (int y = 0; y < tiles.GetLength(1); y++) {
-                                tiles[x, y] = Tile.TileFloor;
+                                tiles[x, y] = new Tile(Tile.tileFloor);
                             }
                         }
                     }
@@ -32,7 +32,7 @@ namespace ProjectMazelike {
                         int x = int.Parse(reader.GetAttribute("x"));
                         int y = int.Parse(reader.GetAttribute("y"));
 
-                        tiles[x, y] = Tile.GetTile(reader.GetAttribute("type"));
+                        tiles[x, y] = new Tile(Tile.GetTile(reader.GetAttribute("type")));
                     }
 
                     //Set the players starting point

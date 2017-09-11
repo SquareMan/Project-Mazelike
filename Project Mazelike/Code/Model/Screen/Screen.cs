@@ -54,7 +54,8 @@ namespace ProjectMazelike {
         /// </summary>
         /// <param name="sc">The ScreenComponent to be removed</param>
         public void RemoveComponent(ScreenComponent sc) {
-            components[(int)sc.Layer].Add(sc);
+            if (sc != null && components[(int)sc.Layer].Contains(sc))
+                components[(int)sc.Layer].Remove(sc);
         }
 
         public override void Update(GameTime gameTime) {

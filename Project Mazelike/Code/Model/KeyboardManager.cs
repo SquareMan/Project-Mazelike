@@ -20,28 +20,28 @@ namespace ProjectMazelike {
 
             //Player movement
             if (IsButtonReleased(Keys.Right))
-                GameManager.Instance.Player.Move(Vector2.UnitX);
+                WorldManager.Instance.player.Move(Vector2.UnitX);
             if (IsButtonReleased(Keys.Left))
-                GameManager.Instance.Player.Move(-Vector2.UnitX);
+                WorldManager.Instance.player.Move(-Vector2.UnitX);
             if (IsButtonReleased(Keys.Down))
-                GameManager.Instance.Player.Move(Vector2.UnitY);
+                WorldManager.Instance.player.Move(Vector2.UnitY);
             if (IsButtonReleased(Keys.Up))
-                GameManager.Instance.Player.Move(-Vector2.UnitY);
+                WorldManager.Instance.player.Move(-Vector2.UnitY);
 
             //Test for Screen Switching
             if (IsButtonReleased(Keys.Escape)) {
-                if(GameManager.Instance.screenManager.ActiveScreen == GameManager.Instance.screenManager.GetScreen("Game")) {
-                    GameManager.Instance.screenManager.SetActiveScreen("Pause");
+                if(ScreenManager.ActiveScreen == ScreenManager.GetScreen("Game")) {
+                    ScreenManager.SetActiveScreen("Pause");
                 } else {
-                    GameManager.Instance.screenManager.SetActiveScreen("Game");
+                    ScreenManager.SetActiveScreen("Game");
                 }
             }
 
             //Rotate ActiveScreen if possible
             if (currentState.IsKeyDown(Keys.E))
-                GameManager.Instance.screenManager.ActiveScreen.Camera.Rotation += rotationSpeed;
+                ScreenManager.ActiveScreen.Camera.Rotation += rotationSpeed;
             if (currentState.IsKeyDown(Keys.Q))
-                GameManager.Instance.screenManager.ActiveScreen.Camera.Rotation -= rotationSpeed;
+                ScreenManager.ActiveScreen.Camera.Rotation -= rotationSpeed;
         }
 
         public static Boolean IsButtonReleased(Keys key) {

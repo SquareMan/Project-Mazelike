@@ -20,14 +20,14 @@ namespace ProjectMazelike {
 
             if(currentState.LeftButton == ButtonState.Pressed) {
                 //Drag the camera
-                Vector2 delta = (lastState.Position.ToVector2() - currentState.Position.ToVector2())/GameManager.Instance.screenManager.ActiveScreen.Camera.Scale;
+                Vector2 delta = (lastState.Position.ToVector2() - currentState.Position.ToVector2())/ScreenManager.ActiveScreen.Camera.Scale;
 
-                GameManager.Instance.screenManager.ActiveScreen.Camera.MoveCamera(delta);
+                ScreenManager.ActiveScreen.Camera.MoveCamera(delta);
             }
 
             //Zoom the game camera in and out
             //if(GameManager.Instance.screenManager.ActiveScreen.canBeZoomed)
-                GameManager.Instance.screenManager.ActiveScreen.Camera.Scale += GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
+                ScreenManager.ActiveScreen.Camera.Scale += GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
         }
 
         public static Vector2 GetPositionInWorldSpace(Screen screen) {

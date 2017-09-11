@@ -20,7 +20,7 @@ namespace ProjectMazelike {
 
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
-                    Tiles[x, y] = Tile.TileFloor;
+                    Tiles[x, y] = Tile.tileFloor;
                 }
             }
         }
@@ -43,9 +43,10 @@ namespace ProjectMazelike {
             PlayerStart = new Point(2, 2);
         }
 
+
+        static Random rand = new Random();
         public static Room[,] TestRoomArray() {
             Room[,] rooms = new Room[2,2];
-            Random rand = new Random();
 
             for (int i = 0; i < 2; i++) {
                 for (int j = 0; j < 2; j++) {
