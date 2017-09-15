@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Code\Data\Enemy.cs" />
     <Compile Include="Code\Data\Generation\Cell.cs" />
     <Compile Include="Code\Data\Generation\DungeonGenerator.cs" />
     <Compile Include="Code\Data\IEntity.cs" />

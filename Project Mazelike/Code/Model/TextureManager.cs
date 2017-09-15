@@ -17,7 +17,8 @@ namespace ProjectMazelike {
         public static void LoadTextures(ContentManager content) {
             textureMap = new Dictionary<string, Texture2D>();
             textureMap.Add(missingTexture, content.Load<Texture2D>("Graphics\\Tiles\\MissingTile"));
-            textureMap.Add("Player", content.Load<Texture2D>("Graphics\\player"));
+            textureMap.Add("Player", content.Load<Texture2D>("Graphics\\Player"));
+            textureMap.Add("Enemy", content.Load<Texture2D>("Graphics\\Enemy"));
             textureMap.Add("Button", content.Load<Texture2D>("Graphics\\UI\\Button"));
             LoadTileTextures(content);
 

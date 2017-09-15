@@ -13,10 +13,12 @@ namespace ProjectMazelike {
     class Map {
         public Tile[,] Tiles { get; set; }
         public Player Player { get; set; }
+        public List<Enemy> Enemies { get; set; }
         public Point PlayerStart { get; protected set; }
 
         public Map(int width, int height) {
             Tiles = new Tile[width, height];
+            Enemies = new List<Enemy>();
 
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
@@ -29,12 +31,21 @@ namespace ProjectMazelike {
             int totalWidth = rooms.GetLength(0) * 10;
             int totalHeight = rooms.GetLength(1) * 10;
             Tiles = new Tile[totalWidth, totalHeight];
+            Enemies = new List<Enemy>();
 
             for (int i = 0; i < rooms.GetLength(0); i++) {
                 for (int j = 0; j < rooms.GetLength(1); j++) {
                     for (int x = 0; x < rooms[i,j].tiles.GetLength(0); x++) {
                         for (int y = 0; y < rooms[i,j].tiles.GetLength(1); y++) {
                             Tiles[(10 * i) + x, (10 * j) + y] = rooms[i, j].tiles[x, y];
+
+                            IEntity entity = rooms[i, j].tiles[x, y].EntityInTile;
+                            if (entity != null) {
+                                Tiles[(10 * i) + x, (10 * j) + y].EnterTile(entity);
+
+                                if (typeof(Enemy) == entity.GetType())
+                                    Enemies.Add((Enemy)entity);
+                            }
                         }
                     }
                 }
@@ -61,46 +72,13 @@ namespace ProjectMazelike {
             return rooms;
         }
 
-        public Boolean CanEnter(int x, int y) {
-            if (x < 0 || x >= Tiles.GetLength(0) || y < 0 || y >= Tiles.GetLength(1)) {
-                //Coordinate is outside of the map
-                return false;
-            }
-            if (Tiles[x, y] == null) {
-                //Tile at coordinate doesnt exist
-                return false;
+        public Tile GetTile(int x, int y) {
+            if (x > Tiles.GetLength(0) || x < 0 || y > Tiles.GetLength(1) || y < 0) {
+                //Requested tile is out of range
+                return null;
             }
 
-            if (Tiles[x, y].TileType == TileType.Wall)
-                return false;
-
-            return true;
-        }
-    }
-
-    
-    struct MapData : IXmlSerializable {
-        public MapData Identity { get {
-                return new MapData();
-            }
-        }
-
-        Tile[,] tiles;
-
-        public MapData(Map map) {
-            tiles = map.Tiles;
-        }
-
-        public XmlSchema GetSchema() {
-            return null;
-        }
-
-        public void ReadXml(XmlReader reader) {
-            throw new NotImplementedException();
-        }
-
-        public void WriteXml(XmlWriter writer) {
-            throw new NotImplementedException();
+            return Tiles[x, y];
         }
     }
 }

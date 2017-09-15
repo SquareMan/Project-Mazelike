@@ -46,6 +46,17 @@ namespace ProjectMazelike {
             return tilePrototypes[blockID];
         }
 
+        public bool CanEnter() {
+            if(EntityInTile != null) {
+                return false;
+            }
+            if(TileType == TileType.Wall) {
+                return false;
+            }
+
+            return true;
+        }
+
         public void EnterTile(IEntity entity) {
             EntityInTile = entity;
             OnTileEntered?.Invoke(entity);

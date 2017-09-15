@@ -44,12 +44,13 @@ namespace ProjectMazelike {
 
         public void Move(Vector2 direction) {
             direction.Normalize();
-            Point newTile = position + direction.ToPoint();
+            Point newPosition = position + direction.ToPoint();
+            Tile newTile = currentMap.GetTile(newPosition.X, newPosition.Y);
 
-            if (currentMap.CanEnter(newTile.X, newTile.Y)) {
+            if (newTile != null && newTile.CanEnter()) {
                 currentTile.LeaveTile(this);
-                position = newTile;
-                currentTile = currentMap.Tiles[position.X, position.Y];
+                position = newPosition;
+                currentTile = newTile;
                 currentTile.EnterTile(this);
             }
         }

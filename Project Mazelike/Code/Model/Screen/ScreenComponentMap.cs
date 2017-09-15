@@ -18,6 +18,10 @@ namespace ProjectMazelike {
             for (int x = 0; x < map.Tiles.GetLength(0); x++) {
                 for (int y = 0; y < map.Tiles.GetLength(1); y++) {
                     spriteBatch.Draw(TextureManager.GetTexture(map.Tiles[x,y].ID), (new Vector2(x,y) * ScreenComponentMaze.cellSize) + Position, Color.White);
+
+                    if(map.Tiles[x,y].EntityInTile?.GetType() == typeof(Enemy)) {
+                        spriteBatch.Draw(TextureManager.GetTexture("Enemy"), (new Vector2(x, y) * ScreenComponentMaze.cellSize) + Position, Color.White);
+                    }
                 }
             }
 

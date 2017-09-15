@@ -35,12 +35,12 @@ namespace ProjectMazelike {
                         tiles[x, y] = new Tile(Tile.GetTile(reader.GetAttribute("type")));
                     }
 
-                    //Set the players starting point
-                    //if (reader.Name == "player") {
-                    //    int x = int.Parse(reader.GetAttribute("x"));
-                    //    int y = int.Parse(reader.GetAttribute("y"));
-                    //    testMap.PlayerStart = new Point(x, y);
-                    //}
+                    if(reader.Name == "enemy") {
+                        int x = int.Parse(reader.GetAttribute("x"));
+                        int y = int.Parse(reader.GetAttribute("y"));
+
+                        tiles[x, y].EnterTile(new Enemy(tiles[x,y]));
+                    }
                 }
             }
             stream.Close();
