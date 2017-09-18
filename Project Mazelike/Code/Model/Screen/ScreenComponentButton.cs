@@ -10,14 +10,23 @@ using System.Diagnostics;
 
 namespace ProjectMazelike {
     class ScreenComponentButton : ScreenComponent, IClickable {
+        private string _text;
+        public string text {
+            get {
+                return _text;
+            }
+            set {
+                _text = value;
+                textPosition = (bounds.Center - (ProjectMazelike.font.MeasureString(_text) / 2).ToPoint()).ToVector2();
+            }
+        }
+        private Vector2 textPosition;
+
         Rectangle bounds;
         SpriteNineSlice sprite;
 
-        public ScreenComponentButton(Vector2 position, int width, int height, Screen screen, DrawLayer layer) : base(screen, layer) {
+        public ScreenComponentButton(Vector2 position, int width, int height, Screen screen, DrawLayer layer, DrawSpace space = DrawSpace.World) : base(screen, layer, space) {
             this.Position = position;
-
-            this.drawInWorldSpace = false;
-            this.rotatable = false;
 
             this.bounds = new Rectangle((int)position.X, (int)position.Y, width, height);
         }
@@ -30,11 +39,15 @@ namespace ProjectMazelike {
             }
             
             sprite.Draw(spriteBatch, Position);
+
+            if(text != null) {
+                spriteBatch.DrawString(ProjectMazelike.font, text, textPosition, Color.White);
+            }
         }
 
         public override void Update(GameTime gameTime) {
             if (MouseManager.IsLeftReleased() && bounds.Intersects(
-                new Rectangle(drawInWorldSpace? MouseManager.GetPositionInWorldSpace(Screen).ToPoint() : MouseManager.currentState.Position, new Point(1)))) {
+                new Rectangle(Screen.GetMousePosition(Space), new Point(1)))) {
                 OnClicked?.Invoke();
             }
         }

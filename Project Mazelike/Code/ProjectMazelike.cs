@@ -11,6 +11,8 @@ namespace ProjectMazelike {
     public class ProjectMazelike : Game {
         public static ProjectMazelike Instance { get; protected set; }
 
+        public static SpriteFont font;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         
@@ -40,19 +42,6 @@ namespace ProjectMazelike {
 
             IsMouseVisible = true;
 
-            //Pause Screen Components
-            ScreenComponentButton button = new ScreenComponentButton(
-                                           new Vector2(GraphicsDevice.Viewport.Width / 2 - 120,
-                                                       GraphicsDevice.Viewport.Height / 2 - 60),
-                                           240,
-                                           120,
-                                           ScreenManager.pauseScreen,
-                                           DrawLayer.UI);
-
-            //Make button change map the game
-            button.OnClicked += () => { Exit(); };
-            ScreenManager.pauseScreen.AddComponent(button);
-
             base.Initialize();
         }
 
@@ -62,6 +51,22 @@ namespace ProjectMazelike {
         /// </summary>
         protected override void LoadContent() {
             TextureManager.LoadTextures(Content);
+            font = Content.Load<SpriteFont>("Fonts/Font");
+
+            //Pause Screen Components
+            ScreenComponentButton button = new ScreenComponentButton(
+                                           new Vector2(GraphicsDevice.Viewport.Width / 2 - 120,
+                                                       GraphicsDevice.Viewport.Height / 2 - 60),
+                                           240,
+                                           120,
+                                           ScreenManager.pauseScreen,
+                                           DrawLayer.UI,
+                                           DrawSpace.Screen);
+            button.text = "Quit Game";
+
+            //Make button change map the game
+            button.OnClicked += () => { Exit(); };
+            ScreenManager.pauseScreen.AddComponent(button);
         }
 
         /// <summary>

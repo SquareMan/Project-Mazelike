@@ -53,7 +53,7 @@ namespace ProjectMazelike {
                     position = newPosition;
                     currentTile = newTile;
                     currentTile.EnterTile(this);
-                } else if (newTile.EntityInTile.GetType() == typeof(Enemy)) {
+                } else if (newTile.EntityInTile != null && newTile.EntityInTile.GetType() == typeof(Enemy)) {
                     newTile.EntityInTile.ApplyDamage(60);
                 }
             }

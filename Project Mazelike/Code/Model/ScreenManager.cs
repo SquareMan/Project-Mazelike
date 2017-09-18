@@ -19,7 +19,7 @@ namespace ProjectMazelike {
             //Setup screens
             gameScreen = AddScreen("Game", true, false, true);
             gameScreen.SamplerState = SamplerState.PointClamp;
-            pauseScreen = AddScreen("Pause", true, false, true);
+            pauseScreen = AddScreen("Pause", false, false, false);
             pauseScreen.SamplerState = SamplerState.PointClamp;
             SetActiveScreen("Game");
         }

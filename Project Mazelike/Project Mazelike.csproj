@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
+    <None Include="Content\Fonts\Font.spritefont" />
     <None Include="Content\XML\RoomExample.xml">
       <SubType>Designer</SubType>
     </None>
