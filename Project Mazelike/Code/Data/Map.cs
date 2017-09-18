@@ -75,7 +75,7 @@ namespace ProjectMazelike {
         }
 
         public Tile GetTile(int x, int y) {
-            if (x > Tiles.GetLength(0) || x < 0 || y > Tiles.GetLength(1) || y < 0) {
+            if (x > Tiles.GetLength(0) - 1 || x < 0 || y > Tiles.GetLength(1) - 1 || y < 0) {
                 //Requested tile is out of range
                 return null;
             }
