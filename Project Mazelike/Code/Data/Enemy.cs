@@ -26,6 +26,7 @@ namespace ProjectMazelike {
 
         public void Die() {
             OnDeath?.Invoke();
+            currentTile.LeaveTile(this);
         }
 
         public int GetHealth() {

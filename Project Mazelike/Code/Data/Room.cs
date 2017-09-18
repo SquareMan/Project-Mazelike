@@ -41,7 +41,6 @@ namespace ProjectMazelike {
                         int y = int.Parse(reader.GetAttribute("y"));
 
                         tiles[x, y].EnterTile(new Enemy(tiles[x,y]));
-                        tiles[x, y].EntityInTile.OnDeath += () => { Debug.WriteLine("I Died"); };
                     }
                 }
             }

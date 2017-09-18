@@ -43,8 +43,10 @@ namespace ProjectMazelike {
                             if (entity != null) {
                                 Tiles[(10 * i) + x, (10 * j) + y].EnterTile(entity);
 
-                                if (typeof(Enemy) == entity.GetType())
+                                if (typeof(Enemy) == entity.GetType()) {
                                     Enemies.Add((Enemy)entity);
+                                    entity.OnDeath += () => { Enemies.Remove((Enemy)entity); };
+                                }
                             }
                         }
                     }

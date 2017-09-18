@@ -8,12 +8,6 @@ using System.Threading.Tasks;
 
 namespace ProjectMazelike {
     class Tile {
-        public static readonly Dictionary<string, Tile> tilePrototypes = new Dictionary<string, Tile>();
-
-        public static readonly Tile tileFloor = new Tile("Floor", TileType.Floor);
-        public static readonly Tile tileWall = new Tile("Wall", TileType.Wall);
-        public static readonly Tile tileStair = new Tile("Stair", TileType.Floor);
-
         public delegate void TileEnteredDelegate(IEntity entity);
         public event TileEnteredDelegate OnTileEntered;
 
@@ -32,6 +26,12 @@ namespace ProjectMazelike {
             this.ID = ID;
             this.TileType = type;
         }
+
+        public static readonly Dictionary<string, Tile> tilePrototypes = new Dictionary<string, Tile>();
+
+        public static readonly Tile tileFloor = new Tile("Floor", TileType.Floor);
+        public static readonly Tile tileWall = new Tile("Wall", TileType.Wall);
+        public static readonly Tile tileStair = new Tile("Stair", TileType.Floor);
 
         /// <summary>
         /// Copy Constructor for creating game tiles

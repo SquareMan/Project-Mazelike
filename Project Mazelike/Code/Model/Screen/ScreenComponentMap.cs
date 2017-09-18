@@ -14,6 +14,10 @@ namespace ProjectMazelike {
             this.map = map;
         }
 
+        public override void Update(GameTime gameTime) {
+            Screen.Camera.Position = ((map.Player.position.ToVector2() * ScreenComponentMaze.cellSize) + new Vector2(ScreenComponentMaze.cellSize / 2));
+        }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
             for (int x = 0; x < map.Tiles.GetLength(0); x++) {
                 for (int y = 0; y < map.Tiles.GetLength(1); y++) {
