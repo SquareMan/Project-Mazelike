@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,7 @@ namespace ProjectMazelike {
                         int y = int.Parse(reader.GetAttribute("y"));
 
                         tiles[x, y].EnterTile(new Enemy(tiles[x,y]));
+                        tiles[x, y].EntityInTile.OnDeath += () => { Debug.WriteLine("I Died"); };
                     }
                 }
             }

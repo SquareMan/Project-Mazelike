@@ -43,7 +43,7 @@ namespace ProjectMazelike {
                 data[i] = Color.White;
             }
 
-            Texture2D cellTexture = new Texture2D(ProjectMazelike.Game.GraphicsDevice, ScreenComponentMaze.cellSize, ScreenComponentMaze.cellSize);
+            Texture2D cellTexture = new Texture2D(ProjectMazelike.Instance.GraphicsDevice, ScreenComponentMaze.cellSize, ScreenComponentMaze.cellSize);
             cellTexture.SetData(data);
             textureMap.Add("Cell", cellTexture);
 
@@ -53,7 +53,7 @@ namespace ProjectMazelike {
                 data[i] = Color.White;
             }
 
-            Texture2D wallTexture = new Texture2D(ProjectMazelike.Game.GraphicsDevice, ScreenComponentMaze.wallSize, ScreenComponentMaze.wallSize);
+            Texture2D wallTexture = new Texture2D(ProjectMazelike.Instance.GraphicsDevice, ScreenComponentMaze.wallSize, ScreenComponentMaze.wallSize);
             wallTexture.SetData(data);
             textureMap.Add("Maze Wall", wallTexture);
         }

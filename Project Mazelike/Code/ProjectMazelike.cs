@@ -9,7 +9,7 @@ namespace ProjectMazelike {
     /// This is the main type for your game.
     /// </summary>
     public class ProjectMazelike : Game {
-        public static ProjectMazelike Game { get; protected set; }
+        public static ProjectMazelike Instance { get; protected set; }
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -19,7 +19,7 @@ namespace ProjectMazelike {
         public SpriteBatch SpriteBatch { get => spriteBatch; private set => spriteBatch = value; }
 
         public ProjectMazelike() {
-            Game = this;
+            Instance = this;
 
             graphics = new GraphicsDeviceManager(this);
 

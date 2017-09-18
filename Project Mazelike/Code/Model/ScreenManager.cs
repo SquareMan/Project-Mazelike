@@ -40,11 +40,11 @@ namespace ProjectMazelike {
         }
 
         public static Screen AddScreen(String name, Boolean moveable = true, Boolean rotatable = true, Boolean scaleable = true) {
-            Screen newScreen = new Screen(ProjectMazelike.Game, moveable, rotatable, scaleable);
+            Screen newScreen = new Screen(ProjectMazelike.Instance, moveable, rotatable, scaleable);
             newScreen.Visible = false;
             newScreen.Enabled = false;
             screens.Add(name, newScreen);
-            ProjectMazelike.Game.Components.Add(newScreen);
+            ProjectMazelike.Instance.Components.Add(newScreen);
             return newScreen;
         }
 

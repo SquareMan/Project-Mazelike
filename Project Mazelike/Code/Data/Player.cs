@@ -47,11 +47,15 @@ namespace ProjectMazelike {
             Point newPosition = position + direction.ToPoint();
             Tile newTile = currentMap.GetTile(newPosition.X, newPosition.Y);
 
-            if (newTile != null && newTile.CanEnter()) {
-                currentTile.LeaveTile(this);
-                position = newPosition;
-                currentTile = newTile;
-                currentTile.EnterTile(this);
+            if (newTile != null) {
+                if (newTile.CanEnter()) {
+                    currentTile.LeaveTile(this);
+                    position = newPosition;
+                    currentTile = newTile;
+                    currentTile.EnterTile(this);
+                } else if (newTile.EntityInTile.GetType() == typeof(Enemy)) {
+                    newTile.EntityInTile.ApplyDamage(60);
+                }
             }
         }
 
