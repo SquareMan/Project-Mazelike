@@ -7,8 +7,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
+using ProjectMazelike.Controller;
 
-namespace ProjectMazelike {
+namespace ProjectMazelike.View {
     class ScreenComponentButton : ScreenComponent, IClickable {
         private string _text;
         public string text {
@@ -35,7 +36,7 @@ namespace ProjectMazelike {
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
             if(sprite == null) {
-                sprite = new SpriteNineSlice(TextureManager.GetTexture("Button"), Position, bounds.Width, bounds.Height, 8, 8, 8, 8);
+                sprite = new SpriteNineSlice(TextureController.GetTexture("Button"), Position, bounds.Width, bounds.Height, 8, 8, 8, 8);
             }
             
             sprite.Draw(spriteBatch, Position);
@@ -46,7 +47,7 @@ namespace ProjectMazelike {
         }
 
         public override void Update(GameTime gameTime) {
-            if (MouseManager.IsLeftReleased() && bounds.Intersects(
+            if (MouseController.IsLeftReleased() && bounds.Intersects(
                 new Rectangle(Screen.GetMousePosition(Space), new Point(1)))) {
                 OnClicked?.Invoke();
             }

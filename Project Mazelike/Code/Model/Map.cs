@@ -9,7 +9,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Diagnostics;
 
-namespace ProjectMazelike {
+namespace ProjectMazelike.Model {
     class Map {
         public Tile[,] Tiles { get; set; }
         public Player Player { get; set; }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike {
+namespace ProjectMazelike.View {
     class SpriteNineSlice {
         public Vector2 position;
         public int width;

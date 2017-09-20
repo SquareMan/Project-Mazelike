@@ -1,20 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
+using ProjectMazelike.Model;
+using ProjectMazelike.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike {
-    class WorldManager {
-        public static WorldManager Instance;
+namespace ProjectMazelike.Controller {
+    class WorldController {
+        public static WorldController Instance;
 
         public World world;
         public Player player;
 
         ScreenComponentMap scm;
 
-        public WorldManager() {
+        public WorldController() {
             Instance = this;
 
             player = new Player(new Point(2));
@@ -24,9 +26,9 @@ namespace ProjectMazelike {
         public void SetMap(Map newMap) {
             //world.SetMap(newMap);
 
-            ScreenManager.gameScreen.RemoveComponent(scm);
-            scm = new ScreenComponentMap(newMap, ScreenManager.gameScreen, DrawLayer.Background);
-            ScreenManager.gameScreen.AddComponent(scm);
+            ScreenController.gameScreen.RemoveComponent(scm);
+            scm = new ScreenComponentMap(newMap, ScreenController.gameScreen, DrawLayer.Background);
+            ScreenController.gameScreen.AddComponent(scm);
         }
 
         public void GenerateWorld() {

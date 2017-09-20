@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ProjectMazelike.Controller;
+using ProjectMazelike.View;
 using System;
 using System.Diagnostics;
 
@@ -16,7 +18,7 @@ namespace ProjectMazelike {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         
-        WorldManager worldManager;
+        WorldController worldManager;
 
         public SpriteBatch SpriteBatch { get => spriteBatch; private set => spriteBatch = value; }
 
@@ -37,8 +39,8 @@ namespace ProjectMazelike {
         protected override void Initialize() {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            ScreenManager.Initialize();
-            worldManager = new WorldManager();
+            ScreenController.Initialize();
+            worldManager = new WorldController();
 
             IsMouseVisible = true;
 
@@ -50,7 +52,7 @@ namespace ProjectMazelike {
         /// all of your content.
         /// </summary>
         protected override void LoadContent() {
-            TextureManager.LoadTextures(Content);
+            TextureController.LoadTextures(Content);
             font = Content.Load<SpriteFont>("Fonts/Font");
 
             //Pause Screen Components
@@ -59,14 +61,14 @@ namespace ProjectMazelike {
                                                        GraphicsDevice.Viewport.Height / 2 - 60),
                                            240,
                                            120,
-                                           ScreenManager.pauseScreen,
+                                           ScreenController.pauseScreen,
                                            DrawLayer.UI,
                                            DrawSpace.Screen);
             button.text = "Quit Game";
 
             //Make button change map the game
             button.OnClicked += () => { Exit(); };
-            ScreenManager.pauseScreen.AddComponent(button);
+            ScreenController.pauseScreen.AddComponent(button);
         }
 
         /// <summary>
@@ -83,8 +85,8 @@ namespace ProjectMazelike {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
-            MouseManager.Update(gameTime);
-            KeyboardManager.Update(gameTime);
+            MouseController.Update(gameTime);
+            KeyboardController.Update(gameTime);
 
             base.Update(gameTime);
         }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike {
+namespace ProjectMazelike.View {
     abstract class ScreenComponent {
         public Screen Screen { get; protected set; }
         public Vector2 Position { get; protected set; }

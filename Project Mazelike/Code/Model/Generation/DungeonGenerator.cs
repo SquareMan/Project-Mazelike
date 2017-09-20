@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike.Generation
+namespace ProjectMazelike.Model.Generation
 {
     class DungeonGenerator {
         Maze maze;

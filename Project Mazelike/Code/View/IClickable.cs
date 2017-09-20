@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike {
+namespace ProjectMazelike.View {
     interface IClickable {
         event ScreenComponent.ClickedDelegate OnClicked;
     }

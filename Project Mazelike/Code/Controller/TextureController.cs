@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using ProjectMazelike.Model;
+using ProjectMazelike.View;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,8 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike {
-    static class TextureManager {
+namespace ProjectMazelike.Controller {
+    static class TextureController {
         static Dictionary<String, Texture2D> textureMap;
 
         private static String missingTexture = "MISSINGTEXTURE";

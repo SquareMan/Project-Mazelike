@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike {
-    static class MouseManager {
+namespace ProjectMazelike.Controller {
+    static class MouseController {
         public static float zoomSensitivity = .001f;
 
         public static MouseState currentState { get; private set; }
@@ -20,14 +20,14 @@ namespace ProjectMazelike {
 
             if(currentState.LeftButton == ButtonState.Pressed) {
                 //Drag the camera
-                Vector2 delta = (lastState.Position.ToVector2() - currentState.Position.ToVector2())/ScreenManager.ActiveScreen.Camera.Scale;
+                Vector2 delta = (lastState.Position.ToVector2() - currentState.Position.ToVector2())/ScreenController.ActiveScreen.Camera.Scale;
 
-                ScreenManager.ActiveScreen.Camera.MoveCamera(delta);
+                ScreenController.ActiveScreen.Camera.MoveCamera(delta);
             }
 
             //Zoom the game camera in and out
             //if(GameManager.Instance.screenManager.ActiveScreen.canBeZoomed)
-                ScreenManager.ActiveScreen.Camera.Scale += GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
+                ScreenController.ActiveScreen.Camera.Scale += GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
         }
 
         public static Boolean IsLeftReleased() {
