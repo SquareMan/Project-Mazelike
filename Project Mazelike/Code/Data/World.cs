@@ -32,6 +32,8 @@ namespace ProjectMazelike {
             };
         }
 
+        int worldSeed;
+
         List<Map> Overworld = new List<Map>();
 
         Map currentMap;
