@@ -5,20 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
-namespace ProjectMazelike {
-    class Entity : IEntity {
+namespace ProjectMazelike.Model {
+    class Enemy : IEntity {
+        public Enemy(Tile currentTile) {
+            this.currentTile = currentTile;
+        }
+
         public event EntityDiedDelegate OnDeath;
 
+        public Tile currentTile;
+
+        protected int health = 100;
+
         public void ApplyDamage(int damage) {
-            throw new NotImplementedException();
+            health -= damage;
+            if(health <= 0) {
+                Die();
+            }
         }
 
         public void Die() {
-            throw new NotImplementedException();
+            OnDeath?.Invoke();
+            currentTile.LeaveTile(this);
         }
 
         public int GetHealth() {
-            throw new NotImplementedException();
+            return health;
         }
 
         public void Move(Vector2 direction) {

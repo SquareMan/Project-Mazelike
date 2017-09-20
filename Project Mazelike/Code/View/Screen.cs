@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
+using ProjectMazelike.Controller;
 
-namespace ProjectMazelike {
+namespace ProjectMazelike.View {
     class Screen : DrawableGameComponent {
         //SpriteBatch Information
         public BlendState BlendState { get; set; }
@@ -75,9 +76,9 @@ namespace ProjectMazelike {
 
         public Point GetMousePosition(DrawSpace space) {
             if (space == DrawSpace.World) {
-                return Vector2.Transform(MouseManager.currentState.Position.ToVector2(), Matrix.Invert(Camera.GetTransformMatrix(canBeMoved, canBeRotated, canBeZoomed))).ToPoint();
+                return Vector2.Transform(MouseController.currentState.Position.ToVector2(), Matrix.Invert(Camera.GetTransformMatrix(canBeMoved, canBeRotated, canBeZoomed))).ToPoint();
             } else {
-                return MouseManager.currentState.Position;
+                return MouseController.currentState.Position;
             }
         }
 

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike {
+namespace ProjectMazelike.Model {
     class Player : IEntity {
         public Player(Point position) {
             this.position = position;

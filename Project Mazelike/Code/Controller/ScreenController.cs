@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using ProjectMazelike.View;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike {
-    static class ScreenManager {
+namespace ProjectMazelike.Controller {
+    static class ScreenController {
         public static Screen ActiveScreen { get; private set; }
 
         public static Screen gameScreen;

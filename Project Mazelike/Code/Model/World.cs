@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using ProjectMazelike.Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike {
+namespace ProjectMazelike.Model {
     class World {
         public World(Player player) {
             this.player = player;
@@ -41,7 +42,7 @@ namespace ProjectMazelike {
 
         public void SetMap(Map newMap) {
             player.SetMap(newMap);
-            WorldManager.Instance.SetMap(newMap);
+            WorldController.Instance.SetMap(newMap);
 
             currentMap = newMap;
         }

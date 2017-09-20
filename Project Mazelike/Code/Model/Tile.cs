@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike {
+namespace ProjectMazelike.Model {
     class Tile {
         public delegate void TileEnteredDelegate(IEntity entity);
         public event TileEnteredDelegate OnTileEntered;

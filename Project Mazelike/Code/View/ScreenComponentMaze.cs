@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ProjectMazelike.Generation;
+using ProjectMazelike.Model.Generation;
+using ProjectMazelike.Controller;
 
-namespace ProjectMazelike {
+namespace ProjectMazelike.View {
     class ScreenComponentMaze : ScreenComponent {
         public static int cellSize = 32;
         public static int wallSize = 2;
@@ -26,7 +27,7 @@ namespace ProjectMazelike {
                 //Draw rectangle at cell's position
                 Rectangle rect = new Rectangle(cell.X * cellSize, cell.Y * cellSize, cellSize, cellSize);
                 if (cell.Visited) {
-                    spriteBatch.Draw(TextureManager.GetTexture("Cell"), rect, Color.White);
+                    spriteBatch.Draw(TextureController.GetTexture("Cell"), rect, Color.White);
                 } else {
                     unvisitedCells.Add(cell);
                 }
@@ -42,18 +43,18 @@ namespace ProjectMazelike {
                 //  This will not draw the walls on the edge of the screen, but they do exist.
                 if (cell.WallStatus(Cell.Direction.East)) {
                     rect = new Rectangle(cell.X * cellSize + (cellSize - wallSize / 2), cell.Y * cellSize, wallSize, cellSize);
-                    spriteBatch.Draw(TextureManager.GetTexture("Maze Wall"), rect, Color.Black);
+                    spriteBatch.Draw(TextureController.GetTexture("Maze Wall"), rect, Color.Black);
                 }
                 if (cell.WallStatus(Cell.Direction.South)) {
                     rect = new Rectangle(cell.X * cellSize, cell.Y * cellSize + (cellSize - wallSize / 2), cellSize, wallSize);
-                    spriteBatch.Draw(TextureManager.GetTexture("Maze Wall"), rect, Color.Black);
+                    spriteBatch.Draw(TextureController.GetTexture("Maze Wall"), rect, Color.Black);
                 }
             }
 
             //Draw unvisited cells AFTER walls so they get hidden
             foreach (Cell cell in unvisitedCells) {
                 Rectangle rect = new Rectangle(cell.X * cellSize, cell.Y * cellSize, cellSize, cellSize);
-                spriteBatch.Draw(TextureManager.GetTexture("Cell"), rect, Color.Gray);
+                spriteBatch.Draw(TextureController.GetTexture("Cell"), rect, Color.Gray);
             }
         }
     }

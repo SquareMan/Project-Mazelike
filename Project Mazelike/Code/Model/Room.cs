@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace ProjectMazelike {
+namespace ProjectMazelike.Model {
     struct Room {
         public Tile[,] tiles;
 
