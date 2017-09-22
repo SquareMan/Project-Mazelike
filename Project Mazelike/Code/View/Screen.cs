@@ -17,10 +17,6 @@ namespace ProjectMazelike.View {
         public RasterizerState RasterizerState { get; set; }
         public Effect Effect { get; set; }
 
-        public Boolean canBeMoved;
-        public Boolean canBeRotated;
-        public Boolean canBeZoomed;
-
         //Index is in order of draw layers, stores a list of every ScreenComponent on that layer
         //public List<ScreenComponent>[] components;
         public List<ScreenComponent>[] worldSpaceComponents;
@@ -28,10 +24,17 @@ namespace ProjectMazelike.View {
 
         public Camera Camera { get; set; }
 
+        /// <summary>
+        /// Create a new Screen
+        /// </summary>
+        /// <param name="game">The game this screen belongs to</param>
+        /// <param name="moveable">Whether or not the Camera can be panned</param>
+        /// <param name="rotatable">Whether or not the Camera can be rotated</param>
+        /// <param name="scaleable">Whether or not the Camera can be zoomed</param>
         public Screen(Game game, Boolean moveable, Boolean rotatable, Boolean scaleable) : base(game) {
-            this.canBeMoved = moveable;
-            this.canBeRotated = rotatable;
-            this.canBeZoomed = scaleable;
+            //this.canBeMoved = moveable;
+            //this.canBeRotated = rotatable;
+            //this.canBeZoomed = scaleable;
 
             //Create arrays of lists of game components, corresponding to their draw layer, for both world space and screen space
             worldSpaceComponents = new List<ScreenComponent>[Enum.GetNames(typeof(DrawLayer)).Length];
@@ -45,6 +48,9 @@ namespace ProjectMazelike.View {
 
             //Create a new camera with origin at the top left corner
             Camera = new Camera(GraphicsDevice.Viewport, Vector2.Zero + new Vector2(GraphicsDevice.Viewport.Width/2, GraphicsDevice.Viewport.Height/2));
+            Camera.canBeMoved = moveable;
+            Camera.canBeRotated = rotatable;
+            Camera.canBeScaled = scaleable;
         }
 
         /// <summary>
@@ -74,20 +80,31 @@ namespace ProjectMazelike.View {
             }
         }
 
+        /// <summary>
+        /// Return the current mouse position in either world or screen space
+        /// </summary>
+        /// <param name="space">World or Screen space</param>
+        /// <returns></returns>
         public Point GetMousePosition(DrawSpace space) {
             if (space == DrawSpace.World) {
-                return Vector2.Transform(MouseController.currentState.Position.ToVector2(), Matrix.Invert(Camera.GetTransformMatrix(canBeMoved, canBeRotated, canBeZoomed))).ToPoint();
+                return Vector2.Transform(MouseController.currentState.Position.ToVector2(), Matrix.Invert(Camera.TransformMatrix)).ToPoint();
             } else {
                 return MouseController.currentState.Position;
             }
         }
 
+        /// <summary>
+        /// Update all Screen Components
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime) {
             for (int i = 0; i < Enum.GetNames(typeof(DrawLayer)).Length; i++) {
+                //Update WorldSpace ScreenComponents
                 foreach (ScreenComponent sc in worldSpaceComponents[i]) {
                     sc.Update(gameTime);
                 }
 
+                //Update ScreenSpace ScreenComponents
                 foreach (ScreenComponent sc in screenSpaceComponents[i]) {
                     sc.Update(gameTime);
                 }
@@ -96,17 +113,22 @@ namespace ProjectMazelike.View {
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Draw all Screen Components
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime) {
             base.Draw(gameTime);
-
-            //Draw all objects that belong to this screen according to what they are, their draw layer, and whether they should be in world space or screen space
+            
             for(int i = 0; i < Enum.GetNames(typeof(DrawLayer)).Length; i++) {
-                ((ProjectMazelike)Game).SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Camera.GetTransformMatrix(canBeMoved, canBeRotated, canBeZoomed));
+                //Draw WorldSpace Screen Components
+                ((ProjectMazelike)Game).SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Camera.TransformMatrix);
                 foreach (ScreenComponent sc in worldSpaceComponents[i]) {
                     sc.Draw(gameTime, ((ProjectMazelike)Game).SpriteBatch);
                 }
                 ((ProjectMazelike)Game).SpriteBatch.End();
 
+                //Draw ScreenSpace Screen Components
                 ((ProjectMazelike)Game).SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect);
                 foreach (ScreenComponent sc in screenSpaceComponents[i]) {
                     sc.Draw(gameTime, ((ProjectMazelike)Game).SpriteBatch);

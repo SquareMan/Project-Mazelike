@@ -7,12 +7,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectMazelike.View {
-    abstract class ScreenComponent {
+    abstract class ScreenComponent : ITransformable {
         public Screen Screen { get; protected set; }
-        public Vector2 Position { get; protected set; }
 
         public DrawLayer Layer { get; set; }
         public DrawSpace Space { get; set; }
+        
+        public Vector2 Position { get; set; }
+        public float Rotation { get; set; }
+        public float Scale { get; set; }
+
+        public Matrix TransformMatrix {
+            get {
+                return  Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
+                        Matrix.CreateRotationZ(Rotation) *
+                        Matrix.CreateScale(Scale);
+            }
+        }
 
         public delegate void ClickedDelegate();
 
@@ -21,20 +32,6 @@ namespace ProjectMazelike.View {
             this.Layer = layer;
             this.Space = space;
         }
-
-        //protected void DrawWithTransformation(SpriteBatch spriteBatch, Texture2D texture) {
-        //    spriteBatch.Draw(
-        //        texture,
-        //        drawInWorldSpace ? Position : Vector2.Transform(Position, Matrix.Invert(Screen.Camera.GetTransformMatrix(Screen.canBeMoved, Screen.canBeRotated, Screen.canBeZoomed))),
-        //        null,
-        //        Color.White,
-        //        rotatable ? 0f : -Screen.Camera.Rotation,
-        //        Vector2.One,
-        //        Screen.Camera.Scale,
-        //        SpriteEffects.None,
-        //        1f
-        //    );
-        //}
 
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 
