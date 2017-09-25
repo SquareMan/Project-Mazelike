@@ -66,6 +66,7 @@
     <Compile Include="Code\View\ScreenComponentMaze.cs" />
     <Compile Include="Code\View\ScreenComponentButton.cs" />
     <Compile Include="Code\Controller\TextureController.cs" />
+    <Compile Include="Code\View\ScreenComponentSprite.cs" />
     <Compile Include="Code\View\Sprite.cs" />
     <Compile Include="Code\View\SpriteNineSlice.cs" />
     <Compile Include="Code\Controller\WorldController.cs" />
