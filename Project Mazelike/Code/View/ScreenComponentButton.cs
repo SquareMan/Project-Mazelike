@@ -11,6 +11,12 @@ using ProjectMazelike.Controller;
 
 namespace ProjectMazelike.View {
     class ScreenComponentButton : ScreenComponent, IClickable {
+        public ScreenComponentButton(Vector2 position, int width, int height, Screen screen, DrawLayer layer, DrawSpace space = DrawSpace.World) : base(screen, layer, space) {
+            sprite = new SpriteNineSlice(TextureController.GetTexture("Button"), position, width, height, 8, 8, 8, 8);
+
+            this.Position = position;
+        }
+
         private string _text;
         private Vector2 textPosition;
         public string text {
@@ -22,12 +28,10 @@ namespace ProjectMazelike.View {
                 textPosition = (Bounds.Center - (ProjectMazelike.font.MeasureString(_text) / 2).ToPoint()).ToVector2();
             }
         }
-
-        int width;
-        int height;
+        
         Rectangle Bounds {
             get {
-                return new Rectangle((int)Position.X, (int)Position.Y, width, height);
+                return new Rectangle((int)Position.X, (int)Position.Y, sprite.width, sprite.height);
             }
         }
         SpriteNineSlice sprite;
@@ -42,21 +46,9 @@ namespace ProjectMazelike.View {
             }
         }
 
-        public ScreenComponentButton(Vector2 position, int width, int height, Screen screen, DrawLayer layer, DrawSpace space = DrawSpace.World) : base(screen, layer, space) {
-            sprite = new SpriteNineSlice(TextureController.GetTexture("Button"), position, width, height, 8, 8, 8, 8);
-
-            this.Position = position;
-            this.width = width;
-            this.height = height;
-        }
-
         public event ClickedDelegate OnClicked;
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
-            if(sprite == null) {
-                sprite = new SpriteNineSlice(TextureController.GetTexture("Button"), Position, width, height, 8, 8, 8, 8);
-            }
-
             //sprite.Draw(spriteBatch, Position);
             sprite.Draw(spriteBatch);
 
