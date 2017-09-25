@@ -5,7 +5,7 @@
       <tile type="Wall" x="6" y="2" />
       <tile type="Wall" x="6" y="3" />
       <tile type="Wall" x="6" y="4" />
-      <player x="9" y="3" />
+      <enemy x="2" y="6" />
     </room>
   </Asset>
 </XnaContent>

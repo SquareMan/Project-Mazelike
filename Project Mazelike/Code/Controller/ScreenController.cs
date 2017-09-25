@@ -13,6 +13,7 @@ namespace ProjectMazelike.Controller {
 
         public static Screen gameScreen;
         public static Screen pauseScreen;
+        public static Screen mainMenuScreen;
 
         private static Dictionary<String, Screen> screens = new Dictionary<string, Screen>();
 
@@ -22,7 +23,8 @@ namespace ProjectMazelike.Controller {
             gameScreen.SamplerState = SamplerState.PointClamp;
             pauseScreen = AddScreen("Pause", false, false, false);
             pauseScreen.SamplerState = SamplerState.PointClamp;
-            SetActiveScreen("Game");
+            mainMenuScreen = AddScreen("Main Menu", false, false, false);
+            mainMenuScreen.SamplerState = SamplerState.PointClamp;
         }
 
         public static void SetActiveScreen(String name) {

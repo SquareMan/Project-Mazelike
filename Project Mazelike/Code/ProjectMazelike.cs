@@ -11,6 +11,22 @@ namespace ProjectMazelike {
     /// This is the main type for your game.
     /// </summary>
     public class ProjectMazelike : Game {
+        public enum GameState { Startup, MainMenu, Running, Paused};
+
+        public delegate void GameStateChangedDelegate(GameState newState);
+        public event GameStateChangedDelegate OnGameStateChanged;
+
+        private GameState _currentState = GameState.Startup;
+        public GameState CurrentState {
+            get {
+                return _currentState;
+            }
+            set {
+                _currentState = value;
+                OnGameStateChanged?.Invoke(_currentState);
+            }
+        }
+
         public static ProjectMazelike Instance { get; protected set; }
 
         public static SpriteFont font;
@@ -28,6 +44,8 @@ namespace ProjectMazelike {
             graphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
+
+            OnGameStateChanged += StateChanged;
         }
 
         /// <summary>
@@ -39,12 +57,15 @@ namespace ProjectMazelike {
         protected override void Initialize() {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            KeyboardController.Initialize();
             ScreenController.Initialize();
             worldManager = new WorldController();
 
             IsMouseVisible = true;
 
             base.Initialize();
+
+            CurrentState = GameState.MainMenu;
         }
 
         /// <summary>
@@ -56,7 +77,7 @@ namespace ProjectMazelike {
             font = Content.Load<SpriteFont>("Fonts/Font");
 
             //Pause Screen Components
-            ScreenComponentButton button = new ScreenComponentButton(
+            ScreenComponentButton exitGameButton = new ScreenComponentButton(
                                            new Vector2(GraphicsDevice.Viewport.Width / 2 - 120,
                                                        GraphicsDevice.Viewport.Height / 2 - 60),
                                            240,
@@ -64,11 +85,24 @@ namespace ProjectMazelike {
                                            ScreenController.pauseScreen,
                                            DrawLayer.UI,
                                            DrawSpace.Screen);
-            button.text = "Quit Game";
+            exitGameButton.text = "Quit Game";
 
             //Make button change map the game
-            button.OnClicked += () => { Exit(); };
-            ScreenController.pauseScreen.AddComponent(button);
+            exitGameButton.OnClicked += Exit;
+            ScreenController.pauseScreen.AddComponent(exitGameButton);
+
+            //Main Menu Components
+            ScreenComponentButton startGameButton = new ScreenComponentButton(
+                                                       new Vector2(GraphicsDevice.Viewport.Width / 2 - 120,
+                                                                   GraphicsDevice.Viewport.Height / 2 - 60),
+                                                       240,
+                                                       120,
+                                                       ScreenController.mainMenuScreen,
+                                                       DrawLayer.UI,
+                                                       DrawSpace.Screen);
+
+            startGameButton.OnClicked += StartGame;
+            ScreenController.mainMenuScreen.AddComponent(startGameButton);
         }
 
         /// <summary>
@@ -99,6 +133,40 @@ namespace ProjectMazelike {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             base.Draw(gameTime);
+        }
+
+        public void StartGame() {
+            if (CurrentState != GameState.MainMenu)
+                return;
+            CurrentState = GameState.Running;
+        }
+
+        public void PauseGame() {
+            if (CurrentState != GameState.Running)
+                return;
+            CurrentState = GameState.Paused;
+        }
+
+        public void UnpauseGame() {
+            if (CurrentState != GameState.Paused)
+                return;
+            CurrentState = GameState.Running;
+        }
+
+        void StateChanged(GameState newState) {
+            switch(newState) {
+                case GameState.Startup:
+                    break;
+                case GameState.MainMenu:
+                    ScreenController.SetActiveScreen("Main Menu");
+                    break;
+                case GameState.Running:
+                    ScreenController.SetActiveScreen("Game");
+                    break;
+                case GameState.Paused:
+                    ScreenController.SetActiveScreen("Pause");
+                    break;
+            }
         }
     }
 }

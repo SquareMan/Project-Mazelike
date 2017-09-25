@@ -26,7 +26,7 @@ namespace ProjectMazelike.Controller {
             }
 
             //Zoom the game camera in and out
-            //if(GameManager.Instance.screenManager.ActiveScreen.canBeZoomed)
+            if(ScreenController.ActiveScreen != null)
                 ScreenController.ActiveScreen.Camera.Scale += GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
         }
 
