@@ -12,34 +12,53 @@ using ProjectMazelike.Controller;
 namespace ProjectMazelike.View {
     class ScreenComponentButton : ScreenComponent, IClickable {
         private string _text;
+        private Vector2 textPosition;
         public string text {
             get {
                 return _text;
             }
             set {
                 _text = value;
-                textPosition = (bounds.Center - (ProjectMazelike.font.MeasureString(_text) / 2).ToPoint()).ToVector2();
+                textPosition = (Bounds.Center - (ProjectMazelike.font.MeasureString(_text) / 2).ToPoint()).ToVector2();
             }
         }
-        private Vector2 textPosition;
 
-        Rectangle bounds;
+        int width;
+        int height;
+        Rectangle Bounds {
+            get {
+                return new Rectangle((int)Position.X, (int)Position.Y, width, height);
+            }
+        }
         SpriteNineSlice sprite;
+        
+        new public Vector2 Position {
+            get {
+                return sprite.Position;
+            }
+            set {
+                if (sprite != null)
+                    sprite.Position = value;
+            }
+        }
 
         public ScreenComponentButton(Vector2 position, int width, int height, Screen screen, DrawLayer layer, DrawSpace space = DrawSpace.World) : base(screen, layer, space) {
-            this.Position = position;
+            sprite = new SpriteNineSlice(TextureController.GetTexture("Button"), position, width, height, 8, 8, 8, 8);
 
-            this.bounds = new Rectangle((int)position.X, (int)position.Y, width, height);
+            this.Position = position;
+            this.width = width;
+            this.height = height;
         }
 
         public event ClickedDelegate OnClicked;
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
             if(sprite == null) {
-                sprite = new SpriteNineSlice(TextureController.GetTexture("Button"), Position, bounds.Width, bounds.Height, 8, 8, 8, 8);
+                sprite = new SpriteNineSlice(TextureController.GetTexture("Button"), Position, width, height, 8, 8, 8, 8);
             }
-            
-            sprite.Draw(spriteBatch, Position);
+
+            //sprite.Draw(spriteBatch, Position);
+            sprite.Draw(spriteBatch);
 
             if(text != null) {
                 spriteBatch.DrawString(ProjectMazelike.font, text, textPosition, Color.White);
@@ -47,7 +66,7 @@ namespace ProjectMazelike.View {
         }
 
         public override void Update(GameTime gameTime) {
-            if (MouseController.IsLeftReleased() && bounds.Intersects(
+            if (MouseController.IsLeftReleased() && Bounds.Intersects(
                 new Rectangle(Screen.GetMousePosition(Space), new Point(1)))) {
                 OnClicked?.Invoke();
             }

@@ -58,6 +58,7 @@
     <Compile Include="Code\Controller\MouseController.cs" />
     <Compile Include="Code\Controller\ScreenController.cs" />
     <Compile Include="Code\View\IClickable.cs" />
+    <Compile Include="Code\View\ITransformable.cs" />
     <Compile Include="Code\View\ScreenComponentMap.cs" />
     <Compile Include="Code\View\Camera.cs" />
     <Compile Include="Code\View\Screen.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Code\View\ScreenComponentMaze.cs" />
     <Compile Include="Code\View\ScreenComponentButton.cs" />
     <Compile Include="Code\Controller\TextureController.cs" />
+    <Compile Include="Code\View\Sprite.cs" />
     <Compile Include="Code\View\SpriteNineSlice.cs" />
     <Compile Include="Code\Controller\WorldController.cs" />
     <Compile Include="Code\ProjectMazelike.cs" />
