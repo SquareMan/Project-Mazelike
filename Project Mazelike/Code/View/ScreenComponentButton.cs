@@ -31,25 +31,23 @@ namespace ProjectMazelike.View {
             }
         }
         SpriteNineSlice sprite;
-
-        private Vector2 _position;
+        
         new public Vector2 Position {
             get {
-                return _position;
+                return sprite.Position;
             }
             set {
-                _position = value;
                 if (sprite != null)
                     sprite.Position = value;
             }
         }
 
         public ScreenComponentButton(Vector2 position, int width, int height, Screen screen, DrawLayer layer, DrawSpace space = DrawSpace.World) : base(screen, layer, space) {
+            sprite = new SpriteNineSlice(TextureController.GetTexture("Button"), position, width, height, 8, 8, 8, 8);
+
             this.Position = position;
             this.width = width;
             this.height = height;
-
-            //this.bounds = new Rectangle((int)position.X, (int)position.Y, width, height);
         }
 
         public event ClickedDelegate OnClicked;

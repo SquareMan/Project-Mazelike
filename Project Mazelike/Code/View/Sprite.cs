@@ -16,7 +16,7 @@ namespace ProjectMazelike.View {
             height = texture.Height;
         }
 
-        public Sprite(Texture2D texture, int width, int height, Vector2 position, float rotation = 1f, float scale = 1f) {
+        public Sprite(Texture2D texture, int width, int height, Vector2 position, float rotation = 0f, float scale = 1f) {
             this.texture = texture;
             this.width = width;
             this.height = height;
