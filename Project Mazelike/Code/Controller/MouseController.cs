@@ -14,6 +14,13 @@ namespace ProjectMazelike.Controller {
         public static MouseState currentState { get; private set; }
         public static MouseState lastState { get; private set; }
 
+        delegate void UpdateFunc();
+        static UpdateFunc Update_CurrentFunc;
+
+        public static void Initialize() {
+            ProjectMazelike.Instance.OnGameStateChanged += OnGameStateChanged;
+        }
+
         public static void Update(GameTime gameTime) {
             lastState = currentState;
             currentState = Mouse.GetState();
@@ -46,6 +53,23 @@ namespace ProjectMazelike.Controller {
 
         public static int GetScrollWhellAmount(MouseState currentState, MouseState lastState) {
             return currentState.ScrollWheelValue - lastState.ScrollWheelValue;
+        }
+
+        static void OnGameStateChanged(ProjectMazelike.GameState newState) {
+            switch (newState) {
+                case ProjectMazelike.GameState.Startup:
+                    Update_CurrentFunc = null;
+                    break;
+                case ProjectMazelike.GameState.MainMenu:
+                    Update_CurrentFunc = null;
+                    break;
+                case ProjectMazelike.GameState.Running:
+                    Update_CurrentFunc = null;
+                    break;
+                case ProjectMazelike.GameState.Paused:
+                    Update_CurrentFunc = null;
+                    break;
+            }
         }
     }
 }

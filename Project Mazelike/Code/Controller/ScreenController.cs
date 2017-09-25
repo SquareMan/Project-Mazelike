@@ -18,6 +18,8 @@ namespace ProjectMazelike.Controller {
         private static Dictionary<String, Screen> screens = new Dictionary<string, Screen>();
 
         public static void Initialize() {
+            ProjectMazelike.Instance.OnGameStateChanged += OnGameStateChanged;
+
             //Setup screens
             gameScreen = AddScreen("Game", true, false, true);
             gameScreen.SamplerState = SamplerState.PointClamp;
@@ -58,6 +60,22 @@ namespace ProjectMazelike.Controller {
 
             Debug.WriteLine(String.Format("Screen with name {0} was attempted to be retrieved but does not exist", name));
             return null;
+        }
+
+        static void OnGameStateChanged(ProjectMazelike.GameState newState) {
+            switch (newState) {
+                case ProjectMazelike.GameState.Startup:
+                    break;
+                case ProjectMazelike.GameState.MainMenu:
+                    SetActiveScreen("Main Menu");
+                    break;
+                case ProjectMazelike.GameState.Running:
+                    SetActiveScreen("Game");
+                    break;
+                case ProjectMazelike.GameState.Paused:
+                    SetActiveScreen("Pause");
+                    break;
+            }
         }
     }
 }
