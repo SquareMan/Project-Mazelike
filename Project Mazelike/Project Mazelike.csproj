@@ -45,7 +45,7 @@
     <Compile Include="Code\Model\Entity.cs" />
     <Compile Include="Code\Model\Generation\Cell.cs" />
     <Compile Include="Code\Model\Generation\DungeonGenerator.cs" />
-    <Compile Include="Code\Model\IEntity.cs" />
+    <Compile Include="Code\Model\Generation\MapGenerator.cs" />
     <Compile Include="Code\Model\Map.cs" />
     <Compile Include="Code\Model\Generation\Maze.cs" />
     <Compile Include="Code\Model\Generation\MazeGenerator.cs" />
@@ -53,6 +53,7 @@
     <Compile Include="Code\Model\Player.cs" />
     <Compile Include="Code\Model\Room.cs" />
     <Compile Include="Code\Model\Tile.cs" />
+    <Compile Include="Code\Model\TileStair.cs" />
     <Compile Include="Code\Model\World.cs" />
     <Compile Include="Code\Controller\KeyboardController.cs" />
     <Compile Include="Code\Controller\MouseController.cs" />

@@ -35,6 +35,8 @@ namespace ProjectMazelike.Controller {
             //Zoom the game camera in and out
             if(ScreenController.ActiveScreen != null)
                 ScreenController.ActiveScreen.Camera.Scale += GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
+
+            Update_CurrentFunc?.Invoke();
         }
 
         public static Boolean IsLeftReleased() {

@@ -6,23 +6,58 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
 namespace ProjectMazelike.Model {
-    class Entity : IEntity {
+    class Entity {
+        public Entity(Tile tile) {
+            currentTile = tile;
+        }
+
+        public delegate void EntityDiedDelegate();
         public event EntityDiedDelegate OnDeath;
 
-        public void ApplyDamage(int damage) {
-            throw new NotImplementedException();
+        public Tile currentTile;
+        public Map currentMap {
+            get {
+                return currentTile?.map;
+            }
+        }
+        public Point position {
+            get {
+                return currentTile.position;
+            }
         }
 
-        public void Die() {
-            throw new NotImplementedException();
+        protected int health = 100;
+
+        public virtual void ApplyDamage(int damage) {
+            health -= damage;
+            if (health <= 0) {
+                Die();
+            }
         }
 
-        public int GetHealth() {
-            throw new NotImplementedException();
+        public virtual void Die() {
+            currentTile.LeaveTile(this);
+            OnDeath?.Invoke();
         }
 
-        public void Move(Vector2 direction) {
-            throw new NotImplementedException();
+        public virtual int GetHealth() {
+            return health;
+        }
+
+        public virtual void Move(Vector2 direction) {
+            direction.Normalize();
+            Point newPosition = position + direction.ToPoint();
+            Tile newTile = currentMap.GetTile(newPosition.X, newPosition.Y);
+
+            if (newTile != null) {
+                if (newTile.CanEnter()) {
+                    currentTile.LeaveTile(this);
+                    currentTile = newTile;
+                    currentTile.EnterTile(this);
+                } else if (newTile.EntityInTile != null && newTile.EntityInTile.GetType() == typeof(Enemy)) {
+                    newTile.EntityInTile.ApplyDamage(60);
+                }
+            }
         }
     }
 }

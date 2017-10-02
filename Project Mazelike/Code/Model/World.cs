@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ProjectMazelike.Controller;
+using ProjectMazelike.Model.Generation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,23 +10,27 @@ using System.Threading.Tasks;
 namespace ProjectMazelike.Model {
     class World {
         public World(Player player) {
+            this.worldSeed = Environment.TickCount;
             this.player = player;
 
-            Map map1 = new Map(Map.TestRoomArray());
+            Map map1 = new MapGenerator(worldSeed + 1).GenerateMap();
+            map1.PlayerStart = new Point(8, 5);
             Overworld.Add(map1);
-            Map map2 = new Map(Map.TestRoomArray());
+
+            Map map2 = new MapGenerator(worldSeed + 2).GenerateMap();
+            map2.PlayerStart = new Point(2, 2);
             Overworld.Add(map2);
 
             SetMap(map1);
 
-            map1.Tiles[9, 5] = new Tile(Tile.tileStair);
+            map1.Tiles[9, 5] = new Tile(Tile.tileStair, map1, new Point(9,5));
             map1.Tiles[9, 5].OnTileEntered += (entity) => {
                 if (entity == player) {
                     SetMap(map2);
                 }
             };
 
-            map2.Tiles[0, 5] = new Tile(Tile.tileStair);
+            map2.Tiles[0, 5] = new Tile(Tile.tileStair, map2, new Point(0,5));
             map2.Tiles[0,5].OnTileEntered += (entity) => {
                 if (entity == player) {
                     SetMap(map1);

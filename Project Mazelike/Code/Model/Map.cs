@@ -14,7 +14,7 @@ namespace ProjectMazelike.Model {
         public Tile[,] Tiles { get; set; }
         public Player Player { get; set; }
         public List<Enemy> Enemies { get; set; }
-        public Point PlayerStart { get; protected set; }
+        public Point PlayerStart { get; set; }
 
         public Map(int width, int height) {
             Tiles = new Tile[width, height];
@@ -22,7 +22,8 @@ namespace ProjectMazelike.Model {
 
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
-                    Tiles[x, y] = Tile.tileFloor;
+                    Tiles[x, y] = new Tile(Tile.tileFloor, this, new Point(x,y));
+                    Tiles[x, y].EnterTile(null);
                 }
             }
         }
@@ -39,7 +40,7 @@ namespace ProjectMazelike.Model {
                         for (int y = 0; y < rooms[i,j].tiles.GetLength(1); y++) {
                             Tiles[(10 * i) + x, (10 * j) + y] = rooms[i, j].tiles[x, y];
 
-                            IEntity entity = rooms[i, j].tiles[x, y].EntityInTile;
+                            Entity entity = rooms[i, j].tiles[x, y].EntityInTile;
                             if (entity != null) {
                                 Tiles[(10 * i) + x, (10 * j) + y].EnterTile(entity);
 

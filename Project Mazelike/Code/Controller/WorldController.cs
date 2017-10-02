@@ -19,13 +19,11 @@ namespace ProjectMazelike.Controller {
         public WorldController() {
             Instance = this;
 
-            player = new Player(new Point(2));
+            player = new Player(null);
             world = new World(player);
         }
 
         public void SetMap(Map newMap) {
-            //world.SetMap(newMap);
-
             ScreenController.gameScreen.RemoveComponent(scm);
             scm = new ScreenComponentMap(newMap, ScreenController.gameScreen, DrawLayer.Background);
             ScreenController.gameScreen.AddComponent(scm);
