@@ -28,22 +28,22 @@ namespace ProjectMazelike.Model.Generation {
                 for (int y = 0; y < 5; y++) {
                     if ( maze.GetCell(x,y).WallStatus(Cell.Direction.North)) {
                         for (int i = 0; i < 5; i++) {
-                            map.Tiles[5 * x + i, 5 * y] = new Tile(Tile.tileWall, map, new Point(5 * x + i, 5 * y));
+                            map.SetTile(5 * x + i, 5 * y, Tile.tileWall);
                         }
                     }
                     if (maze.GetCell(x, y).WallStatus(Cell.Direction.East)) {
                         for (int i = 0; i < 5; i++) {
-                            map.Tiles[5 * (x + 1) - 1, 5 * y + i] = new Tile(Tile.tileWall, map, new Point(5 * (x + 1) - 1, 5 * y + i));
+                            map.SetTile(5 * (x + 1) - 1, 5 * y + i, Tile.tileWall);
                         }
                     }
                     if (maze.GetCell(x, y).WallStatus(Cell.Direction.West)) {
                         for (int i = 0; i < 5; i++) {
-                            map.Tiles[5 * x, 5 * y + i] = new Tile(Tile.tileWall, map, new Point(5 * x, 5 * y + i));
+                            map.SetTile(5 * x, 5 * y + i, Tile.tileWall);
                         }
                     }
                     if (maze.GetCell(x, y).WallStatus(Cell.Direction.South)) {
                         for (int i = 0; i < 5; i++) {
-                            map.Tiles[5 * x + i, 5 * (y + 1) - 1] = new Tile(Tile.tileWall, map, new Point(5 * x + i, 5 * (y + 1) - 1));
+                            map.SetTile(5 * x + i, 5 * (y + 1) - 1, Tile.tileWall);
                         }
 
                     }

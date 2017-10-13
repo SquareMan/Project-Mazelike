@@ -11,38 +11,63 @@ using System.Diagnostics;
 
 namespace ProjectMazelike.Model {
     class Map {
-        public Tile[,] Tiles { get; set; }
-        public Player Player { get; set; }
-        public List<Enemy> Enemies { get; set; }
-        public Point PlayerStart { get; set; }
-
         public Map(int width, int height) {
-            Tiles = new Tile[width, height];
+            tiles = new Tile[width, height];
             Enemies = new List<Enemy>();
 
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
-                    Tiles[x, y] = new Tile(Tile.tileFloor, this, new Point(x,y));
-                    Tiles[x, y].EnterTile(null);
+                    tiles[x, y] = new Tile(Tile.tileFloor, this, new Point(x,y));
+                    tiles[x, y].EnterTile(null);
                 }
             }
+        }
+
+        public int Width {
+            get {
+                return tiles.GetLength(0);
+            }
+        }
+
+        public int Height {
+            get {
+                return tiles.GetLength(1);
+            }
+        }
+
+        protected Tile[,] tiles;
+        public Player Player { get; set; }
+        public List<Enemy> Enemies { get; set; }
+        public Point PlayerStart { get; set; }
+
+        public Tile GetTile(int x, int y) {
+            if (x > tiles.GetLength(0) - 1 || x < 0 || y > tiles.GetLength(1) - 1 || y < 0) {
+                //Requested tile is out of range
+                return null;
+            }
+
+            return tiles[x, y];
+        }
+
+        public void SetTile(int x, int y, Tile t) {
+            tiles[x, y] = new Tile(t, this, new Point(x, y));
         }
 
         public Map(Room[,] rooms) {
             int totalWidth = rooms.GetLength(0) * 10;
             int totalHeight = rooms.GetLength(1) * 10;
-            Tiles = new Tile[totalWidth, totalHeight];
+            tiles = new Tile[totalWidth, totalHeight];
             Enemies = new List<Enemy>();
 
             for (int i = 0; i < rooms.GetLength(0); i++) {
                 for (int j = 0; j < rooms.GetLength(1); j++) {
                     for (int x = 0; x < rooms[i,j].tiles.GetLength(0); x++) {
                         for (int y = 0; y < rooms[i,j].tiles.GetLength(1); y++) {
-                            Tiles[(10 * i) + x, (10 * j) + y] = rooms[i, j].tiles[x, y];
+                            tiles[(10 * i) + x, (10 * j) + y] = rooms[i, j].tiles[x, y];
 
                             Entity entity = rooms[i, j].tiles[x, y].EntityInTile;
                             if (entity != null) {
-                                Tiles[(10 * i) + x, (10 * j) + y].EnterTile(entity);
+                                tiles[(10 * i) + x, (10 * j) + y].EnterTile(entity);
 
                                 if (typeof(Enemy) == entity.GetType()) {
                                     Enemies.Add((Enemy)entity);
@@ -73,15 +98,6 @@ namespace ProjectMazelike.Model {
             }
 
             return rooms;
-        }
-
-        public Tile GetTile(int x, int y) {
-            if (x > Tiles.GetLength(0) - 1 || x < 0 || y > Tiles.GetLength(1) - 1 || y < 0) {
-                //Requested tile is out of range
-                return null;
-            }
-
-            return Tiles[x, y];
         }
     }
 }

@@ -21,11 +21,11 @@ namespace ProjectMazelike.View {
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
-            for (int x = 0; x < map.Tiles.GetLength(0); x++) {
-                for (int y = 0; y < map.Tiles.GetLength(1); y++) {
-                    spriteBatch.Draw(TextureController.GetTexture(map.Tiles[x,y].ID), (new Vector2(x,y) * ScreenComponentMaze.cellSize) + Position, Color.White);
+            for (int x = 0; x < map.Width; x++) {
+                for (int y = 0; y < map.Height; y++) {
+                    spriteBatch.Draw(TextureController.GetTexture(map.GetTile(x,y).ID), (new Vector2(x,y) * ScreenComponentMaze.cellSize) + Position, Color.White);
 
-                    if(map.Tiles[x,y].EntityInTile?.GetType() == typeof(Enemy)) {
+                    if(map.GetTile(x,y).EntityInTile?.GetType() == typeof(Enemy)) {
                         spriteBatch.Draw(TextureController.GetTexture("Enemy"), (new Vector2(x, y) * ScreenComponentMaze.cellSize) + Position, Color.White);
                     }
                 }
