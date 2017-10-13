@@ -23,15 +23,15 @@ namespace ProjectMazelike.Model {
 
             SetMap(map1);
 
-            map1.Tiles[9, 5] = new Tile(Tile.tileStair, map1, new Point(9,5));
-            map1.Tiles[9, 5].OnTileEntered += (entity) => {
+            map1.SetTile(9, 5, Tile.tileStair);
+            map1.GetTile(9, 5).OnTileEntered += (entity) => {
                 if (entity == player) {
                     SetMap(map2);
                 }
             };
 
-            map2.Tiles[0, 5] = new Tile(Tile.tileStair, map2, new Point(0,5));
-            map2.Tiles[0,5].OnTileEntered += (entity) => {
+            map2.SetTile(0, 5, Tile.tileStair);
+            map2.GetTile(0,5).OnTileEntered += (entity) => {
                 if (entity == player) {
                     SetMap(map1);
                 }

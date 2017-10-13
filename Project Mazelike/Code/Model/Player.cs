@@ -22,7 +22,7 @@ namespace ProjectMazelike.Model {
             }
 
             newMap.Player = this;
-            currentTile = newMap.Tiles[newMap.PlayerStart.X, newMap.PlayerStart.Y];
+            currentTile = newMap.GetTile(newMap.PlayerStart.X, newMap.PlayerStart.Y);
             currentTile.EnterTile(this);
         }
     }

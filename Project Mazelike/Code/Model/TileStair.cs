@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectMazelike.Model {
     class TileStair : Tile {
-        TileStair(string ID, TileType type) : base(ID, type) {
+        protected TileStair(string ID, TileType type) : base(ID, type) {
 
         }
 
