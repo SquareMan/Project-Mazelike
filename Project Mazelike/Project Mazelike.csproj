@@ -60,6 +60,7 @@
     <Compile Include="Code\Controller\ScreenController.cs" />
     <Compile Include="Code\View\IClickable.cs" />
     <Compile Include="Code\View\ITransformable.cs" />
+    <Compile Include="Code\View\Scenes\SceneMainMenu.cs" />
     <Compile Include="Code\View\ScreenComponentMap.cs" />
     <Compile Include="Code\View\Camera.cs" />
     <Compile Include="Code\View\Screen.cs" />

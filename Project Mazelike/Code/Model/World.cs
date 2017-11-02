@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ProjectMazelike.Controller;
 using ProjectMazelike.Model.Generation;
 using System;
 using System.Collections.Generic;
@@ -9,9 +8,13 @@ using System.Threading.Tasks;
 
 namespace ProjectMazelike.Model {
     class World {
-        public World(Player player) {
+        public delegate void MapChangedDelegate(Map newMap);
+        public event MapChangedDelegate OnMapChanged;
+
+        public World(MapChangedDelegate callback) {
             this.worldSeed = Environment.TickCount;
-            this.player = player;
+            this.player = new Player(null);
+            OnMapChanged += callback;
 
             Map map1 = new MapGenerator(worldSeed + 1).GenerateMap();
             map1.PlayerStart = new Point(8, 5);
@@ -43,13 +46,13 @@ namespace ProjectMazelike.Model {
         List<Map> Overworld = new List<Map>();
 
         Map currentMap;
-        Player player;
+        public Player player;
 
         public void SetMap(Map newMap) {
             player.SetMap(newMap);
-            WorldController.Instance.SetMap(newMap);
 
             currentMap = newMap;
+            OnMapChanged?.Invoke(newMap);
         }
     }
 }

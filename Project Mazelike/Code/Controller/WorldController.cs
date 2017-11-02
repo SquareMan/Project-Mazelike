@@ -12,25 +12,23 @@ namespace ProjectMazelike.Controller {
         public static WorldController Instance;
 
         public World world;
-        public Player player;
+        public Map currentMap;
 
         ScreenComponentMap scm;
 
         public WorldController() {
             Instance = this;
 
-            player = new Player(null);
-            world = new World(player);
+            world = new World(SetMap);
+            world.OnMapChanged += SetMap;
         }
 
         public void SetMap(Map newMap) {
+            currentMap = newMap;
+
             ScreenController.gameScreen.RemoveComponent(scm);
             scm = new ScreenComponentMap(newMap, ScreenController.gameScreen, DrawLayer.Background);
             ScreenController.gameScreen.AddComponent(scm);
-        }
-
-        public void GenerateWorld() {
-
         }
     }
 }

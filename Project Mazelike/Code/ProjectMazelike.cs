@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ProjectMazelike.Controller;
 using ProjectMazelike.View;
+using ProjectMazelike.View.Scenes;
 using System;
 using System.Diagnostics;
 
@@ -28,15 +29,12 @@ namespace ProjectMazelike {
         }
 
         public static ProjectMazelike Instance { get; protected set; }
-
         public static SpriteFont font;
 
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        
-        WorldController worldManager;
+        public SpriteBatch SpriteBatch;
 
-        public SpriteBatch SpriteBatch { get => spriteBatch; private set => spriteBatch = value; }
+        GraphicsDeviceManager graphics;
+        WorldController worldManager;
 
         public ProjectMazelike() {
             Instance = this;
@@ -55,7 +53,7 @@ namespace ProjectMazelike {
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize() {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             KeyboardController.Initialize();
             ScreenController.Initialize();
@@ -91,36 +89,7 @@ namespace ProjectMazelike {
             quitGameButton.OnClicked += Exit;
             ScreenController.pauseScreen.AddComponent(quitGameButton);
 
-            //Main Menu Components
-            ScreenComponentButton startGameButton = new ScreenComponentButton(
-                                                       new Vector2(GraphicsDevice.Viewport.Width / 2 - 120,
-                                                                   GraphicsDevice.Viewport.Height / 2 - 140),
-                                                       240,
-                                                       120,
-                                                       ScreenController.mainMenuScreen,
-                                                       DrawLayer.UI,
-                                                       DrawSpace.Screen);
-            startGameButton.text = "New Game";
-            ScreenComponentButton quitGameButtonMenu = new ScreenComponentButton(
-                                                       new Vector2(GraphicsDevice.Viewport.Width / 2 - 120,
-                                                                   GraphicsDevice.Viewport.Height / 2 + 20),
-                                                       240,
-                                                       120,
-                                                       ScreenController.mainMenuScreen,
-                                                       DrawLayer.UI,
-                                                       DrawSpace.Screen);
-            quitGameButtonMenu.text = "Quit Game";
-            ScreenComponentSprite background = new ScreenComponentSprite(
-                                                new Sprite(TextureController.GetTexture("Player"),GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, Vector2.Zero),
-                                                ScreenController.mainMenuScreen,
-                                                DrawLayer.Background,
-                                                DrawSpace.Screen);
-            
-            startGameButton.OnClicked += StartGame;
-            ScreenController.mainMenuScreen.AddComponent(startGameButton);
-            quitGameButtonMenu.OnClicked += Exit;
-            ScreenController.mainMenuScreen.AddComponent(quitGameButtonMenu);
-            ScreenController.mainMenuScreen.AddComponent(background);
+            SceneMainMenu scene = new SceneMainMenu(this);
         }
 
         /// <summary>
@@ -148,7 +117,7 @@ namespace ProjectMazelike {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            //GraphicsDevice.Clear(Color.Black);
 
             base.Draw(gameTime);
         }

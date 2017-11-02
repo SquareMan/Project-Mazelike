@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ProjectMazelike.View;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace ProjectMazelike.Controller {
             //Setup screens
             gameScreen = AddScreen("Game", true, false, true);
             gameScreen.SamplerState = SamplerState.PointClamp;
+            gameScreen.clearColor = Color.Black;
             pauseScreen = AddScreen("Pause", false, false, false);
             pauseScreen.SamplerState = SamplerState.PointClamp;
             mainMenuScreen = AddScreen("Main Menu", false, false, false);

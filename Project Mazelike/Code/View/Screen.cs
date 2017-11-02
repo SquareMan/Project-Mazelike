@@ -10,6 +10,8 @@ using ProjectMazelike.Controller;
 
 namespace ProjectMazelike.View {
     class Screen : DrawableGameComponent {
+        public Color clearColor = Color.CornflowerBlue;
+
         //SpriteBatch Information
         public BlendState BlendState { get; set; }
         public SamplerState SamplerState { get; set; }
@@ -31,7 +33,7 @@ namespace ProjectMazelike.View {
         /// <param name="moveable">Whether or not the Camera can be panned</param>
         /// <param name="rotatable">Whether or not the Camera can be rotated</param>
         /// <param name="scaleable">Whether or not the Camera can be zoomed</param>
-        public Screen(Game game, Boolean moveable, Boolean rotatable, Boolean scaleable) : base(game) {
+        public Screen(Game game, bool moveable, bool rotatable, bool scaleable) : base(game) {
             //this.canBeMoved = moveable;
             //this.canBeRotated = rotatable;
             //this.canBeZoomed = scaleable;
@@ -101,12 +103,12 @@ namespace ProjectMazelike.View {
             for (int i = 0; i < Enum.GetNames(typeof(DrawLayer)).Length; i++) {
                 //Update WorldSpace ScreenComponents
                 foreach (ScreenComponent sc in worldSpaceComponents[i]) {
-                    sc.Update(gameTime);
+                    if (sc.Enabled) sc.Update(gameTime);
                 }
 
                 //Update ScreenSpace ScreenComponents
                 foreach (ScreenComponent sc in screenSpaceComponents[i]) {
-                    sc.Update(gameTime);
+                    if (sc.Enabled) sc.Update(gameTime);
                 }
             }
 
@@ -119,20 +121,22 @@ namespace ProjectMazelike.View {
         /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime) {
             base.Draw(gameTime);
-            
-            for(int i = 0; i < Enum.GetNames(typeof(DrawLayer)).Length; i++) {
+            GraphicsDevice.Clear(clearColor);
+
+            for (int i = 0; i < Enum.GetNames(typeof(DrawLayer)).Length; i++) {
                 //Draw WorldSpace Screen Components
                 ((ProjectMazelike)Game).SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Camera.TransformMatrix);
                 foreach (ScreenComponent sc in worldSpaceComponents[i]) {
-                    sc.Draw(gameTime, ((ProjectMazelike)Game).SpriteBatch);
+                    if (sc.Enabled) sc.Draw(gameTime, ((ProjectMazelike)Game).SpriteBatch);
                 }
                 ((ProjectMazelike)Game).SpriteBatch.End();
 
                 //Draw ScreenSpace Screen Components
                 ((ProjectMazelike)Game).SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect);
                 foreach (ScreenComponent sc in screenSpaceComponents[i]) {
-                    sc.Draw(gameTime, ((ProjectMazelike)Game).SpriteBatch);
+                    if (sc.Enabled) sc.Draw(gameTime, ((ProjectMazelike)Game).SpriteBatch);
                 }
+                ((ProjectMazelike)Game).SpriteBatch.DrawString(ProjectMazelike.font, "FPS: " + (int)(1000 / gameTime.ElapsedGameTime.TotalMilliseconds + .5f), new Vector2(5, 5), Color.White);
                 ((ProjectMazelike)Game).SpriteBatch.End();
             }
         }

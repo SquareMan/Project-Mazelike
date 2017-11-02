@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace ProjectMazelike.View {
     abstract class ScreenComponent : ITransformable {
         public Screen Screen { get; protected set; }
+        public bool Enabled { get; set; } = true;
 
         public DrawLayer Layer { get; set; }
         public DrawSpace Space { get; set; }

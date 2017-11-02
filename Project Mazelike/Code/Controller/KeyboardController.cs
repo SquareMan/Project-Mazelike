@@ -38,13 +38,13 @@ namespace ProjectMazelike.Controller {
         static void Update_GameRunning() {
             //Player movement
             if (IsButtonReleased(Keys.Right))
-                WorldController.Instance.player.Move(Vector2.UnitX);
+                WorldController.Instance.world.player.Move(Vector2.UnitX);
             if (IsButtonReleased(Keys.Left))
-                WorldController.Instance.player.Move(-Vector2.UnitX);
+                WorldController.Instance.world.player.Move(-Vector2.UnitX);
             if (IsButtonReleased(Keys.Down))
-                WorldController.Instance.player.Move(Vector2.UnitY);
+                WorldController.Instance.world.player.Move(Vector2.UnitY);
             if (IsButtonReleased(Keys.Up))
-                WorldController.Instance.player.Move(-Vector2.UnitY);
+                WorldController.Instance.world.player.Move(-Vector2.UnitY);
             
             //Pause the game
             if (IsButtonReleased(Keys.Escape)) {
