@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProjectMazelike.Model.Generation
+﻿namespace ProjectMazelike.Model.Generation
 {
     class DungeonGenerator {
         Maze maze;

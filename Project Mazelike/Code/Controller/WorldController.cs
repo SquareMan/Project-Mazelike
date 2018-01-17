@@ -1,11 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using ProjectMazelike.Model;
+﻿using ProjectMazelike.Model;
 using ProjectMazelike.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectMazelike.Controller {
     class WorldController {

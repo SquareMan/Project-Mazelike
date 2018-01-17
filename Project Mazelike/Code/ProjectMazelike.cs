@@ -1,11 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using ProjectMazelike.Controller;
 using ProjectMazelike.View;
 using ProjectMazelike.View.Scenes;
-using System;
-using System.Diagnostics;
 
 namespace ProjectMazelike {
     /// <summary>

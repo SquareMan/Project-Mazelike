@@ -1,10 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using ProjectMazelike.Model.Generation;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using ProjectMazelike.Model.Generation;
 
 namespace ProjectMazelike.Model
 {

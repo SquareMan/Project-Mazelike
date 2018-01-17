@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ProjectMazelike.Controller;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectMazelike.View.Scenes {
     class SceneMainMenu {

@@ -1,13 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProjectMazelike.Model {
+﻿namespace ProjectMazelike.Model {
     class Player : Entity {
         public Player(Tile tile) : base(tile) {
         }
