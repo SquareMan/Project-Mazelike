@@ -13,9 +13,8 @@ namespace ProjectMazelike.Controller {
 
         public static MouseState currentState { get; private set; }
         public static MouseState lastState { get; private set; }
-
-        delegate void UpdateFunc();
-        static UpdateFunc Update_CurrentFunc;
+        
+        private static Action<GameTime> UpdateFunc;
 
         public static void Initialize() {
             ProjectMazelike.Instance.OnGameStateChanged += OnGameStateChanged;
@@ -36,7 +35,7 @@ namespace ProjectMazelike.Controller {
             if(ScreenController.ActiveScreen != null)
                 ScreenController.ActiveScreen.Camera.Scale += GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
 
-            Update_CurrentFunc?.Invoke();
+            UpdateFunc?.Invoke(gameTime);
         }
 
         public static Boolean IsLeftReleased() {
@@ -60,16 +59,16 @@ namespace ProjectMazelike.Controller {
         static void OnGameStateChanged(ProjectMazelike.GameState newState) {
             switch (newState) {
                 case ProjectMazelike.GameState.Startup:
-                    Update_CurrentFunc = null;
+                    UpdateFunc = null;
                     break;
                 case ProjectMazelike.GameState.MainMenu:
-                    Update_CurrentFunc = null;
+                    UpdateFunc = null;
                     break;
                 case ProjectMazelike.GameState.Running:
-                    Update_CurrentFunc = null;
+                    UpdateFunc = null;
                     break;
                 case ProjectMazelike.GameState.Paused:
-                    Update_CurrentFunc = null;
+                    UpdateFunc = null;
                     break;
             }
         }
