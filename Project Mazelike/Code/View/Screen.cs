@@ -47,17 +47,18 @@ namespace ProjectMazelike.View
 
             //Create a new camera with origin at the top left corner
             Camera = new Camera(GraphicsDevice.Viewport,
-                Vector2.Zero + new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2));
-            Camera.CanBeMoved = moveable;
-            Camera.CanBeRotated = rotatable;
-            Camera.CanBeScaled = scaleable;
+                Vector2.Zero + new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2))
+            {
+                CanBeMoved = moveable,
+                CanBeRotated = rotatable,
+                CanBeScaled = scaleable
+            };
         }
 
         /// <summary>
         ///     Register a component to be rendered
         /// </summary>
         /// <param name="sc">The ScreenComponent to add</param>
-        /// <param name="screenSpace">Set to true if drawing in screen space is desired instead of world space</param>
         public void AddComponent(ScreenComponent sc)
         {
             if (sc.Space == DrawSpace.Screen)

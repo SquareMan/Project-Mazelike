@@ -7,12 +7,15 @@ namespace ProjectMazelike.View.Scenes
     {
         private readonly ScreenComponentButton _backButton;
 
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly ScreenComponentSprite _background;
         private readonly ScreenComponentButton _newGameButton;
         private readonly ScreenComponentButton _quitGameButton;
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly Screen _screen;
 
         private readonly ScreenComponentButton _startGameButton;
+        // ReSharper disable once NotAccessedField.Local
         private ProjectMazelike _game;
 
 

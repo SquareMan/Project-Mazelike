@@ -16,6 +16,9 @@ namespace ProjectMazelike.View
         ///     Creates a new Nine-Sliced Texture
         /// </summary>
         /// <param name="texture">The base texture</param>
+        /// <param name="position">Where to draw the sprite</param>
+        /// <param name="width">size of the sprite</param>
+        /// <param name="height">size of the sprite</param>
         /// <param name="leftSlice">pixels from the left to slice image</param>
         /// <param name="rightSlice">pixels from the right to slice image</param>
         /// <param name="topSlice">pixels from the top to slice image</param>
@@ -30,13 +33,9 @@ namespace ProjectMazelike.View
             _sourcePatches = CreatePatches(new Rectangle(0, 0, texture.Width, texture.Height));
         }
 
-        public Rectangle[] GetDestinationPatches()
-        {
-            return CreatePatches(Bounds);
-        }
-
         public override void Draw(SpriteBatch spriteBatch)
         {
+            //TODO: This should only be calculated when bounds are changed
             var destPatches = CreatePatches(Bounds);
 
             for (var i = 0; i < _sourcePatches.Length; i++)

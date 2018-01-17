@@ -7,11 +7,16 @@ namespace ProjectMazelike.Model
 {
     internal class World
     {
+        // For the future when worlds are more complicated
+        // ReSharper disable once CollectionNeverQueried.Local
         private readonly List<Map> _overworld = new List<Map>();
 
+        //World needs to remember the seed for potential future usage
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly int _worldSeed;
+        // ReSharper disable once NotAccessedField.Local
         private Map _currentMap;
-        public Player Player;
+        public readonly Player Player;
 
         public event Action<Map> OnMapChanged;
 
@@ -44,7 +49,7 @@ namespace ProjectMazelike.Model
             };
         }
 
-        public void SetMap(Map newMap)
+        private void SetMap(Map newMap)
         {
             Player.SetMap(newMap);
 

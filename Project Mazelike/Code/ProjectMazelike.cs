@@ -25,7 +25,10 @@ namespace ProjectMazelike
 
         private GameState _currentState = GameState.Startup;
 
+        //These objects are currently not accessed here but need to exist
+        // ReSharper disable once NotAccessedField.Local
         private GraphicsDeviceManager _graphics;
+        // ReSharper disable once NotAccessedField.Local
         private WorldController _worldManager;
 
         public SpriteBatch SpriteBatch;
@@ -92,8 +95,7 @@ namespace ProjectMazelike
                 120,
                 ScreenController.PauseScreen,
                 DrawLayer.Ui,
-                DrawSpace.Screen);
-            quitGameButton.Text = "Quit Game";
+                DrawSpace.Screen) {Text = "Quit Game"};
 
             //Make button change map the game
             quitGameButton.OnClicked += Exit;
@@ -122,17 +124,6 @@ namespace ProjectMazelike
             KeyboardController.Update(gameTime);
 
             base.Update(gameTime);
-        }
-
-        /// <summary>
-        ///     This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
-        {
-            //GraphicsDevice.Clear(Color.Black);
-
-            base.Draw(gameTime);
         }
 
         /////////////////////////////////////////////////////////////////////////////////
