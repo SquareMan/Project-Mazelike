@@ -13,7 +13,7 @@ namespace ProjectMazelike.Model.Generation
         /// <summary>
         ///     Constructor
         /// </summary>
-        /// <param name="chance">_chanceToRemoveDeadEnd to remove dead end from 0-1. Default = 0.5</param>
+        /// <param name="chance">chance to remove dead end from 0-1. Default = 0.5</param>
         /// <param name="randomSeed">Seed for the random generator. -1 = random seed (default)</param>
         public MazeGeneratorImperfect(float chance = 0.5f, int randomSeed = -1) : base(randomSeed)
         {
