@@ -23,9 +23,7 @@ namespace ProjectMazelike.Model.Generation
         public override Maze GenerateMaze(int width, int height)
         {
             base.GenerateMaze(width, height);
-
-            //Find dead ends
-            var deadEnds = new List<Cell>();
+            
             foreach (var cell in Maze.GetCellArray())
                 if (cell.GetNumberOfWalls() >= 3)
                     if (Rand.NextDouble() < _chanceToRemoveDeadEnd)
@@ -39,7 +37,6 @@ namespace ProjectMazelike.Model.Generation
             var deadEndsRemain = true;
             while (deadEndsRemain)
             {
-                deadEnds = new List<Cell>();
                 deadEndsRemain = false;
                 foreach (var cell in Maze.GetCellArray())
                     if (cell.ConnectedCells.Count == 1)
