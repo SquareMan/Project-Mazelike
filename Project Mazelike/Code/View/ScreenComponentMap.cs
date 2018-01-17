@@ -9,6 +9,11 @@ namespace ProjectMazelike.View
     {
         private readonly Map _map;
 
+        public ScreenComponentMap(Map map, Screen screen, DrawLayer layer) : base(screen, layer)
+        {
+            _map = map;
+        }
+
         public override void Update(GameTime gameTime)
         {
             Screen.Camera.Position = _map.Player.Position.ToVector2() * ScreenComponentMaze.CellSize +
@@ -31,11 +36,6 @@ namespace ProjectMazelike.View
             if (_map.Player != null)
                 spriteBatch.Draw(TextureController.GetTexture("Player"),
                     _map.Player.Position.ToVector2() * ScreenComponentMaze.CellSize, null, Color.White);
-        }
-
-        public ScreenComponentMap(Map map, Screen screen, DrawLayer layer) : base(screen, layer)
-        {
-            _map = map;
         }
     }
 }

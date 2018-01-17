@@ -31,6 +31,16 @@ namespace ProjectMazelike.Model.Generation
 
         public bool Visited { get; protected set; }
 
+
+        public Cell(int x, int y, Maze maze)
+        {
+            X = x;
+            Y = y;
+            Maze = maze;
+
+            ConnectedCells = new List<Cell>();
+        }
+
         /// <summary>
         ///     Connects two cells together, this removes the walls between them
         /// </summary>
@@ -180,16 +190,6 @@ namespace ProjectMazelike.Model.Generation
         public void Visit(bool flag = true)
         {
             Visited = flag;
-        }
-
-
-        public Cell(int x, int y, Maze maze)
-        {
-            X = x;
-            Y = y;
-            Maze = maze;
-
-            ConnectedCells = new List<Cell>();
         }
     }
 }

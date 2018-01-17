@@ -13,15 +13,15 @@ namespace ProjectMazelike.View
             set => _sprite.Position = value;
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            _sprite.Draw(spriteBatch);
-        }
-
         public ScreenComponentSprite(Sprite sprite, Screen screen, DrawLayer layer, DrawSpace space = DrawSpace.World) :
             base(screen, layer, space)
         {
             _sprite = sprite;
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            _sprite.Draw(spriteBatch);
         }
     }
 }

@@ -13,24 +13,6 @@ namespace ProjectMazelike.View
 
         public Rectangle Bounds => new Rectangle((int) Position.X, (int) Position.Y, Width, Height);
 
-        /// <summary>
-        ///     Return the texture of this Sprite
-        /// </summary>
-        /// <returns></returns>
-        public Texture2D GetTexture()
-        {
-            return Texture;
-        }
-
-        /// <summary>
-        ///     Draw the sprite
-        /// </summary>
-        /// <param name="spriteBatch"></param>
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Texture, Bounds, Color.White);
-        }
-
         public Sprite(Texture2D texture, Vector2 position)
         {
             Texture = texture;
@@ -49,6 +31,24 @@ namespace ProjectMazelike.View
             Position = position;
             Rotation = rotation;
             Scale = scale;
+        }
+
+        /// <summary>
+        ///     Return the texture of this Sprite
+        /// </summary>
+        /// <returns></returns>
+        public Texture2D GetTexture()
+        {
+            return Texture;
+        }
+
+        /// <summary>
+        ///     Draw the sprite
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(Texture, Bounds, Color.White);
         }
 
         public Vector2 Position { get; set; }

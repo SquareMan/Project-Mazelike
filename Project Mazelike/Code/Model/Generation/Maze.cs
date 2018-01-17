@@ -8,16 +8,6 @@
 
         public int Height { get; protected set; }
 
-        public Cell GetCell(int x, int y)
-        {
-            return Cells[x, y];
-        }
-
-        public Cell[,] GetCellArray()
-        {
-            return Cells;
-        }
-
         public Maze(int width, int height)
         {
             Width = width;
@@ -27,6 +17,16 @@
             for (var i = 0; i < width; i++)
             for (var j = 0; j < height; j++)
                 Cells[i, j] = new Cell(i, j, this);
+        }
+
+        public Cell GetCell(int x, int y)
+        {
+            return Cells[x, y];
+        }
+
+        public Cell[,] GetCellArray()
+        {
+            return Cells;
         }
     }
 }

@@ -5,10 +5,14 @@ namespace ProjectMazelike.Model.Generation
 {
     internal class MapGenerator
     {
+        private readonly int _seed;
         private Map _map;
         private Maze _maze;
 
-        private readonly int _seed;
+        public MapGenerator(int seed)
+        {
+            _seed = seed;
+        }
 
         public Map GenerateMap()
         {
@@ -55,11 +59,6 @@ namespace ProjectMazelike.Model.Generation
             }
 
             return _map;
-        }
-
-        public MapGenerator(int seed)
-        {
-            _seed = seed;
         }
     }
 }

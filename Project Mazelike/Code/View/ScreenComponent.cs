@@ -13,17 +13,17 @@ namespace ProjectMazelike.View
         public DrawLayer Layer { get; set; }
         public DrawSpace Space { get; set; }
 
-        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
-
-        public virtual void Update(GameTime gameTime)
-        {
-        }
-
         protected ScreenComponent(Screen screen, DrawLayer layer, DrawSpace space = DrawSpace.World)
         {
             Screen = screen;
             Layer = layer;
             Space = space;
+        }
+
+        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+
+        public virtual void Update(GameTime gameTime)
+        {
         }
 
         public Vector2 Position { get; set; }

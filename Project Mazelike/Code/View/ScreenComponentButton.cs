@@ -6,8 +6,8 @@ namespace ProjectMazelike.View
 {
     internal class ScreenComponentButton : ScreenComponent, IClickable
     {
-        private string _text;
         private readonly SpriteNineSlice _sprite;
+        private string _text;
         private Vector2 _textPosition;
 
         public string Text
@@ -32,6 +32,14 @@ namespace ProjectMazelike.View
             }
         }
 
+        public ScreenComponentButton(Vector2 position, int width, int height, Screen screen, DrawLayer layer,
+            DrawSpace space = DrawSpace.World) : base(screen, layer, space)
+        {
+            _sprite = new SpriteNineSlice(TextureController.GetTexture("Button"), position, width, height, 8, 8, 8, 8);
+
+            Position = position;
+        }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             //sprite.Draw(spriteBatch, Position);
@@ -45,14 +53,6 @@ namespace ProjectMazelike.View
             if (MouseController.IsLeftReleased() && Bounds.Intersects(
                     new Rectangle(Screen.GetMousePosition(Space), new Point(1))))
                 OnClicked?.Invoke();
-        }
-
-        public ScreenComponentButton(Vector2 position, int width, int height, Screen screen, DrawLayer layer,
-            DrawSpace space = DrawSpace.World) : base(screen, layer, space)
-        {
-            _sprite = new SpriteNineSlice(TextureController.GetTexture("Button"), position, width, height, 8, 8, 8, 8);
-
-            Position = position;
         }
 
         public event ClickedDelegate OnClicked;

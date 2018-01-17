@@ -15,6 +15,11 @@ namespace ProjectMazelike.Model
 
         public event Action OnDeath;
 
+        public Entity(Tile tile)
+        {
+            CurrentTile = tile;
+        }
+
         public virtual void ApplyDamage(int damage)
         {
             Health -= damage;
@@ -49,11 +54,6 @@ namespace ProjectMazelike.Model
                 {
                     newTile.EntityInTile.ApplyDamage(60);
                 }
-        }
-
-        public Entity(Tile tile)
-        {
-            CurrentTile = tile;
         }
     }
 }

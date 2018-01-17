@@ -7,22 +7,13 @@ namespace ProjectMazelike.Model
 {
     internal class World
     {
-        private Map _currentMap;
-
         private readonly List<Map> _overworld = new List<Map>();
-        public Player Player;
 
         private readonly int _worldSeed;
+        private Map _currentMap;
+        public Player Player;
 
         public event Action<Map> OnMapChanged;
-
-        public void SetMap(Map newMap)
-        {
-            Player.SetMap(newMap);
-
-            _currentMap = newMap;
-            OnMapChanged?.Invoke(newMap);
-        }
 
         public World(Action<Map> callback)
         {
@@ -51,6 +42,14 @@ namespace ProjectMazelike.Model
             {
                 if (entity == Player) SetMap(map1);
             };
+        }
+
+        public void SetMap(Map newMap)
+        {
+            Player.SetMap(newMap);
+
+            _currentMap = newMap;
+            OnMapChanged?.Invoke(newMap);
         }
     }
 }

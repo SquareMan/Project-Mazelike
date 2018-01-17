@@ -12,6 +12,24 @@ namespace ProjectMazelike.View
         private readonly Rectangle[] _sourcePatches;
         private readonly int _topSlice;
 
+        /// <summary>
+        ///     Creates a new Nine-Sliced Texture
+        /// </summary>
+        /// <param name="texture">The base texture</param>
+        /// <param name="leftSlice">pixels from the left to slice image</param>
+        /// <param name="rightSlice">pixels from the right to slice image</param>
+        /// <param name="topSlice">pixels from the top to slice image</param>
+        /// <param name="bottomSlice">pixels from the bottom to slice image</param>
+        public SpriteNineSlice(Texture2D texture, Vector2 position, int width, int height, int leftSlice,
+            int rightSlice, int topSlice, int bottomSlice) : base(texture, width, height, position)
+        {
+            _leftSlice = leftSlice;
+            _rightSlice = rightSlice;
+            _topSlice = topSlice;
+            _bottomSlice = bottomSlice;
+            _sourcePatches = CreatePatches(new Rectangle(0, 0, texture.Width, texture.Height));
+        }
+
         public Rectangle[] GetDestinationPatches()
         {
             return CreatePatches(Bounds);
@@ -50,24 +68,6 @@ namespace ProjectMazelike.View
                 new Rectangle(leftX, bottomY, middleWidth, _bottomSlice), // Bottom-Middle
                 new Rectangle(rightX, bottomY, _rightSlice, _bottomSlice) // Bottom-Right
             };
-        }
-
-        /// <summary>
-        ///     Creates a new Nine-Sliced Texture
-        /// </summary>
-        /// <param name="texture">The base texture</param>
-        /// <param name="leftSlice">pixels from the left to slice image</param>
-        /// <param name="rightSlice">pixels from the right to slice image</param>
-        /// <param name="topSlice">pixels from the top to slice image</param>
-        /// <param name="bottomSlice">pixels from the bottom to slice image</param>
-        public SpriteNineSlice(Texture2D texture, Vector2 position, int width, int height, int leftSlice,
-            int rightSlice, int topSlice, int bottomSlice) : base(texture, width, height, position)
-        {
-            _leftSlice = leftSlice;
-            _rightSlice = rightSlice;
-            _topSlice = topSlice;
-            _bottomSlice = bottomSlice;
-            _sourcePatches = CreatePatches(new Rectangle(0, 0, texture.Width, texture.Height));
         }
     }
 }

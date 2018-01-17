@@ -25,6 +25,35 @@ namespace ProjectMazelike.View
         public Camera Camera { get; set; }
 
         /// <summary>
+        ///     Create a new Screen
+        /// </summary>
+        /// <param name="game">The game this screen belongs to</param>
+        /// <param name="moveable">Whether or not the Camera can be panned</param>
+        /// <param name="rotatable">Whether or not the Camera can be rotated</param>
+        /// <param name="scaleable">Whether or not the Camera can be zoomed</param>
+        public Screen(Game game, bool moveable, bool rotatable, bool scaleable) : base(game)
+        {
+            //this.canBeMoved = moveable;
+            //this.canBeRotated = rotatable;
+            //this.canBeZoomed = scaleable;
+
+            //Create arrays of lists of game components, corresponding to their draw layer, for both world space and screen space
+            WorldSpaceComponents = new List<ScreenComponent>[Enum.GetNames(typeof(DrawLayer)).Length];
+            for (var i = 0; i < WorldSpaceComponents.Length; i++) WorldSpaceComponents[i] = new List<ScreenComponent>();
+
+            ScreenSpaceComponents = new List<ScreenComponent>[Enum.GetNames(typeof(DrawLayer)).Length];
+            for (var i = 0; i < ScreenSpaceComponents.Length; i++)
+                ScreenSpaceComponents[i] = new List<ScreenComponent>();
+
+            //Create a new camera with origin at the top left corner
+            Camera = new Camera(GraphicsDevice.Viewport,
+                Vector2.Zero + new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2));
+            Camera.CanBeMoved = moveable;
+            Camera.CanBeRotated = rotatable;
+            Camera.CanBeScaled = scaleable;
+        }
+
+        /// <summary>
         ///     Register a component to be rendered
         /// </summary>
         /// <param name="sc">The ScreenComponent to add</param>
@@ -117,35 +146,6 @@ namespace ProjectMazelike.View
                     Color.White);
                 ((ProjectMazelike) Game).SpriteBatch.End();
             }
-        }
-
-        /// <summary>
-        ///     Create a new Screen
-        /// </summary>
-        /// <param name="game">The game this screen belongs to</param>
-        /// <param name="moveable">Whether or not the Camera can be panned</param>
-        /// <param name="rotatable">Whether or not the Camera can be rotated</param>
-        /// <param name="scaleable">Whether or not the Camera can be zoomed</param>
-        public Screen(Game game, bool moveable, bool rotatable, bool scaleable) : base(game)
-        {
-            //this.canBeMoved = moveable;
-            //this.canBeRotated = rotatable;
-            //this.canBeZoomed = scaleable;
-
-            //Create arrays of lists of game components, corresponding to their draw layer, for both world space and screen space
-            WorldSpaceComponents = new List<ScreenComponent>[Enum.GetNames(typeof(DrawLayer)).Length];
-            for (var i = 0; i < WorldSpaceComponents.Length; i++) WorldSpaceComponents[i] = new List<ScreenComponent>();
-
-            ScreenSpaceComponents = new List<ScreenComponent>[Enum.GetNames(typeof(DrawLayer)).Length];
-            for (var i = 0; i < ScreenSpaceComponents.Length; i++)
-                ScreenSpaceComponents[i] = new List<ScreenComponent>();
-
-            //Create a new camera with origin at the top left corner
-            Camera = new Camera(GraphicsDevice.Viewport,
-                Vector2.Zero + new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2));
-            Camera.CanBeMoved = moveable;
-            Camera.CanBeRotated = rotatable;
-            Camera.CanBeScaled = scaleable;
         }
     }
 }

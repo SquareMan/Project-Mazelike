@@ -22,6 +22,30 @@ namespace ProjectMazelike.Model
 
         public event Action<Entity> OnTileEntered;
 
+        /// <summary>
+        ///     For creating Tile prototypes
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="type"></param>
+        protected Tile(string id, TileType type)
+        {
+            TilePrototypes.Add(id, this);
+            Id = id;
+            TileType = type;
+        }
+
+        /// <summary>
+        ///     Copy Constructor for creating game tiles
+        /// </summary>
+        /// <param name="t"></param>
+        public Tile(Tile t, Map map, Point position)
+        {
+            Id = t.Id;
+            TileType = t.TileType;
+            Map = map;
+            Position = position;
+        }
+
         public static Tile GetTile(string blockId)
         {
             return TilePrototypes[blockId];
@@ -51,30 +75,6 @@ namespace ProjectMazelike.Model
             }
 
             EntityInTile = null;
-        }
-
-        /// <summary>
-        ///     For creating Tile prototypes
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="type"></param>
-        protected Tile(string id, TileType type)
-        {
-            TilePrototypes.Add(id, this);
-            Id = id;
-            TileType = type;
-        }
-
-        /// <summary>
-        ///     Copy Constructor for creating game tiles
-        /// </summary>
-        /// <param name="t"></param>
-        public Tile(Tile t, Map map, Point position)
-        {
-            Id = t.Id;
-            TileType = t.TileType;
-            Map = map;
-            Position = position;
         }
     }
 

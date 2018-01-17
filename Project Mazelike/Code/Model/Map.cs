@@ -15,18 +15,6 @@ namespace ProjectMazelike.Model
         public List<Enemy> Enemies { get; set; }
         public Point PlayerStart { get; set; }
 
-        public Tile GetTile(int x, int y)
-        {
-            if (x > Tiles.GetLength(0) - 1 || x < 0 || y > Tiles.GetLength(1) - 1 || y < 0) return null;
-
-            return Tiles[x, y];
-        }
-
-        public void SetTile(int x, int y, Tile t)
-        {
-            Tiles[x, y] = new Tile(t, this, new Point(x, y));
-        }
-
         public Map(int width, int height)
         {
             Tiles = new Tile[width, height];
@@ -38,6 +26,18 @@ namespace ProjectMazelike.Model
                 Tiles[x, y] = new Tile(Tile.TileFloor, this, new Point(x, y));
                 Tiles[x, y].EnterTile(null);
             }
+        }
+
+        public Tile GetTile(int x, int y)
+        {
+            if (x > Tiles.GetLength(0) - 1 || x < 0 || y > Tiles.GetLength(1) - 1 || y < 0) return null;
+
+            return Tiles[x, y];
+        }
+
+        public void SetTile(int x, int y, Tile t)
+        {
+            Tiles[x, y] = new Tile(t, this, new Point(x, y));
         }
     }
 }

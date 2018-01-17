@@ -26,9 +26,9 @@ namespace ProjectMazelike
         private GameState _currentState = GameState.Startup;
 
         private GraphicsDeviceManager _graphics;
+        private WorldController _worldManager;
 
         public SpriteBatch SpriteBatch;
-        private WorldController _worldManager;
 
         public GameState CurrentState
         {
@@ -42,6 +42,17 @@ namespace ProjectMazelike
 
         public static ProjectMazelike Instance { get; protected set; }
         public event GameStateChangedDelegate OnGameStateChanged;
+
+        public ProjectMazelike()
+        {
+            Instance = this;
+
+            _graphics = new GraphicsDeviceManager(this);
+
+            Content.RootDirectory = "Content";
+
+            OnGameStateChanged += StateChanged;
+        }
 
         /// <summary>
         ///     Allows the game to perform any initialization it needs to before starting to run.
@@ -175,17 +186,6 @@ namespace ProjectMazelike
                 case GameState.Paused:
                     break;
             }
-        }
-
-        public ProjectMazelike()
-        {
-            Instance = this;
-
-            _graphics = new GraphicsDeviceManager(this);
-
-            Content.RootDirectory = "Content";
-
-            OnGameStateChanged += StateChanged;
         }
     }
 }

@@ -4,14 +4,14 @@
     {
         private readonly Maze _maze;
 
-        public Maze GetMaze()
-        {
-            return _maze;
-        }
-
         public DungeonGenerator(Maze baseMaze)
         {
             _maze = baseMaze;
+        }
+
+        public Maze GetMaze()
+        {
+            return _maze;
         }
     }
 }

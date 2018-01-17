@@ -12,6 +12,13 @@ namespace ProjectMazelike.Model.Generation
         protected Random Rand;
         protected Stack<Cell> Stack;
 
+        public MazeGenerator(int randomSeed = -1)
+        {
+            if (randomSeed == -1) randomSeed = Environment.TickCount;
+
+            Rand = new Random(randomSeed);
+        }
+
         public virtual Maze GenerateMaze(int width, int height)
         {
             Maze = new Maze(width, height);
@@ -68,13 +75,6 @@ namespace ProjectMazelike.Model.Generation
 
             //Set our current cell to the be next cell
             CurrentCell = next;
-        }
-
-        public MazeGenerator(int randomSeed = -1)
-        {
-            if (randomSeed == -1) randomSeed = Environment.TickCount;
-
-            Rand = new Random(randomSeed);
         }
     }
 }

@@ -13,6 +13,11 @@ namespace ProjectMazelike.View
 
         private readonly Maze _maze;
 
+        public ScreenComponentMaze(Maze maze, Screen screen, DrawLayer layer) : base(screen, layer)
+        {
+            _maze = maze;
+        }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             //loop through each cell and draw them
@@ -56,11 +61,6 @@ namespace ProjectMazelike.View
                 var rect = new Rectangle(cell.X * CellSize, cell.Y * CellSize, CellSize, CellSize);
                 spriteBatch.Draw(TextureController.GetTexture("Cell"), rect, Color.Gray);
             }
-        }
-
-        public ScreenComponentMaze(Maze maze, Screen screen, DrawLayer layer) : base(screen, layer)
-        {
-            _maze = maze;
         }
     }
 }

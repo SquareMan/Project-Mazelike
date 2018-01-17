@@ -6,11 +6,6 @@ namespace ProjectMazelike.Model
     {
         protected Tile Destination;
 
-        public void SetDestination(Tile destination)
-        {
-            Destination = destination;
-        }
-
         protected TileStair(string id, TileType type) : base(id, type)
         {
         }
@@ -18,6 +13,11 @@ namespace ProjectMazelike.Model
         public TileStair(TileStair t, Map map, Point position) : base(t, map, position)
         {
             Destination = t.Destination;
+        }
+
+        public void SetDestination(Tile destination)
+        {
+            Destination = destination;
         }
     }
 }

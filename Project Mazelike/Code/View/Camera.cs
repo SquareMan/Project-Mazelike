@@ -11,11 +11,6 @@ namespace ProjectMazelike.View
 
         private Rectangle Bounds { get; }
 
-        public void MoveCamera(Vector2 direction)
-        {
-            Position += direction;
-        }
-
         public Camera(Viewport viewport)
         {
             Bounds = viewport.Bounds;
@@ -30,6 +25,11 @@ namespace ProjectMazelike.View
             Position = position;
             Rotation = rotation;
             Scale = scale;
+        }
+
+        public void MoveCamera(Vector2 direction)
+        {
+            Position += direction;
         }
 
         public Vector2 Position { get; set; }

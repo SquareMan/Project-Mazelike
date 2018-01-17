@@ -8,29 +8,12 @@ namespace ProjectMazelike.View.Scenes
         private readonly ScreenComponentButton _backButton;
 
         private readonly ScreenComponentSprite _background;
-        private ProjectMazelike _game;
         private readonly ScreenComponentButton _newGameButton;
         private readonly ScreenComponentButton _quitGameButton;
         private readonly Screen _screen;
 
         private readonly ScreenComponentButton _startGameButton;
-
-        private void OnClicked_NewGame()
-        {
-            _startGameButton.Enabled = true;
-            _backButton.Enabled = true;
-
-            _newGameButton.Enabled = false;
-            _quitGameButton.Enabled = false;
-        }
-
-        private void OnClicked_Back()
-        {
-            _newGameButton.Enabled = true;
-            _quitGameButton.Enabled = true;
-            _startGameButton.Enabled = false;
-            _backButton.Enabled = false;
-        }
+        private ProjectMazelike _game;
 
 
         public SceneMainMenu(ProjectMazelike game)
@@ -96,6 +79,23 @@ namespace ProjectMazelike.View.Scenes
             _backButton.OnClicked += OnClicked_Back;
             _backButton.Enabled = false;
             _screen.AddComponent(_backButton);
+        }
+
+        private void OnClicked_NewGame()
+        {
+            _startGameButton.Enabled = true;
+            _backButton.Enabled = true;
+
+            _newGameButton.Enabled = false;
+            _quitGameButton.Enabled = false;
+        }
+
+        private void OnClicked_Back()
+        {
+            _newGameButton.Enabled = true;
+            _quitGameButton.Enabled = true;
+            _startGameButton.Enabled = false;
+            _backButton.Enabled = false;
         }
     }
 }
