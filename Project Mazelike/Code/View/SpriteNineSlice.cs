@@ -5,12 +5,12 @@ namespace ProjectMazelike.View
 {
     internal class SpriteNineSlice : Sprite
     {
-        private readonly int bottomSlice;
-        private readonly int leftSlice;
-        private readonly int rightSlice;
+        private readonly int _bottomSlice;
+        private readonly int _leftSlice;
+        private readonly int _rightSlice;
 
-        private readonly Rectangle[] sourcePatches;
-        private readonly int topSlice;
+        private readonly Rectangle[] _sourcePatches;
+        private readonly int _topSlice;
 
         public Rectangle[] GetDestinationPatches()
         {
@@ -21,8 +21,8 @@ namespace ProjectMazelike.View
         {
             var destPatches = CreatePatches(Bounds);
 
-            for (var i = 0; i < sourcePatches.Length; i++)
-                spriteBatch.Draw(texture, destPatches[i], sourcePatches[i], Color.White);
+            for (var i = 0; i < _sourcePatches.Length; i++)
+                spriteBatch.Draw(Texture, destPatches[i], _sourcePatches[i], Color.White);
         }
 
         private Rectangle[] CreatePatches(Rectangle bounds)
@@ -31,24 +31,24 @@ namespace ProjectMazelike.View
             var y = bounds.Y;
             var width = bounds.Width;
             var height = bounds.Height;
-            var middleWidth = width - leftSlice - rightSlice;
-            var middleHeight = height - topSlice - bottomSlice;
-            var leftX = x + leftSlice;
-            var rightX = x + width - rightSlice;
-            var topY = y + topSlice;
-            var bottomY = y + height - topSlice;
+            var middleWidth = width - _leftSlice - _rightSlice;
+            var middleHeight = height - _topSlice - _bottomSlice;
+            var leftX = x + _leftSlice;
+            var rightX = x + width - _rightSlice;
+            var topY = y + _topSlice;
+            var bottomY = y + height - _topSlice;
 
             return new[]
             {
-                new Rectangle(x, y, leftSlice, topSlice), //Top-left
-                new Rectangle(leftX, y, middleWidth, topSlice), //Top-middle
-                new Rectangle(rightX, y, rightSlice, topSlice), //Top-Right
-                new Rectangle(x, topY, leftSlice, middleHeight), // Left-Middle
+                new Rectangle(x, y, _leftSlice, _topSlice), //Top-left
+                new Rectangle(leftX, y, middleWidth, _topSlice), //Top-middle
+                new Rectangle(rightX, y, _rightSlice, _topSlice), //Top-Right
+                new Rectangle(x, topY, _leftSlice, middleHeight), // Left-Middle
                 new Rectangle(leftX, topY, middleWidth, middleHeight), // Middle
-                new Rectangle(rightX, topY, rightSlice, middleHeight), // Right-Middle
-                new Rectangle(x, bottomY, leftSlice, bottomSlice), // Bottom-Left
-                new Rectangle(leftX, bottomY, middleWidth, bottomSlice), // Bottom-Middle
-                new Rectangle(rightX, bottomY, rightSlice, bottomSlice) // Bottom-Right
+                new Rectangle(rightX, topY, _rightSlice, middleHeight), // Right-Middle
+                new Rectangle(x, bottomY, _leftSlice, _bottomSlice), // Bottom-Left
+                new Rectangle(leftX, bottomY, middleWidth, _bottomSlice), // Bottom-Middle
+                new Rectangle(rightX, bottomY, _rightSlice, _bottomSlice) // Bottom-Right
             };
         }
 
@@ -63,11 +63,11 @@ namespace ProjectMazelike.View
         public SpriteNineSlice(Texture2D texture, Vector2 position, int width, int height, int leftSlice,
             int rightSlice, int topSlice, int bottomSlice) : base(texture, width, height, position)
         {
-            this.leftSlice = leftSlice;
-            this.rightSlice = rightSlice;
-            this.topSlice = topSlice;
-            this.bottomSlice = bottomSlice;
-            sourcePatches = CreatePatches(new Rectangle(0, 0, texture.Width, texture.Height));
+            this._leftSlice = leftSlice;
+            this._rightSlice = rightSlice;
+            this._topSlice = topSlice;
+            this._bottomSlice = bottomSlice;
+            _sourcePatches = CreatePatches(new Rectangle(0, 0, texture.Width, texture.Height));
         }
     }
 }

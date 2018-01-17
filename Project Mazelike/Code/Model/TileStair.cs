@@ -4,20 +4,20 @@ namespace ProjectMazelike.Model
 {
     internal class TileStair : Tile
     {
-        protected Tile destination;
+        protected Tile Destination;
 
         public void SetDestination(Tile destination)
         {
-            this.destination = destination;
+            this.Destination = destination;
         }
 
-        protected TileStair(string ID, TileType type) : base(ID, type)
+        protected TileStair(string id, TileType type) : base(id, type)
         {
         }
 
         public TileStair(TileStair t, Map map, Point position) : base(t, map, position)
         {
-            destination = t.destination;
+            Destination = t.Destination;
         }
     }
 }

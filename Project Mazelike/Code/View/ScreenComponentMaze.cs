@@ -8,19 +8,19 @@ namespace ProjectMazelike.View
 {
     internal class ScreenComponentMaze : ScreenComponent
     {
-        public static int cellSize = 32;
-        public static int wallSize = 2;
+        public static int CellSize = 32;
+        public static int WallSize = 2;
 
-        private readonly Maze maze;
+        private readonly Maze _maze;
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             //loop through each cell and draw them
             var unvisitedCells = new List<Cell>();
-            foreach (var cell in maze.GetCellArray())
+            foreach (var cell in _maze.GetCellArray())
             {
                 //Draw rectangle at cell's position
-                var rect = new Rectangle(cell.X * cellSize, cell.Y * cellSize, cellSize, cellSize);
+                var rect = new Rectangle(cell.X * CellSize, cell.Y * CellSize, CellSize, CellSize);
                 if (cell.Visited)
                     spriteBatch.Draw(TextureController.GetTexture("Cell"), rect, Color.White);
                 else
@@ -28,7 +28,7 @@ namespace ProjectMazelike.View
             }
 
             //Loop through each cell and draw walls
-            foreach (var cell in maze.GetCellArray())
+            foreach (var cell in _maze.GetCellArray())
             {
                 Rectangle rect;
                 //Draw rectangle at wall positions
@@ -37,15 +37,15 @@ namespace ProjectMazelike.View
                 //  This will not draw the walls on the edge of the screen, but they do exist.
                 if (cell.WallStatus(Cell.Direction.East))
                 {
-                    rect = new Rectangle(cell.X * cellSize + (cellSize - wallSize / 2), cell.Y * cellSize, wallSize,
-                        cellSize);
+                    rect = new Rectangle(cell.X * CellSize + (CellSize - WallSize / 2), cell.Y * CellSize, WallSize,
+                        CellSize);
                     spriteBatch.Draw(TextureController.GetTexture("Maze Wall"), rect, Color.Black);
                 }
 
                 if (cell.WallStatus(Cell.Direction.South))
                 {
-                    rect = new Rectangle(cell.X * cellSize, cell.Y * cellSize + (cellSize - wallSize / 2), cellSize,
-                        wallSize);
+                    rect = new Rectangle(cell.X * CellSize, cell.Y * CellSize + (CellSize - WallSize / 2), CellSize,
+                        WallSize);
                     spriteBatch.Draw(TextureController.GetTexture("Maze Wall"), rect, Color.Black);
                 }
             }
@@ -53,14 +53,14 @@ namespace ProjectMazelike.View
             //Draw unvisited cells AFTER walls so they get hidden
             foreach (var cell in unvisitedCells)
             {
-                var rect = new Rectangle(cell.X * cellSize, cell.Y * cellSize, cellSize, cellSize);
+                var rect = new Rectangle(cell.X * CellSize, cell.Y * CellSize, CellSize, CellSize);
                 spriteBatch.Draw(TextureController.GetTexture("Cell"), rect, Color.Gray);
             }
         }
 
         public ScreenComponentMaze(Maze maze, Screen screen, DrawLayer layer) : base(screen, layer)
         {
-            this.maze = maze;
+            this._maze = maze;
         }
     }
 }

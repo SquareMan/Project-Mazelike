@@ -40,7 +40,7 @@ namespace ProjectMazelike.View
         Background,
         Player,
         Foreground,
-        UI
+        Ui
     }
 
     public enum DrawSpace

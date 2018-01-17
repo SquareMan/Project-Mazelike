@@ -21,14 +21,14 @@ namespace ProjectMazelike
             Paused
         }
 
-        public static SpriteFont font;
+        public static SpriteFont Font;
 
         private GameState _currentState = GameState.Startup;
 
-        private GraphicsDeviceManager graphics;
+        private GraphicsDeviceManager _graphics;
 
         public SpriteBatch SpriteBatch;
-        private WorldController worldManager;
+        private WorldController _worldManager;
 
         public GameState CurrentState
         {
@@ -55,7 +55,7 @@ namespace ProjectMazelike
 
             KeyboardController.Initialize();
             ScreenController.Initialize();
-            worldManager = new WorldController();
+            _worldManager = new WorldController();
 
             IsMouseVisible = true;
 
@@ -71,7 +71,7 @@ namespace ProjectMazelike
         protected override void LoadContent()
         {
             TextureController.LoadTextures(Content);
-            font = Content.Load<SpriteFont>("Fonts/Font");
+            Font = Content.Load<SpriteFont>("Fonts/Font");
 
             //Pause Screen Components
             var quitGameButton = new ScreenComponentButton(
@@ -79,14 +79,14 @@ namespace ProjectMazelike
                     GraphicsDevice.Viewport.Height / 2 - 60),
                 240,
                 120,
-                ScreenController.pauseScreen,
-                DrawLayer.UI,
+                ScreenController.PauseScreen,
+                DrawLayer.Ui,
                 DrawSpace.Screen);
-            quitGameButton.text = "Quit Game";
+            quitGameButton.Text = "Quit Game";
 
             //Make button change map the game
             quitGameButton.OnClicked += Exit;
-            ScreenController.pauseScreen.AddComponent(quitGameButton);
+            ScreenController.PauseScreen.AddComponent(quitGameButton);
 
             var scene = new SceneMainMenu(this);
         }
@@ -181,7 +181,7 @@ namespace ProjectMazelike
         {
             Instance = this;
 
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
 

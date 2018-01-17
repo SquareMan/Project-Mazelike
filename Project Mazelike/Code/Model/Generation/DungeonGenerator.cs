@@ -2,16 +2,16 @@
 {
     internal class DungeonGenerator
     {
-        private readonly Maze maze;
+        private readonly Maze _maze;
 
         public Maze GetMaze()
         {
-            return maze;
+            return _maze;
         }
 
         public DungeonGenerator(Maze baseMaze)
         {
-            maze = baseMaze;
+            _maze = baseMaze;
         }
     }
 }

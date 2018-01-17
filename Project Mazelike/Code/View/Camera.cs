@@ -5,9 +5,9 @@ namespace ProjectMazelike.View
 {
     internal class Camera : ITransformable
     {
-        public bool canBeMoved;
-        public bool canBeRotated;
-        public bool canBeScaled;
+        public bool CanBeMoved;
+        public bool CanBeRotated;
+        public bool CanBeScaled;
 
         private Rectangle Bounds { get; }
 
@@ -36,11 +36,11 @@ namespace ProjectMazelike.View
         public float Rotation { get; set; }
         public float Scale { get; set; }
 
-        public Matrix TransformMatrix => (canBeMoved
+        public Matrix TransformMatrix => (CanBeMoved
                                              ? Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0))
                                              : Matrix.Identity) *
-                                         (canBeRotated ? Matrix.CreateRotationZ(Rotation) : Matrix.Identity) *
-                                         (canBeScaled ? Matrix.CreateScale(Scale) : Matrix.Identity) *
+                                         (CanBeRotated ? Matrix.CreateRotationZ(Rotation) : Matrix.Identity) *
+                                         (CanBeScaled ? Matrix.CreateScale(Scale) : Matrix.Identity) *
                                          Matrix.CreateTranslation(new Vector3(Bounds.Width * 0.5f, Bounds.Height * 0.5f,
                                              0));
     }

@@ -6,12 +6,12 @@ namespace ProjectMazelike.Controller
 {
     internal static class MouseController
     {
-        public static float zoomSensitivity = .001f;
+        public static float ZoomSensitivity = .001f;
 
-        private static Action<GameTime> updateFunc;
+        private static Action<GameTime> _updateFunc;
 
-        public static MouseState currentState { get; private set; }
-        public static MouseState lastState { get; private set; }
+        public static MouseState CurrentState { get; private set; }
+        public static MouseState LastState { get; private set; }
 
         public static void Initialize()
         {
@@ -20,13 +20,13 @@ namespace ProjectMazelike.Controller
 
         public static void Update(GameTime gameTime)
         {
-            lastState = currentState;
-            currentState = Mouse.GetState();
+            LastState = CurrentState;
+            CurrentState = Mouse.GetState();
 
-            if (currentState.LeftButton == ButtonState.Pressed)
+            if (CurrentState.LeftButton == ButtonState.Pressed)
             {
                 //Drag the camera
-                var delta = (lastState.Position.ToVector2() - currentState.Position.ToVector2()) /
+                var delta = (LastState.Position.ToVector2() - CurrentState.Position.ToVector2()) /
                             ScreenController.ActiveScreen.Camera.Scale;
 
                 ScreenController.ActiveScreen.Camera.MoveCamera(delta);
@@ -35,14 +35,14 @@ namespace ProjectMazelike.Controller
             //Zoom the game camera in and out
             if (ScreenController.ActiveScreen != null)
                 ScreenController.ActiveScreen.Camera.Scale +=
-                    GetScrollWhellAmount(currentState, lastState) * zoomSensitivity;
+                    GetScrollWhellAmount(CurrentState, LastState) * ZoomSensitivity;
 
-            updateFunc?.Invoke(gameTime);
+            _updateFunc?.Invoke(gameTime);
         }
 
         public static bool IsLeftReleased()
         {
-            if (lastState.LeftButton == ButtonState.Pressed && currentState.LeftButton == ButtonState.Released)
+            if (LastState.LeftButton == ButtonState.Pressed && CurrentState.LeftButton == ButtonState.Released)
                 return true;
 
             return false;
@@ -50,8 +50,8 @@ namespace ProjectMazelike.Controller
 
         public static bool IsRightReleased()
         {
-            if (lastState.RightButton == ButtonState.Pressed &&
-                currentState.RightButton == ButtonState.Released) return true;
+            if (LastState.RightButton == ButtonState.Pressed &&
+                CurrentState.RightButton == ButtonState.Released) return true;
 
             return false;
         }
@@ -66,16 +66,16 @@ namespace ProjectMazelike.Controller
             switch (newState)
             {
                 case ProjectMazelike.GameState.Startup:
-                    updateFunc = null;
+                    _updateFunc = null;
                     break;
                 case ProjectMazelike.GameState.MainMenu:
-                    updateFunc = null;
+                    _updateFunc = null;
                     break;
                 case ProjectMazelike.GameState.Running:
-                    updateFunc = null;
+                    _updateFunc = null;
                     break;
                 case ProjectMazelike.GameState.Paused:
-                    updateFunc = null;
+                    _updateFunc = null;
                     break;
             }
         }

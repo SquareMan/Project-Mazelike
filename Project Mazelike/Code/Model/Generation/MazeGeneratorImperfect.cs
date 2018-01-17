@@ -8,7 +8,7 @@ namespace ProjectMazelike.Model.Generation
     //finding dead ends and entering a neighbor from them
     internal class MazeGeneratorImperfect : MazeGenerator
     {
-        public float chance;
+        public float Chance;
 
         public override Maze GenerateMaze(int width, int height)
         {
@@ -16,12 +16,12 @@ namespace ProjectMazelike.Model.Generation
 
             //Find dead ends
             var deadEnds = new List<Cell>();
-            foreach (var cell in maze.GetCellArray())
+            foreach (var cell in Maze.GetCellArray())
                 if (cell.GetNumberOfWalls() >= 3)
-                    if (rand.NextDouble() < chance)
+                    if (Rand.NextDouble() < Chance)
                     {
                         var neighbors = cell.GetWalledNeighbors();
-                        EnterCell(cell, neighbors[rand.Next(neighbors.Count)]);
+                        EnterCell(cell, neighbors[Rand.Next(neighbors.Count)]);
                         Debug.WriteLine("Dead End removed");
                     }
 
@@ -31,8 +31,8 @@ namespace ProjectMazelike.Model.Generation
             {
                 deadEnds = new List<Cell>();
                 deadEndsRemain = false;
-                foreach (var cell in maze.GetCellArray())
-                    if (cell.connectedCells.Count == 1)
+                foreach (var cell in Maze.GetCellArray())
+                    if (cell.ConnectedCells.Count == 1)
                     {
                         deadEndsRemain = true;
 
@@ -41,13 +41,13 @@ namespace ProjectMazelike.Model.Generation
                     }
             }
 
-            return maze;
+            return Maze;
         }
 
         public void ResetCell(Cell cell)
         {
             var cellsToDisconnect = new List<Cell>();
-            foreach (var connected in cell.connectedCells) cellsToDisconnect.Add(connected);
+            foreach (var connected in cell.ConnectedCells) cellsToDisconnect.Add(connected);
 
             foreach (var c in cellsToDisconnect) Cell.Disconnect(cell, c);
 
@@ -61,7 +61,7 @@ namespace ProjectMazelike.Model.Generation
         /// <param name="randomSeed">Seed for the random generator. -1 = random seed (default)</param>
         public MazeGeneratorImperfect(float chance = 0.5f, int randomSeed = -1) : base(randomSeed)
         {
-            this.chance = MathHelper.Clamp(chance, 0f, 1f);
+            this.Chance = MathHelper.Clamp(chance, 0f, 1f);
         }
     }
 }

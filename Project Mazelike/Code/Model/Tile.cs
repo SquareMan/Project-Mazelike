@@ -7,24 +7,24 @@ namespace ProjectMazelike.Model
 {
     internal class Tile
     {
-        public static readonly Dictionary<string, Tile> tilePrototypes = new Dictionary<string, Tile>();
+        public static readonly Dictionary<string, Tile> TilePrototypes = new Dictionary<string, Tile>();
 
-        public static readonly Tile tileFloor = new Tile("Floor", TileType.Floor);
-        public static readonly Tile tileWall = new Tile("Wall", TileType.Wall);
-        public static readonly Tile tileStair = new Tile("Stair", TileType.Floor);
-        public readonly Map map;
-        public readonly Point position;
+        public static readonly Tile TileFloor = new Tile("Floor", TileType.Floor);
+        public static readonly Tile TileWall = new Tile("Wall", TileType.Wall);
+        public static readonly Tile TileStair = new Tile("Stair", TileType.Floor);
+        public readonly Map Map;
+        public readonly Point Position;
 
         public Entity EntityInTile { get; protected set; }
         public TileType TileType { get; protected set; }
 
-        public string ID { get; protected set; }
+        public string Id { get; protected set; }
 
         public event Action<Entity> OnTileEntered;
 
-        public static Tile GetTile(string blockID)
+        public static Tile GetTile(string blockId)
         {
-            return tilePrototypes[blockID];
+            return TilePrototypes[blockId];
         }
 
         public bool CanEnter()
@@ -56,12 +56,12 @@ namespace ProjectMazelike.Model
         /// <summary>
         ///     For creating Tile prototypes
         /// </summary>
-        /// <param name="ID"></param>
+        /// <param name="id"></param>
         /// <param name="type"></param>
-        protected Tile(string ID, TileType type)
+        protected Tile(string id, TileType type)
         {
-            tilePrototypes.Add(ID, this);
-            this.ID = ID;
+            TilePrototypes.Add(id, this);
+            this.Id = id;
             TileType = type;
         }
 
@@ -71,10 +71,10 @@ namespace ProjectMazelike.Model
         /// <param name="t"></param>
         public Tile(Tile t, Map map, Point position)
         {
-            ID = t.ID;
+            Id = t.Id;
             TileType = t.TileType;
-            this.map = map;
-            this.position = position;
+            this.Map = map;
+            this.Position = position;
         }
     }
 

@@ -5,42 +5,42 @@ namespace ProjectMazelike.Model.Generation
 {
     internal class MazeGenerator
     {
-        protected Cell currentCell;
+        protected Cell CurrentCell;
 
-        protected Maze maze;
+        protected Maze Maze;
 
-        protected Random rand;
-        protected Stack<Cell> stack;
+        protected Random Rand;
+        protected Stack<Cell> Stack;
 
         public virtual Maze GenerateMaze(int width, int height)
         {
-            maze = new Maze(width, height);
-            stack = new Stack<Cell>();
+            Maze = new Maze(width, height);
+            Stack = new Stack<Cell>();
 
             //Set an initial current cell and mark as visited
-            currentCell = maze.GetCell(0, 0);
-            currentCell.Visit();
+            CurrentCell = Maze.GetCell(0, 0);
+            CurrentCell.Visit();
 
             //Start main loop
             var unvistedCells = true;
             while (unvistedCells)
             {
-                var currentNeighbors = currentCell.GetUnvisitedNeighbors();
+                var currentNeighbors = CurrentCell.GetUnvisitedNeighbors();
                 if (currentNeighbors.Count > 0)
                 {
                     //We have at LEAST one unvisited neighbors
                     //Pick a random one and enter it
-                    var index = rand.Next(currentNeighbors.Count);
+                    var index = Rand.Next(currentNeighbors.Count);
 
                     //Enter the next cell, mark as visited and disable applicable walls
-                    EnterCell(currentCell, currentNeighbors[index]);
+                    EnterCell(CurrentCell, currentNeighbors[index]);
                     //Add new cell to the stack
-                    stack.Push(currentCell);
+                    Stack.Push(CurrentCell);
                 }
-                else if (stack.Count > 0)
+                else if (Stack.Count > 0)
                 {
                     //We can start backtracking
-                    currentCell = stack.Pop();
+                    CurrentCell = Stack.Pop();
                 }
                 else
                 {
@@ -50,12 +50,12 @@ namespace ProjectMazelike.Model.Generation
                 }
             }
 
-            return maze;
+            return Maze;
         }
 
         public Maze GetMaze()
         {
-            return maze;
+            return Maze;
         }
 
         protected virtual void EnterCell(Cell current, Cell next)
@@ -67,14 +67,14 @@ namespace ProjectMazelike.Model.Generation
             next.Visit();
 
             //Set our current cell to the be next cell
-            currentCell = next;
+            CurrentCell = next;
         }
 
         public MazeGenerator(int randomSeed = -1)
         {
             if (randomSeed == -1) randomSeed = Environment.TickCount;
 
-            rand = new Random(randomSeed);
+            Rand = new Random(randomSeed);
         }
     }
 }

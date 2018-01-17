@@ -7,35 +7,27 @@ namespace ProjectMazelike.Model.Generation
     {
         public enum Direction
         {
-            NONE,
+            None,
             North,
             East,
             South,
             West
         }
 
-        public List<Cell> connectedCells;
+        public List<Cell> ConnectedCells;
 
-        protected Maze maze;
+        protected Maze Maze;
 
         //TODO: Does the cell itself need to care about being 'Visited'?
         //          This might be more of just a MazeGnerator thing
         //          Add an array/list of visited cells instead?
 
-        protected int x;
-        protected int y;
+        //protected int x;
+        //protected int y;
 
-        public int X
-        {
-            get => x;
-            protected set => x = value;
-        }
+        public int X { get; private set; }
 
-        public int Y
-        {
-            get => y;
-            protected set => y = value;
-        }
+        public int Y { get; private set; }
 
         public bool Visited { get; protected set; }
 
@@ -46,14 +38,14 @@ namespace ProjectMazelike.Model.Generation
         /// <param name="b"></param>
         public static void Connect(Cell a, Cell b)
         {
-            a.connectedCells.Add(b);
-            b.connectedCells.Add(a);
+            a.ConnectedCells.Add(b);
+            b.ConnectedCells.Add(a);
         }
 
         public static void Disconnect(Cell a, Cell b)
         {
-            a.connectedCells.Remove(b);
-            b.connectedCells.Remove(a);
+            a.ConnectedCells.Remove(b);
+            b.ConnectedCells.Remove(a);
         }
 
         /// <summary>
@@ -68,13 +60,13 @@ namespace ProjectMazelike.Model.Generation
             if (origin.X == direction.X && origin.Y == direction.Y)
             {
                 Debug.WriteLine("Warning: Cell.GetDirection called with same cells or same cell positions");
-                return Direction.NONE;
+                return Direction.None;
             }
 
             if (origin.X != direction.X && origin.Y != direction.Y)
             {
                 Debug.WriteLine("Warning: Cell.GetDirection called with diagonal cells");
-                return Direction.NONE;
+                return Direction.None;
             }
 
             if (origin.Y > direction.Y)
@@ -87,7 +79,7 @@ namespace ProjectMazelike.Model.Generation
                 return Direction.West;
 
             Debug.WriteLine("ERROR: Direction not found");
-            return Direction.NONE;
+            return Direction.None;
         }
 
         /// <summary>
@@ -99,7 +91,7 @@ namespace ProjectMazelike.Model.Generation
         {
             //A cell has a wall in a given direction if it does not have a connected cell in the corresponding direction
             //By definition, if a cell is in connectedCells there is no wall between them, so check for lack of a wall
-            foreach (var cell in connectedCells)
+            foreach (var cell in ConnectedCells)
                 if (GetDirection(this, cell) == direction)
                     return false;
 
@@ -114,28 +106,28 @@ namespace ProjectMazelike.Model.Generation
             //Add North Neighbor
             if (Y - 1 >= 0)
             {
-                var cell = maze.GetCell(X, Y - 1);
+                var cell = Maze.GetCell(X, Y - 1);
                 if (WallStatus(Direction.North)) neighbors.Add(cell);
             }
 
             //Add South Neighbor
-            if (Y + 1 < maze.Height)
+            if (Y + 1 < Maze.Height)
             {
-                var cell = maze.GetCell(X, Y + 1);
+                var cell = Maze.GetCell(X, Y + 1);
                 if (WallStatus(Direction.South)) neighbors.Add(cell);
             }
 
             //Add West Neighbor
             if (X - 1 >= 0)
             {
-                var cell = maze.GetCell(X - 1, Y);
+                var cell = Maze.GetCell(X - 1, Y);
                 if (WallStatus(Direction.West)) neighbors.Add(cell);
             }
 
             //Add East Neighbor
-            if (X + 1 < maze.Width)
+            if (X + 1 < Maze.Width)
             {
-                var cell = maze.GetCell(X + 1, Y);
+                var cell = Maze.GetCell(X + 1, Y);
                 if (WallStatus(Direction.East)) neighbors.Add(cell);
             }
 
@@ -148,28 +140,28 @@ namespace ProjectMazelike.Model.Generation
             //Add North Neighbor
             if (Y - 1 >= 0)
             {
-                var cell = maze.GetCell(X, Y - 1);
+                var cell = Maze.GetCell(X, Y - 1);
                 if (cell.Visited == false) neighbors.Add(cell);
             }
 
             //Add South Neighbor
-            if (Y + 1 < maze.Height)
+            if (Y + 1 < Maze.Height)
             {
-                var cell = maze.GetCell(X, Y + 1);
+                var cell = Maze.GetCell(X, Y + 1);
                 if (cell.Visited == false) neighbors.Add(cell);
             }
 
             //Add West Neighbor
             if (X - 1 >= 0)
             {
-                var cell = maze.GetCell(X - 1, Y);
+                var cell = Maze.GetCell(X - 1, Y);
                 if (cell.Visited == false) neighbors.Add(cell);
             }
 
             //Add East Neighbor
-            if (X + 1 < maze.Width)
+            if (X + 1 < Maze.Width)
             {
-                var cell = maze.GetCell(X + 1, Y);
+                var cell = Maze.GetCell(X + 1, Y);
                 if (cell.Visited == false) neighbors.Add(cell);
             }
 
@@ -178,7 +170,7 @@ namespace ProjectMazelike.Model.Generation
 
         public int GetNumberOfWalls()
         {
-            return 4 - connectedCells.Count;
+            return 4 - ConnectedCells.Count;
         }
 
         /// <summary>
@@ -195,9 +187,9 @@ namespace ProjectMazelike.Model.Generation
         {
             X = x;
             Y = y;
-            this.maze = maze;
+            this.Maze = maze;
 
-            connectedCells = new List<Cell>();
+            ConnectedCells = new List<Cell>();
         }
     }
 }

@@ -6,27 +6,27 @@ namespace ProjectMazelike.Controller
     internal class WorldController
     {
         public static WorldController Instance;
-        public Map currentMap;
+        public Map CurrentMap;
 
-        private ScreenComponentMap scm;
+        private ScreenComponentMap _scm;
 
-        public World world;
+        public World World;
 
         public void SetMap(Map newMap)
         {
-            currentMap = newMap;
+            CurrentMap = newMap;
 
-            ScreenController.gameScreen.RemoveComponent(scm);
-            scm = new ScreenComponentMap(newMap, ScreenController.gameScreen, DrawLayer.Background);
-            ScreenController.gameScreen.AddComponent(scm);
+            ScreenController.GameScreen.RemoveComponent(_scm);
+            _scm = new ScreenComponentMap(newMap, ScreenController.GameScreen, DrawLayer.Background);
+            ScreenController.GameScreen.AddComponent(_scm);
         }
 
         public WorldController()
         {
             Instance = this;
 
-            world = new World(SetMap);
-            world.OnMapChanged += SetMap;
+            World = new World(SetMap);
+            World.OnMapChanged += SetMap;
         }
     }
 }

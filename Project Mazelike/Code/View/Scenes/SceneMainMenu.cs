@@ -5,97 +5,97 @@ namespace ProjectMazelike.View.Scenes
 {
     internal class SceneMainMenu
     {
-        private readonly ScreenComponentButton backButton;
+        private readonly ScreenComponentButton _backButton;
 
-        private readonly ScreenComponentSprite background;
-        private ProjectMazelike game;
-        private readonly ScreenComponentButton newGameButton;
-        private readonly ScreenComponentButton quitGameButton;
-        private readonly Screen screen;
+        private readonly ScreenComponentSprite _background;
+        private ProjectMazelike _game;
+        private readonly ScreenComponentButton _newGameButton;
+        private readonly ScreenComponentButton _quitGameButton;
+        private readonly Screen _screen;
 
-        private readonly ScreenComponentButton startGameButton;
+        private readonly ScreenComponentButton _startGameButton;
 
         private void OnClicked_NewGame()
         {
-            startGameButton.Enabled = true;
-            backButton.Enabled = true;
+            _startGameButton.Enabled = true;
+            _backButton.Enabled = true;
 
-            newGameButton.Enabled = false;
-            quitGameButton.Enabled = false;
+            _newGameButton.Enabled = false;
+            _quitGameButton.Enabled = false;
         }
 
         private void OnClicked_Back()
         {
-            newGameButton.Enabled = true;
-            quitGameButton.Enabled = true;
-            startGameButton.Enabled = false;
-            backButton.Enabled = false;
+            _newGameButton.Enabled = true;
+            _quitGameButton.Enabled = true;
+            _startGameButton.Enabled = false;
+            _backButton.Enabled = false;
         }
 
 
         public SceneMainMenu(ProjectMazelike game)
         {
-            this.game = game;
-            screen = ScreenController.GetScreen("Main Menu");
+            this._game = game;
+            _screen = ScreenController.GetScreen("Main Menu");
 
             //Main Components
-            background = new ScreenComponentSprite(
+            _background = new ScreenComponentSprite(
                 new Sprite(TextureController.GetTexture("Player"), game.GraphicsDevice.Viewport.Width,
                     game.GraphicsDevice.Viewport.Height, Vector2.Zero),
-                ScreenController.mainMenuScreen,
+                ScreenController.MainMenuScreen,
                 DrawLayer.Background,
                 DrawSpace.Screen);
-            screen.AddComponent(background);
+            _screen.AddComponent(_background);
 
-            newGameButton = new ScreenComponentButton(
+            _newGameButton = new ScreenComponentButton(
                 new Vector2(game.GraphicsDevice.Viewport.Width / 2 - 120,
                     game.GraphicsDevice.Viewport.Height / 2 - 140),
                 240,
                 120,
-                ScreenController.mainMenuScreen,
-                DrawLayer.UI,
+                ScreenController.MainMenuScreen,
+                DrawLayer.Ui,
                 DrawSpace.Screen);
-            newGameButton.text = "New Game";
-            newGameButton.OnClicked += OnClicked_NewGame;
-            screen.AddComponent(newGameButton);
+            _newGameButton.Text = "New Game";
+            _newGameButton.OnClicked += OnClicked_NewGame;
+            _screen.AddComponent(_newGameButton);
 
-            quitGameButton = new ScreenComponentButton(
+            _quitGameButton = new ScreenComponentButton(
                 new Vector2(game.GraphicsDevice.Viewport.Width / 2 - 120,
                     game.GraphicsDevice.Viewport.Height / 2 + 20),
                 240,
                 120,
-                ScreenController.mainMenuScreen,
-                DrawLayer.UI,
+                ScreenController.MainMenuScreen,
+                DrawLayer.Ui,
                 DrawSpace.Screen);
-            quitGameButton.text = "Quit Game";
-            quitGameButton.OnClicked += game.Exit;
-            screen.AddComponent(quitGameButton);
+            _quitGameButton.Text = "Quit Game";
+            _quitGameButton.OnClicked += game.Exit;
+            _screen.AddComponent(_quitGameButton);
 
             //New Game submenu
-            startGameButton = new ScreenComponentButton(
+            _startGameButton = new ScreenComponentButton(
                 new Vector2(game.GraphicsDevice.Viewport.Width / 2 - 120,
                     game.GraphicsDevice.Viewport.Height / 2 - 60),
                 240,
                 120,
-                ScreenController.mainMenuScreen,
-                DrawLayer.UI,
+                ScreenController.MainMenuScreen,
+                DrawLayer.Ui,
                 DrawSpace.Screen);
-            startGameButton.text = "Start";
-            startGameButton.OnClicked += game.StartGame;
-            startGameButton.Enabled = false;
-            screen.AddComponent(startGameButton);
+            _startGameButton.Text = "Start";
+            _startGameButton.OnClicked += game.StartGame;
+            _startGameButton.Enabled = false;
+            _screen.AddComponent(_startGameButton);
 
-            backButton = new ScreenComponentButton(
-                startGameButton.Position + new Vector2(0, 150),
+            _backButton = new ScreenComponentButton(
+                _startGameButton.Position + new Vector2(0, 150),
                 160,
                 80,
-                ScreenController.mainMenuScreen,
-                DrawLayer.UI,
+                ScreenController.MainMenuScreen,
+                DrawLayer.Ui,
                 DrawSpace.Screen);
-            backButton.text = "Back";
-            backButton.OnClicked += OnClicked_Back;
-            backButton.Enabled = false;
-            screen.AddComponent(backButton);
+            _backButton.Text = "Back";
+            _backButton.OnClicked += OnClicked_Back;
+            _backButton.Enabled = false;
+            _screen.AddComponent(_backButton);
         }
     }
 }

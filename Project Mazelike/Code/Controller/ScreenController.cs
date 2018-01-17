@@ -9,11 +9,11 @@ namespace ProjectMazelike.Controller
 {
     internal static class ScreenController
     {
-        public static Screen gameScreen;
-        public static Screen pauseScreen;
-        public static Screen mainMenuScreen;
+        public static Screen GameScreen;
+        public static Screen PauseScreen;
+        public static Screen MainMenuScreen;
 
-        private static readonly Dictionary<string, Screen> screens = new Dictionary<string, Screen>();
+        private static readonly Dictionary<string, Screen> Screens = new Dictionary<string, Screen>();
         public static Screen ActiveScreen { get; private set; }
 
         public static void Initialize()
@@ -21,26 +21,26 @@ namespace ProjectMazelike.Controller
             ProjectMazelike.Instance.OnGameStateChanged += OnGameStateChanged;
 
             //Setup screens
-            gameScreen = AddScreen("Game", true, false, true);
-            gameScreen.SamplerState = SamplerState.PointClamp;
-            gameScreen.clearColor = Color.Black;
-            pauseScreen = AddScreen("Pause", false, false, false);
-            pauseScreen.SamplerState = SamplerState.PointClamp;
-            mainMenuScreen = AddScreen("Main Menu", false, false, false);
-            mainMenuScreen.SamplerState = SamplerState.PointClamp;
+            GameScreen = AddScreen("Game", true, false, true);
+            GameScreen.SamplerState = SamplerState.PointClamp;
+            GameScreen.ClearColor = Color.Black;
+            PauseScreen = AddScreen("Pause", false, false, false);
+            PauseScreen.SamplerState = SamplerState.PointClamp;
+            MainMenuScreen = AddScreen("Main Menu", false, false, false);
+            MainMenuScreen.SamplerState = SamplerState.PointClamp;
         }
 
         public static void SetActiveScreen(string name)
         {
-            foreach (var n in screens.Keys)
+            foreach (var n in Screens.Keys)
             {
-                screens[n].Visible = false;
-                screens[n].Enabled = false;
+                Screens[n].Visible = false;
+                Screens[n].Enabled = false;
             }
 
-            if (screens.Keys.Contains(name))
+            if (Screens.Keys.Contains(name))
             {
-                ActiveScreen = screens[name];
+                ActiveScreen = Screens[name];
                 ActiveScreen.Visible = true;
                 ActiveScreen.Enabled = true;
             }
@@ -57,14 +57,14 @@ namespace ProjectMazelike.Controller
             var newScreen = new Screen(ProjectMazelike.Instance, moveable, rotatable, scaleable);
             newScreen.Visible = false;
             newScreen.Enabled = false;
-            screens.Add(name, newScreen);
+            Screens.Add(name, newScreen);
             ProjectMazelike.Instance.Components.Add(newScreen);
             return newScreen;
         }
 
         public static Screen GetScreen(string name)
         {
-            if (screens.Keys.Contains(name)) return screens[name];
+            if (Screens.Keys.Contains(name)) return Screens[name];
 
             Debug.WriteLine(
                 string.Format("Screen with name {0} was attempted to be retrieved but does not exist", name));

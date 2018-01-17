@@ -7,18 +7,18 @@ namespace ProjectMazelike.Model
     {
         public Tile CurrentTile;
 
-        protected int health = 100;
+        protected int Health = 100;
 
-        public Map CurrentMap => CurrentTile?.map;
+        public Map CurrentMap => CurrentTile?.Map;
 
-        public Point position => CurrentTile.position;
+        public Point Position => CurrentTile.Position;
 
         public event Action OnDeath;
 
         public virtual void ApplyDamage(int damage)
         {
-            health -= damage;
-            if (health <= 0) Die();
+            Health -= damage;
+            if (Health <= 0) Die();
         }
 
         public virtual void Die()
@@ -29,13 +29,13 @@ namespace ProjectMazelike.Model
 
         public virtual int GetHealth()
         {
-            return health;
+            return Health;
         }
 
         public virtual void Move(Vector2 direction)
         {
             direction.Normalize();
-            var newPosition = position + direction.ToPoint();
+            var newPosition = Position + direction.ToPoint();
             var newTile = CurrentMap.GetTile(newPosition.X, newPosition.Y);
 
             if (newTile != null)

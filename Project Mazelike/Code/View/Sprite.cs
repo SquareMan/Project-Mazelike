@@ -5,13 +5,13 @@ namespace ProjectMazelike.View
 {
     internal class Sprite : ITransformable
     {
-        public int height;
+        public int Height;
 
-        protected Texture2D texture;
+        protected Texture2D Texture;
 
-        public int width;
+        public int Width;
 
-        public Rectangle Bounds => new Rectangle((int) Position.X, (int) Position.Y, width, height);
+        public Rectangle Bounds => new Rectangle((int) Position.X, (int) Position.Y, Width, Height);
 
         /// <summary>
         ///     Return the texture of this Sprite
@@ -19,7 +19,7 @@ namespace ProjectMazelike.View
         /// <returns></returns>
         public Texture2D GetTexture()
         {
-            return texture;
+            return Texture;
         }
 
         /// <summary>
@@ -28,23 +28,23 @@ namespace ProjectMazelike.View
         /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, Bounds, Color.White);
+            spriteBatch.Draw(Texture, Bounds, Color.White);
         }
 
         public Sprite(Texture2D texture, Vector2 position)
         {
-            this.texture = texture;
+            this.Texture = texture;
             Position = position;
 
-            width = texture.Width;
-            height = texture.Height;
+            Width = texture.Width;
+            Height = texture.Height;
         }
 
         public Sprite(Texture2D texture, int width, int height, Vector2 position, float rotation = 0f, float scale = 1f)
         {
-            this.texture = texture;
-            this.width = width;
-            this.height = height;
+            this.Texture = texture;
+            this.Width = width;
+            this.Height = height;
 
             Position = position;
             Rotation = rotation;
