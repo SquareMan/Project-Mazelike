@@ -52,52 +52,5 @@ namespace ProjectMazelike.Model {
         public void SetTile(int x, int y, Tile t) {
             tiles[x, y] = new Tile(t, this, new Point(x, y));
         }
-
-        public Map(Room[,] rooms) {
-            int totalWidth = rooms.GetLength(0) * 10;
-            int totalHeight = rooms.GetLength(1) * 10;
-            tiles = new Tile[totalWidth, totalHeight];
-            Enemies = new List<Enemy>();
-
-            for (int i = 0; i < rooms.GetLength(0); i++) {
-                for (int j = 0; j < rooms.GetLength(1); j++) {
-                    for (int x = 0; x < rooms[i,j].tiles.GetLength(0); x++) {
-                        for (int y = 0; y < rooms[i,j].tiles.GetLength(1); y++) {
-                            tiles[(10 * i) + x, (10 * j) + y] = rooms[i, j].tiles[x, y];
-
-                            Entity entity = rooms[i, j].tiles[x, y].EntityInTile;
-                            if (entity != null) {
-                                tiles[(10 * i) + x, (10 * j) + y].EnterTile(entity);
-
-                                if (typeof(Enemy) == entity.GetType()) {
-                                    Enemies.Add((Enemy)entity);
-                                    entity.OnDeath += () => { Enemies.Remove((Enemy)entity); };
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            PlayerStart = new Point(2, 2);
-        }
-
-
-        static Random rand = new Random();
-        public static Room[,] TestRoomArray() {
-            Room[,] rooms = new Room[2,2];
-
-            for (int i = 0; i < 2; i++) {
-                for (int j = 0; j < 2; j++) {
-                    if (rand.Next() % 2 == 0) {
-                        rooms[i, j] = new Room("RoomExample");
-                    } else {
-                        rooms[i, j] = new Room("RoomExample2");
-                    }
-                }
-            }
-
-            return rooms;
-        }
     }
 }
