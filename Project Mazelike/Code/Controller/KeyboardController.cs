@@ -13,8 +13,9 @@ namespace ProjectMazelike.Controller {
 
         static float rotationSpeed = MathHelper.Pi / 32;
 
-        delegate void UpdateFunc();
-        static UpdateFunc Update_CurrentFunc;
+        //delegate void UpdateFunc();
+        //static UpdateFunc Update_CurrentFunc;
+        private static Action<GameTime> updateFunc;
 
         public static void Initialize() {
             ProjectMazelike.Instance.OnGameStateChanged += OnGameStateChanged;
@@ -26,7 +27,7 @@ namespace ProjectMazelike.Controller {
             currentState = Keyboard.GetState();
 
             //Run the appropriate update method
-            Update_CurrentFunc?.Invoke();
+            updateFunc?.Invoke(gameTime);
 
             //Rotate ActiveScreen if possible
             if (currentState.IsKeyDown(Keys.E))
@@ -35,7 +36,7 @@ namespace ProjectMazelike.Controller {
                 ScreenController.ActiveScreen.Camera.Rotation -= rotationSpeed;
         }
 
-        static void Update_GameRunning() {
+        static void Update_GameRunning(GameTime gameTime) {
             //Player movement
             if (IsButtonReleased(Keys.Right))
                 WorldController.Instance.world.player.Move(Vector2.UnitX);
@@ -52,7 +53,7 @@ namespace ProjectMazelike.Controller {
             }
         }
 
-        static void Update_GamePaused() {
+        static void Update_GamePaused(GameTime gameTime) {
             //Unpause the game
             if (IsButtonReleased(Keys.Escape)) {
                 ProjectMazelike.Instance.UnpauseGame();
@@ -62,16 +63,16 @@ namespace ProjectMazelike.Controller {
         static void OnGameStateChanged(ProjectMazelike.GameState newState) {
             switch (newState) {
                 case ProjectMazelike.GameState.Startup:
-                    Update_CurrentFunc = null;
+                    updateFunc = null;
                     break;
                 case ProjectMazelike.GameState.MainMenu:
-                    Update_CurrentFunc = null;
+                    updateFunc = null;
                     break;
                 case ProjectMazelike.GameState.Running:
-                    Update_CurrentFunc = Update_GameRunning;
+                    updateFunc = Update_GameRunning;
                     break;
                 case ProjectMazelike.GameState.Paused:
-                    Update_CurrentFunc = Update_GamePaused;
+                    updateFunc = Update_GamePaused;
                     break;
             }
         }
