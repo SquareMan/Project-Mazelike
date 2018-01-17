@@ -36,8 +36,9 @@ namespace ProjectMazelike.Model {
         public static readonly Tile tileWall = new Tile("Wall", TileType.Wall);
         public static readonly Tile tileStair = new Tile("Stair", TileType.Floor);
 
-        public delegate void TileEnteredDelegate(Entity entity);
-        public event TileEnteredDelegate OnTileEntered;
+        //public delegate void TileEnteredDelegate(Entity entity);
+        //public event TileEnteredDelegate OnTileEntered;
+        public event Action<Entity> OnTileEntered;
 
         public Entity EntityInTile { get; protected set; }
         public TileType TileType { get; protected set; }
