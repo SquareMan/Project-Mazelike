@@ -1,22 +1,12 @@
 ﻿namespace ProjectMazelike.Model.Generation
 {
-    class Maze
+    internal class Maze
     {
         protected Cell[,] cells;
-        private int height;
-        private int width;
 
-        public int Width
-        {
-            get => width;
-            protected set => width = value;
-        }
+        public int Width { get; protected set; }
 
-        public int Height
-        {
-            get => height;
-            protected set => height = value;
-        }
+        public int Height { get; protected set; }
 
         public Cell GetCell(int x, int y)
         {
@@ -30,17 +20,13 @@
 
         public Maze(int width, int height)
         {
-            this.width = width;
-            this.height = height;
+            Width = width;
+            Height = height;
 
             cells = new Cell[width, height];
-            for (int i = 0; i < width; i++)
-            {
-                for (int j = 0; j < height; j++)
-                {
-                    cells[i, j] = new Cell(i, j, this);
-                }
-            }
+            for (var i = 0; i < width; i++)
+            for (var j = 0; j < height; j++)
+                cells[i, j] = new Cell(i, j, this);
         }
     }
 }

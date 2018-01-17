@@ -3,19 +3,19 @@ using ProjectMazelike.Controller;
 
 namespace ProjectMazelike.View.Scenes
 {
-    class SceneMainMenu
+    internal class SceneMainMenu
     {
-        ScreenComponentButton backButton;
+        private readonly ScreenComponentButton backButton;
 
-        ScreenComponentSprite background;
-        ProjectMazelike game;
-        ScreenComponentButton newGameButton;
-        ScreenComponentButton quitGameButton;
-        Screen screen;
+        private readonly ScreenComponentSprite background;
+        private ProjectMazelike game;
+        private readonly ScreenComponentButton newGameButton;
+        private readonly ScreenComponentButton quitGameButton;
+        private readonly Screen screen;
 
-        ScreenComponentButton startGameButton;
+        private readonly ScreenComponentButton startGameButton;
 
-        void OnClicked_NewGame()
+        private void OnClicked_NewGame()
         {
             startGameButton.Enabled = true;
             backButton.Enabled = true;
@@ -24,7 +24,7 @@ namespace ProjectMazelike.View.Scenes
             quitGameButton.Enabled = false;
         }
 
-        void OnClicked_Back()
+        private void OnClicked_Back()
         {
             newGameButton.Enabled = true;
             quitGameButton.Enabled = true;

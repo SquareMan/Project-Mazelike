@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ProjectMazelike.Model.Generation
 {
-    class MazeGenerator
+    internal class MazeGenerator
     {
         protected Cell currentCell;
 
@@ -22,15 +22,15 @@ namespace ProjectMazelike.Model.Generation
             currentCell.Visit();
 
             //Start main loop
-            Boolean unvistedCells = true;
+            var unvistedCells = true;
             while (unvistedCells)
             {
-                List<Cell> currentNeighbors = currentCell.GetUnvisitedNeighbors();
+                var currentNeighbors = currentCell.GetUnvisitedNeighbors();
                 if (currentNeighbors.Count > 0)
                 {
                     //We have at LEAST one unvisited neighbors
                     //Pick a random one and enter it
-                    int index = rand.Next(currentNeighbors.Count);
+                    var index = rand.Next(currentNeighbors.Count);
 
                     //Enter the next cell, mark as visited and disable applicable walls
                     EnterCell(currentCell, currentNeighbors[index]);
@@ -67,15 +67,12 @@ namespace ProjectMazelike.Model.Generation
             next.Visit();
 
             //Set our current cell to the be next cell
-            this.currentCell = next;
+            currentCell = next;
         }
 
         public MazeGenerator(int randomSeed = -1)
         {
-            if (randomSeed == -1)
-            {
-                randomSeed = Environment.TickCount;
-            }
+            if (randomSeed == -1) randomSeed = Environment.TickCount;
 
             rand = new Random(randomSeed);
         }

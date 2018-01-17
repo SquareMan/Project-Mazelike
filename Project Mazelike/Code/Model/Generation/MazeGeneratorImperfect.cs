@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
@@ -7,7 +6,7 @@ namespace ProjectMazelike.Model.Generation
 {
     //This generator creates an imperfect maze with loops by
     //finding dead ends and entering a neighbor from them
-    class MazeGeneratorImperfect : MazeGenerator
+    internal class MazeGeneratorImperfect : MazeGenerator
     {
         public float chance;
 
@@ -16,31 +15,23 @@ namespace ProjectMazelike.Model.Generation
             base.GenerateMaze(width, height);
 
             //Find dead ends
-            List<Cell> deadEnds = new List<Cell>();
-            foreach (Cell cell in maze.GetCellArray())
-            {
+            var deadEnds = new List<Cell>();
+            foreach (var cell in maze.GetCellArray())
                 if (cell.GetNumberOfWalls() >= 3)
-                {
-                    //This is a dead end. We should now Reverse the maze process, maybe....
-
-                    //Decide if we should remove the dead end
                     if (rand.NextDouble() < chance)
                     {
-                        List<Cell> neighbors = cell.GetWalledNeighbors();
+                        var neighbors = cell.GetWalledNeighbors();
                         EnterCell(cell, neighbors[rand.Next(neighbors.Count)]);
                         Debug.WriteLine("Dead End removed");
                     }
-                }
-            }
 
             //Now continue removing dead ends until there are none, leaving only loops
-            Boolean deadEndsRemain = true;
+            var deadEndsRemain = true;
             while (deadEndsRemain)
             {
                 deadEnds = new List<Cell>();
                 deadEndsRemain = false;
-                foreach (Cell cell in maze.GetCellArray())
-                {
+                foreach (var cell in maze.GetCellArray())
                     if (cell.connectedCells.Count == 1)
                     {
                         deadEndsRemain = true;
@@ -48,7 +39,6 @@ namespace ProjectMazelike.Model.Generation
                         //Reset this cell
                         ResetCell(cell);
                     }
-                }
             }
 
             return maze;
@@ -56,22 +46,16 @@ namespace ProjectMazelike.Model.Generation
 
         public void ResetCell(Cell cell)
         {
-            List<Cell> cellsToDisconnect = new List<Cell>();
-            foreach (Cell connected in cell.connectedCells)
-            {
-                cellsToDisconnect.Add(connected);
-            }
+            var cellsToDisconnect = new List<Cell>();
+            foreach (var connected in cell.connectedCells) cellsToDisconnect.Add(connected);
 
-            foreach (Cell c in cellsToDisconnect)
-            {
-                Cell.Disconnect(cell, c);
-            }
+            foreach (var c in cellsToDisconnect) Cell.Disconnect(cell, c);
 
             cell.Visit(false);
         }
 
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
         /// <param name="chance">Chance to remove dead end from 0-1. Default = 0.5</param>
         /// <param name="randomSeed">Seed for the random generator. -1 = random seed (default)</param>

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace ProjectMazelike.Model
 {
-    class Tile
+    internal class Tile
     {
         public static readonly Dictionary<string, Tile> tilePrototypes = new Dictionary<string, Tile>();
 
@@ -29,15 +29,9 @@ namespace ProjectMazelike.Model
 
         public bool CanEnter()
         {
-            if (EntityInTile != null)
-            {
-                return false;
-            }
+            if (EntityInTile != null) return false;
 
-            if (TileType == TileType.Wall)
-            {
-                return false;
-            }
+            if (TileType == TileType.Wall) return false;
 
             return true;
         }
@@ -60,7 +54,7 @@ namespace ProjectMazelike.Model
         }
 
         /// <summary>
-        /// For creating Tile prototypes
+        ///     For creating Tile prototypes
         /// </summary>
         /// <param name="ID"></param>
         /// <param name="type"></param>
@@ -68,23 +62,23 @@ namespace ProjectMazelike.Model
         {
             tilePrototypes.Add(ID, this);
             this.ID = ID;
-            this.TileType = type;
+            TileType = type;
         }
 
         /// <summary>
-        /// Copy Constructor for creating game tiles
+        ///     Copy Constructor for creating game tiles
         /// </summary>
         /// <param name="t"></param>
         public Tile(Tile t, Map map, Point position)
         {
-            this.ID = t.ID;
-            this.TileType = t.TileType;
+            ID = t.ID;
+            TileType = t.TileType;
             this.map = map;
             this.position = position;
         }
     }
 
-    enum TileType
+    internal enum TileType
     {
         Floor,
         Wall

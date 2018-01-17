@@ -1,8 +1,8 @@
 ﻿namespace ProjectMazelike.Model.Generation
 {
-    class DungeonGenerator
+    internal class DungeonGenerator
     {
-        Maze maze;
+        private readonly Maze maze;
 
         public Maze GetMaze()
         {
@@ -11,7 +11,7 @@
 
         public DungeonGenerator(Maze baseMaze)
         {
-            this.maze = baseMaze;
+            maze = baseMaze;
         }
     }
 }

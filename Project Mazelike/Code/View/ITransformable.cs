@@ -2,7 +2,7 @@
 
 namespace ProjectMazelike.View
 {
-    interface ITransformable
+    internal interface ITransformable
     {
         Vector2 Position { get; set; }
         float Rotation { get; set; }

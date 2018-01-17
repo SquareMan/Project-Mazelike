@@ -5,14 +5,14 @@ using ProjectMazelike.Model.Generation;
 
 namespace ProjectMazelike.Model
 {
-    class World
+    internal class World
     {
-        Map currentMap;
+        private Map currentMap;
 
-        List<Map> Overworld = new List<Map>();
+        private readonly List<Map> Overworld = new List<Map>();
         public Player player;
 
-        int worldSeed;
+        private readonly int worldSeed;
 
         public event Action<Map> OnMapChanged;
 
@@ -26,36 +26,30 @@ namespace ProjectMazelike.Model
 
         public World(Action<Map> callback)
         {
-            this.worldSeed = Environment.TickCount;
-            this.player = new Player(null);
+            worldSeed = Environment.TickCount;
+            player = new Player(null);
             OnMapChanged += callback;
 
-            Map map1 = new MapGenerator(worldSeed + 1).GenerateMap();
+            var map1 = new MapGenerator(worldSeed + 1).GenerateMap();
             map1.PlayerStart = new Point(8, 5);
             Overworld.Add(map1);
 
-            Map map2 = new MapGenerator(worldSeed + 2).GenerateMap();
+            var map2 = new MapGenerator(worldSeed + 2).GenerateMap();
             map2.PlayerStart = new Point(2, 2);
             Overworld.Add(map2);
 
             SetMap(map1);
 
             map1.SetTile(9, 5, Tile.tileStair);
-            map1.GetTile(9, 5).OnTileEntered += (entity) =>
+            map1.GetTile(9, 5).OnTileEntered += entity =>
             {
-                if (entity == player)
-                {
-                    SetMap(map2);
-                }
+                if (entity == player) SetMap(map2);
             };
 
             map2.SetTile(0, 5, Tile.tileStair);
-            map2.GetTile(0, 5).OnTileEntered += (entity) =>
+            map2.GetTile(0, 5).OnTileEntered += entity =>
             {
-                if (entity == player)
-                {
-                    SetMap(map1);
-                }
+                if (entity == player) SetMap(map1);
             };
         }
     }

@@ -5,31 +5,27 @@ using ProjectMazelike.Model;
 
 namespace ProjectMazelike.View
 {
-    class ScreenComponentMap : ScreenComponent
+    internal class ScreenComponentMap : ScreenComponent
     {
-        Map map;
+        private readonly Map map;
 
         public override void Update(GameTime gameTime)
         {
-            Screen.Camera.Position = ((map.Player.position.ToVector2() * ScreenComponentMaze.cellSize) +
-                                      new Vector2(ScreenComponentMaze.cellSize / 2));
+            Screen.Camera.Position = map.Player.position.ToVector2() * ScreenComponentMaze.cellSize +
+                                     new Vector2(ScreenComponentMaze.cellSize / 2);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            for (int x = 0; x < map.Width; x++)
+            for (var x = 0; x < map.Width; x++)
+            for (var y = 0; y < map.Height; y++)
             {
-                for (int y = 0; y < map.Height; y++)
-                {
-                    spriteBatch.Draw(TextureController.GetTexture(map.GetTile(x, y).ID),
-                        (new Vector2(x, y) * ScreenComponentMaze.cellSize) + Position, Color.White);
+                spriteBatch.Draw(TextureController.GetTexture(map.GetTile(x, y).ID),
+                    new Vector2(x, y) * ScreenComponentMaze.cellSize + Position, Color.White);
 
-                    if (map.GetTile(x, y).EntityInTile?.GetType() == typeof(Enemy))
-                    {
-                        spriteBatch.Draw(TextureController.GetTexture("Enemy"),
-                            (new Vector2(x, y) * ScreenComponentMaze.cellSize) + Position, Color.White);
-                    }
-                }
+                if (map.GetTile(x, y).EntityInTile?.GetType() == typeof(Enemy))
+                    spriteBatch.Draw(TextureController.GetTexture("Enemy"),
+                        new Vector2(x, y) * ScreenComponentMaze.cellSize + Position, Color.White);
             }
 
             if (map.Player != null)

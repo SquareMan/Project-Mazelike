@@ -3,14 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectMazelike.View
 {
-    class SpriteNineSlice : Sprite
+    internal class SpriteNineSlice : Sprite
     {
-        int bottomSlice;
-        int leftSlice;
-        int rightSlice;
+        private readonly int bottomSlice;
+        private readonly int leftSlice;
+        private readonly int rightSlice;
 
-        Rectangle[] sourcePatches;
-        int topSlice;
+        private readonly Rectangle[] sourcePatches;
+        private readonly int topSlice;
 
         public Rectangle[] GetDestinationPatches()
         {
@@ -19,28 +19,26 @@ namespace ProjectMazelike.View
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle[] destPatches = CreatePatches(Bounds);
+            var destPatches = CreatePatches(Bounds);
 
-            for (int i = 0; i < sourcePatches.Length; i++)
-            {
+            for (var i = 0; i < sourcePatches.Length; i++)
                 spriteBatch.Draw(texture, destPatches[i], sourcePatches[i], Color.White);
-            }
         }
 
-        Rectangle[] CreatePatches(Rectangle bounds)
+        private Rectangle[] CreatePatches(Rectangle bounds)
         {
-            int x = bounds.X;
-            int y = bounds.Y;
-            int width = bounds.Width;
-            int height = bounds.Height;
-            int middleWidth = width - leftSlice - rightSlice;
-            int middleHeight = height - topSlice - bottomSlice;
-            int leftX = x + leftSlice;
-            int rightX = x + width - rightSlice;
-            int topY = y + topSlice;
-            int bottomY = y + height - topSlice;
+            var x = bounds.X;
+            var y = bounds.Y;
+            var width = bounds.Width;
+            var height = bounds.Height;
+            var middleWidth = width - leftSlice - rightSlice;
+            var middleHeight = height - topSlice - bottomSlice;
+            var leftX = x + leftSlice;
+            var rightX = x + width - rightSlice;
+            var topY = y + topSlice;
+            var bottomY = y + height - topSlice;
 
-            return new Rectangle[]
+            return new[]
             {
                 new Rectangle(x, y, leftSlice, topSlice), //Top-left
                 new Rectangle(leftX, y, middleWidth, topSlice), //Top-middle
@@ -55,7 +53,7 @@ namespace ProjectMazelike.View
         }
 
         /// <summary>
-        /// Creates a new Nine-Sliced Texture
+        ///     Creates a new Nine-Sliced Texture
         /// </summary>
         /// <param name="texture">The base texture</param>
         /// <param name="leftSlice">pixels from the left to slice image</param>
@@ -69,7 +67,7 @@ namespace ProjectMazelike.View
             this.rightSlice = rightSlice;
             this.topSlice = topSlice;
             this.bottomSlice = bottomSlice;
-            this.sourcePatches = CreatePatches(new Rectangle(0, 0, texture.Width, texture.Height));
+            sourcePatches = CreatePatches(new Rectangle(0, 0, texture.Width, texture.Height));
         }
     }
 }

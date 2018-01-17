@@ -7,7 +7,7 @@ using ProjectMazelike.View.Scenes;
 namespace ProjectMazelike
 {
     /// <summary>
-    /// This is the main type for your game.
+    ///     This is the main type for your game.
     /// </summary>
     public class ProjectMazelike : Game
     {
@@ -19,20 +19,20 @@ namespace ProjectMazelike
             MainMenu,
             Running,
             Paused
-        };
+        }
 
         public static SpriteFont font;
 
         private GameState _currentState = GameState.Startup;
 
-        GraphicsDeviceManager graphics;
+        private GraphicsDeviceManager graphics;
 
         public SpriteBatch SpriteBatch;
-        WorldController worldManager;
+        private WorldController worldManager;
 
         public GameState CurrentState
         {
-            get { return _currentState; }
+            get => _currentState;
             protected set
             {
                 _currentState = value;
@@ -44,10 +44,10 @@ namespace ProjectMazelike
         public event GameStateChangedDelegate OnGameStateChanged;
 
         /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
+        ///     Allows the game to perform any initialization it needs to before starting to run.
+        ///     This is where it can query for any required services and load any non-graphic
+        ///     related content.  Calling base.Initialize will enumerate through any components
+        ///     and initialize them as well.
         /// </summary>
         protected override void Initialize()
         {
@@ -65,8 +65,8 @@ namespace ProjectMazelike
         }
 
         /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
+        ///     LoadContent will be called once per game and is the place to load
+        ///     all of your content.
         /// </summary>
         protected override void LoadContent()
         {
@@ -74,7 +74,7 @@ namespace ProjectMazelike
             font = Content.Load<SpriteFont>("Fonts/Font");
 
             //Pause Screen Components
-            ScreenComponentButton quitGameButton = new ScreenComponentButton(
+            var quitGameButton = new ScreenComponentButton(
                 new Vector2(GraphicsDevice.Viewport.Width / 2 - 120,
                     GraphicsDevice.Viewport.Height / 2 - 60),
                 240,
@@ -88,12 +88,12 @@ namespace ProjectMazelike
             quitGameButton.OnClicked += Exit;
             ScreenController.pauseScreen.AddComponent(quitGameButton);
 
-            SceneMainMenu scene = new SceneMainMenu(this);
+            var scene = new SceneMainMenu(this);
         }
 
         /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
+        ///     UnloadContent will be called once per game and is the place to unload
+        ///     game-specific content.
         /// </summary>
         protected override void UnloadContent()
         {
@@ -101,8 +101,8 @@ namespace ProjectMazelike
         }
 
         /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
+        ///     Allows the game to run logic such as updating the world,
+        ///     checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
@@ -114,7 +114,7 @@ namespace ProjectMazelike
         }
 
         /// <summary>
-        /// This is called when the game should draw itself.
+        ///     This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
@@ -129,7 +129,7 @@ namespace ProjectMazelike
         /////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
-        /// Start a new game
+        ///     Start a new game
         /// </summary>
         public void StartGame()
         {
@@ -139,7 +139,7 @@ namespace ProjectMazelike
         }
 
         /// <summary>
-        /// Puase the current game
+        ///     Puase the current game
         /// </summary>
         public void PauseGame()
         {
@@ -149,7 +149,7 @@ namespace ProjectMazelike
         }
 
         /// <summary>
-        /// Unpause the current game
+        ///     Unpause the current game
         /// </summary>
         public void UnpauseGame()
         {
@@ -159,10 +159,10 @@ namespace ProjectMazelike
         }
 
         /// <summary>
-        /// Runs when the CurrentState is changed
+        ///     Runs when the CurrentState is changed
         /// </summary>
         /// <param name="newState">the new GameState</param>
-        void StateChanged(GameState newState)
+        private void StateChanged(GameState newState)
         {
             switch (newState)
             {

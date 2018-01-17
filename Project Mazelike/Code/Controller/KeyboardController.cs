@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ProjectMazelike.Controller
 {
-    static class KeyboardController
+    internal static class KeyboardController
     {
-        static float rotationSpeed = MathHelper.Pi / 32;
+        private static readonly float rotationSpeed = MathHelper.Pi / 32;
 
         //delegate void UpdateFunc();
         //static UpdateFunc Update_CurrentFunc;
@@ -35,7 +35,7 @@ namespace ProjectMazelike.Controller
                 ScreenController.ActiveScreen.Camera.Rotation -= rotationSpeed;
         }
 
-        static void Update_GameRunning(GameTime gameTime)
+        private static void Update_GameRunning(GameTime gameTime)
         {
             //Player movement
             if (IsButtonReleased(Keys.Right))
@@ -48,22 +48,16 @@ namespace ProjectMazelike.Controller
                 WorldController.Instance.world.player.Move(-Vector2.UnitY);
 
             //Pause the game
-            if (IsButtonReleased(Keys.Escape))
-            {
-                ProjectMazelike.Instance.PauseGame();
-            }
+            if (IsButtonReleased(Keys.Escape)) ProjectMazelike.Instance.PauseGame();
         }
 
-        static void Update_GamePaused(GameTime gameTime)
+        private static void Update_GamePaused(GameTime gameTime)
         {
             //Unpause the game
-            if (IsButtonReleased(Keys.Escape))
-            {
-                ProjectMazelike.Instance.UnpauseGame();
-            }
+            if (IsButtonReleased(Keys.Escape)) ProjectMazelike.Instance.UnpauseGame();
         }
 
-        static void OnGameStateChanged(ProjectMazelike.GameState newState)
+        private static void OnGameStateChanged(ProjectMazelike.GameState newState)
         {
             switch (newState)
             {
@@ -82,7 +76,7 @@ namespace ProjectMazelike.Controller
             }
         }
 
-        public static Boolean IsButtonReleased(Keys key)
+        public static bool IsButtonReleased(Keys key)
         {
             return currentState.IsKeyUp(key) && lastState.IsKeyDown(key);
         }

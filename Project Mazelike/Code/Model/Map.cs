@@ -3,19 +3,13 @@ using Microsoft.Xna.Framework;
 
 namespace ProjectMazelike.Model
 {
-    class Map
+    internal class Map
     {
         protected Tile[,] tiles;
 
-        public int Width
-        {
-            get { return tiles.GetLength(0); }
-        }
+        public int Width => tiles.GetLength(0);
 
-        public int Height
-        {
-            get { return tiles.GetLength(1); }
-        }
+        public int Height => tiles.GetLength(1);
 
         public Player Player { get; set; }
         public List<Enemy> Enemies { get; set; }
@@ -23,11 +17,7 @@ namespace ProjectMazelike.Model
 
         public Tile GetTile(int x, int y)
         {
-            if (x > tiles.GetLength(0) - 1 || x < 0 || y > tiles.GetLength(1) - 1 || y < 0)
-            {
-                //Requested tile is out of range
-                return null;
-            }
+            if (x > tiles.GetLength(0) - 1 || x < 0 || y > tiles.GetLength(1) - 1 || y < 0) return null;
 
             return tiles[x, y];
         }
@@ -42,13 +32,11 @@ namespace ProjectMazelike.Model
             tiles = new Tile[width, height];
             Enemies = new List<Enemy>();
 
-            for (int x = 0; x < width; x++)
+            for (var x = 0; x < width; x++)
+            for (var y = 0; y < height; y++)
             {
-                for (int y = 0; y < height; y++)
-                {
-                    tiles[x, y] = new Tile(Tile.tileFloor, this, new Point(x, y));
-                    tiles[x, y].EnterTile(null);
-                }
+                tiles[x, y] = new Tile(Tile.tileFloor, this, new Point(x, y));
+                tiles[x, y].EnterTile(null);
             }
         }
     }

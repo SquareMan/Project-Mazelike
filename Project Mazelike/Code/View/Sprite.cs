@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectMazelike.View
 {
-    class Sprite : ITransformable
+    internal class Sprite : ITransformable
     {
         public int height;
 
@@ -11,13 +11,10 @@ namespace ProjectMazelike.View
 
         public int width;
 
-        public Rectangle Bounds
-        {
-            get { return new Rectangle((int) Position.X, (int) Position.Y, width, height); }
-        }
+        public Rectangle Bounds => new Rectangle((int) Position.X, (int) Position.Y, width, height);
 
         /// <summary>
-        /// Return the texture of this Sprite
+        ///     Return the texture of this Sprite
         /// </summary>
         /// <returns></returns>
         public Texture2D GetTexture()
@@ -26,7 +23,7 @@ namespace ProjectMazelike.View
         }
 
         /// <summary>
-        /// Draw the sprite
+        ///     Draw the sprite
         /// </summary>
         /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -37,7 +34,7 @@ namespace ProjectMazelike.View
         public Sprite(Texture2D texture, Vector2 position)
         {
             this.texture = texture;
-            this.Position = position;
+            Position = position;
 
             width = texture.Width;
             height = texture.Height;
@@ -49,23 +46,17 @@ namespace ProjectMazelike.View
             this.width = width;
             this.height = height;
 
-            this.Position = position;
-            this.Rotation = rotation;
-            this.Scale = scale;
+            Position = position;
+            Rotation = rotation;
+            Scale = scale;
         }
 
         public Vector2 Position { get; set; }
         public float Rotation { get; set; }
         public float Scale { get; set; }
 
-        public Matrix TransformMatrix
-        {
-            get
-            {
-                return Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
-                       Matrix.CreateRotationZ(Rotation) *
-                       Matrix.CreateScale(Scale);
-            }
-        }
+        public Matrix TransformMatrix => Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
+                                         Matrix.CreateRotationZ(Rotation) *
+                                         Matrix.CreateScale(Scale);
     }
 }

@@ -3,12 +3,12 @@ using ProjectMazelike.View;
 
 namespace ProjectMazelike.Controller
 {
-    class WorldController
+    internal class WorldController
     {
         public static WorldController Instance;
         public Map currentMap;
 
-        ScreenComponentMap scm;
+        private ScreenComponentMap scm;
 
         public World world;
 

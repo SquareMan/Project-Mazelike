@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ProjectMazelike.Controller
 {
-    static class MouseController
+    internal static class MouseController
     {
         public static float zoomSensitivity = .001f;
 
@@ -26,8 +26,8 @@ namespace ProjectMazelike.Controller
             if (currentState.LeftButton == ButtonState.Pressed)
             {
                 //Drag the camera
-                Vector2 delta = (lastState.Position.ToVector2() - currentState.Position.ToVector2()) /
-                                ScreenController.ActiveScreen.Camera.Scale;
+                var delta = (lastState.Position.ToVector2() - currentState.Position.ToVector2()) /
+                            ScreenController.ActiveScreen.Camera.Scale;
 
                 ScreenController.ActiveScreen.Camera.MoveCamera(delta);
             }
@@ -40,22 +40,18 @@ namespace ProjectMazelike.Controller
             updateFunc?.Invoke(gameTime);
         }
 
-        public static Boolean IsLeftReleased()
+        public static bool IsLeftReleased()
         {
             if (lastState.LeftButton == ButtonState.Pressed && currentState.LeftButton == ButtonState.Released)
-            {
                 return true;
-            }
 
             return false;
         }
 
-        public static Boolean IsRightReleased()
+        public static bool IsRightReleased()
         {
-            if (lastState.RightButton == ButtonState.Pressed && currentState.RightButton == ButtonState.Released)
-            {
-                return true;
-            }
+            if (lastState.RightButton == ButtonState.Pressed &&
+                currentState.RightButton == ButtonState.Released) return true;
 
             return false;
         }
@@ -65,7 +61,7 @@ namespace ProjectMazelike.Controller
             return currentState.ScrollWheelValue - lastState.ScrollWheelValue;
         }
 
-        static void OnGameStateChanged(ProjectMazelike.GameState newState)
+        private static void OnGameStateChanged(ProjectMazelike.GameState newState)
         {
             switch (newState)
             {

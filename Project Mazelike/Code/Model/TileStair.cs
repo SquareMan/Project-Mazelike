@@ -2,7 +2,7 @@
 
 namespace ProjectMazelike.Model
 {
-    class TileStair : Tile
+    internal class TileStair : Tile
     {
         protected Tile destination;
 

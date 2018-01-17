@@ -1,6 +1,6 @@
 ﻿namespace ProjectMazelike.Model
 {
-    class Enemy : Entity
+    internal class Enemy : Entity
     {
         public Enemy(Tile tile) : base(tile)
         {

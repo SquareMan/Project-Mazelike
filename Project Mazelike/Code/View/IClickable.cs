@@ -1,6 +1,6 @@
 ﻿namespace ProjectMazelike.View
 {
-    interface IClickable
+    internal interface IClickable
     {
         event ScreenComponent.ClickedDelegate OnClicked;
     }

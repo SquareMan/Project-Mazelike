@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace ProjectMazelike.Model.Generation
 {
-    class Cell
+    internal class Cell
     {
         public enum Direction
         {
@@ -13,7 +12,7 @@ namespace ProjectMazelike.Model.Generation
             East,
             South,
             West
-        };
+        }
 
         public List<Cell> connectedCells;
 
@@ -22,7 +21,6 @@ namespace ProjectMazelike.Model.Generation
         //TODO: Does the cell itself need to care about being 'Visited'?
         //          This might be more of just a MazeGnerator thing
         //          Add an array/list of visited cells instead?
-        private Boolean visited = false;
 
         protected int x;
         protected int y;
@@ -39,14 +37,10 @@ namespace ProjectMazelike.Model.Generation
             protected set => y = value;
         }
 
-        public Boolean Visited
-        {
-            get => visited;
-            protected set => visited = value;
-        }
+        public bool Visited { get; protected set; }
 
         /// <summary>
-        /// Connects two cells together, this removes the walls between them
+        ///     Connects two cells together, this removes the walls between them
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -63,7 +57,7 @@ namespace ProjectMazelike.Model.Generation
         }
 
         /// <summary>
-        /// Returns the direction between two adjacent cells
+        ///     Returns the direction between two adjacent cells
         /// </summary>
         /// <param name="origin"></param>
         /// <param name="direction"></param>
@@ -76,50 +70,38 @@ namespace ProjectMazelike.Model.Generation
                 Debug.WriteLine("Warning: Cell.GetDirection called with same cells or same cell positions");
                 return Direction.NONE;
             }
-            else if (origin.X != direction.X && origin.Y != direction.Y)
+
+            if (origin.X != direction.X && origin.Y != direction.Y)
             {
                 Debug.WriteLine("Warning: Cell.GetDirection called with diagonal cells");
                 return Direction.NONE;
             }
 
             if (origin.Y > direction.Y)
-            {
                 return Direction.North;
-            }
-            else if (origin.X < direction.X)
-            {
+            if (origin.X < direction.X)
                 return Direction.East;
-            }
-            else if (origin.Y < direction.Y)
-            {
+            if (origin.Y < direction.Y)
                 return Direction.South;
-            }
-            else if (origin.X > direction.X)
-            {
+            if (origin.X > direction.X)
                 return Direction.West;
-            }
 
             Debug.WriteLine("ERROR: Direction not found");
             return Direction.NONE;
         }
 
         /// <summary>
-        /// Returns if a wall exists in a given direction
+        ///     Returns if a wall exists in a given direction
         /// </summary>
         /// <param name="direction">Direction to check for wall</param>
         /// <returns></returns>
-        public Boolean WallStatus(Direction direction)
+        public bool WallStatus(Direction direction)
         {
             //A cell has a wall in a given direction if it does not have a connected cell in the corresponding direction
             //By definition, if a cell is in connectedCells there is no wall between them, so check for lack of a wall
-            foreach (Cell cell in connectedCells)
-            {
-                if (Cell.GetDirection(this, cell) == direction)
-                {
-                    //This cell does not have wall in the requested direction
+            foreach (var cell in connectedCells)
+                if (GetDirection(this, cell) == direction)
                     return false;
-                }
-            }
 
             //There is a wall in this direction
             return true;
@@ -128,45 +110,33 @@ namespace ProjectMazelike.Model.Generation
         //TODO: These neighbor methods are very similar. Find a way to combine them?
         public List<Cell> GetWalledNeighbors()
         {
-            List<Cell> neighbors = new List<Cell>();
+            var neighbors = new List<Cell>();
             //Add North Neighbor
             if (Y - 1 >= 0)
             {
-                Cell cell = maze.GetCell(X, Y - 1);
-                if (WallStatus(Direction.North))
-                {
-                    neighbors.Add(cell);
-                }
+                var cell = maze.GetCell(X, Y - 1);
+                if (WallStatus(Direction.North)) neighbors.Add(cell);
             }
 
             //Add South Neighbor
             if (Y + 1 < maze.Height)
             {
-                Cell cell = maze.GetCell(X, Y + 1);
-                if (WallStatus(Direction.South))
-                {
-                    neighbors.Add(cell);
-                }
+                var cell = maze.GetCell(X, Y + 1);
+                if (WallStatus(Direction.South)) neighbors.Add(cell);
             }
 
             //Add West Neighbor
             if (X - 1 >= 0)
             {
-                Cell cell = maze.GetCell(X - 1, Y);
-                if (WallStatus(Direction.West))
-                {
-                    neighbors.Add(cell);
-                }
+                var cell = maze.GetCell(X - 1, Y);
+                if (WallStatus(Direction.West)) neighbors.Add(cell);
             }
 
             //Add East Neighbor
             if (X + 1 < maze.Width)
             {
-                Cell cell = maze.GetCell(X + 1, Y);
-                if (WallStatus(Direction.East))
-                {
-                    neighbors.Add(cell);
-                }
+                var cell = maze.GetCell(X + 1, Y);
+                if (WallStatus(Direction.East)) neighbors.Add(cell);
             }
 
             return neighbors;
@@ -174,45 +144,33 @@ namespace ProjectMazelike.Model.Generation
 
         public List<Cell> GetUnvisitedNeighbors()
         {
-            List<Cell> neighbors = new List<Cell>();
+            var neighbors = new List<Cell>();
             //Add North Neighbor
             if (Y - 1 >= 0)
             {
-                Cell cell = maze.GetCell(X, Y - 1);
-                if (cell.Visited == false)
-                {
-                    neighbors.Add(cell);
-                }
+                var cell = maze.GetCell(X, Y - 1);
+                if (cell.Visited == false) neighbors.Add(cell);
             }
 
             //Add South Neighbor
             if (Y + 1 < maze.Height)
             {
-                Cell cell = maze.GetCell(X, Y + 1);
-                if (cell.Visited == false)
-                {
-                    neighbors.Add(cell);
-                }
+                var cell = maze.GetCell(X, Y + 1);
+                if (cell.Visited == false) neighbors.Add(cell);
             }
 
             //Add West Neighbor
             if (X - 1 >= 0)
             {
-                Cell cell = maze.GetCell(X - 1, Y);
-                if (cell.Visited == false)
-                {
-                    neighbors.Add(cell);
-                }
+                var cell = maze.GetCell(X - 1, Y);
+                if (cell.Visited == false) neighbors.Add(cell);
             }
 
             //Add East Neighbor
             if (X + 1 < maze.Width)
             {
-                Cell cell = maze.GetCell(X + 1, Y);
-                if (cell.Visited == false)
-                {
-                    neighbors.Add(cell);
-                }
+                var cell = maze.GetCell(X + 1, Y);
+                if (cell.Visited == false) neighbors.Add(cell);
             }
 
             return neighbors;
@@ -224,10 +182,10 @@ namespace ProjectMazelike.Model.Generation
         }
 
         /// <summary>
-        /// Marks the cell as visited
+        ///     Marks the cell as visited
         /// </summary>
         /// <param name="flag">If set to false, cell is unvisited instead</param>
-        public void Visit(Boolean flag = true)
+        public void Visit(bool flag = true)
         {
             Visited = flag;
         }
@@ -235,8 +193,8 @@ namespace ProjectMazelike.Model.Generation
 
         public Cell(int x, int y, Maze maze)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
             this.maze = maze;
 
             connectedCells = new List<Cell>();

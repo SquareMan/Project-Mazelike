@@ -3,14 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectMazelike.View
 {
-    class ScreenComponentSprite : ScreenComponent
+    internal class ScreenComponentSprite : ScreenComponent
     {
-        Sprite sprite;
+        private readonly Sprite sprite;
 
         public new Vector2 Position
         {
-            get { return sprite.Position; }
-            set { sprite.Position = value; }
+            get => sprite.Position;
+            set => sprite.Position = value;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

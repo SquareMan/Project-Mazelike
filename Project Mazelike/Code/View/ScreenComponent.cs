@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ProjectMazelike.View
 {
-    abstract class ScreenComponent : ITransformable
+    internal abstract class ScreenComponent : ITransformable
     {
         public delegate void ClickedDelegate();
 
@@ -21,24 +21,18 @@ namespace ProjectMazelike.View
 
         protected ScreenComponent(Screen screen, DrawLayer layer, DrawSpace space = DrawSpace.World)
         {
-            this.Screen = screen;
-            this.Layer = layer;
-            this.Space = space;
+            Screen = screen;
+            Layer = layer;
+            Space = space;
         }
 
         public Vector2 Position { get; set; }
         public float Rotation { get; set; }
         public float Scale { get; set; }
 
-        public Matrix TransformMatrix
-        {
-            get
-            {
-                return Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
-                       Matrix.CreateRotationZ(Rotation) *
-                       Matrix.CreateScale(Scale);
-            }
-        }
+        public Matrix TransformMatrix => Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
+                                         Matrix.CreateRotationZ(Rotation) *
+                                         Matrix.CreateScale(Scale);
     }
 
     public enum DrawLayer
@@ -53,5 +47,5 @@ namespace ProjectMazelike.View
     {
         World,
         Screen
-    };
+    }
 }
