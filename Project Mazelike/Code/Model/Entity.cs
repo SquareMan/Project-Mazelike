@@ -4,20 +4,20 @@ using Microsoft.Xna.Framework;
 namespace ProjectMazelike.Model {
     class Entity {
         public Entity(Tile tile) {
-            currentTile = tile;
+            CurrentTile = tile;
         }
         
         public event Action OnDeath;
 
-        public Tile currentTile;
-        public Map currentMap {
+        public Tile CurrentTile;
+        public Map CurrentMap {
             get {
-                return currentTile?.map;
+                return CurrentTile?.map;
             }
         }
         public Point position {
             get {
-                return currentTile.position;
+                return CurrentTile.position;
             }
         }
 
@@ -31,7 +31,7 @@ namespace ProjectMazelike.Model {
         }
 
         public virtual void Die() {
-            currentTile.LeaveTile(this);
+            CurrentTile.LeaveTile(this);
             OnDeath?.Invoke();
         }
 
@@ -42,13 +42,13 @@ namespace ProjectMazelike.Model {
         public virtual void Move(Vector2 direction) {
             direction.Normalize();
             Point newPosition = position + direction.ToPoint();
-            Tile newTile = currentMap.GetTile(newPosition.X, newPosition.Y);
+            Tile newTile = CurrentMap.GetTile(newPosition.X, newPosition.Y);
 
             if (newTile != null) {
                 if (newTile.CanEnter()) {
-                    currentTile.LeaveTile(this);
-                    currentTile = newTile;
-                    currentTile.EnterTile(this);
+                    CurrentTile.LeaveTile(this);
+                    CurrentTile = newTile;
+                    CurrentTile.EnterTile(this);
                 } else if (newTile.EntityInTile != null && newTile.EntityInTile.GetType() == typeof(Enemy)) {
                     newTile.EntityInTile.ApplyDamage(60);
                 }

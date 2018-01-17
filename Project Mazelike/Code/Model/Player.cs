@@ -4,17 +4,17 @@
         }
 
         public void SetMap(Map newMap) {
-            if (currentMap != null) {
-                currentMap.Player = null;
+            if (CurrentMap != null) {
+                CurrentMap.Player = null;
             }
 
-            if(currentTile != null) {
-                currentTile.LeaveTile(this);
+            if(CurrentTile != null) {
+                CurrentTile.LeaveTile(this);
             }
 
             newMap.Player = this;
-            currentTile = newMap.GetTile(newMap.PlayerStart.X, newMap.PlayerStart.Y);
-            currentTile.EnterTile(this);
+            CurrentTile = newMap.GetTile(newMap.PlayerStart.X, newMap.PlayerStart.Y);
+            CurrentTile.EnterTile(this);
         }
     }
 }
