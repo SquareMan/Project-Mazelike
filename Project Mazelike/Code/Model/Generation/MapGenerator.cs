@@ -18,7 +18,7 @@ namespace ProjectMazelike.Model.Generation
         {
             //Create empty map and maze
             _map = new Map(25, 25);
-            _maze = new MazeGenerator(_seed).GenerateMaze(5, 5);
+            _maze = new MazeGeneratorImperfect(_seed).GenerateMaze(5, 5);
             var rand = new Random(_seed);
 
             //Make map borders based on maze
