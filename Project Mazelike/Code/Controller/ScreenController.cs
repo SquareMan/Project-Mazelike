@@ -6,17 +6,19 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProjectMazelike.View;
 
-namespace ProjectMazelike.Controller {
-    static class ScreenController {
-        public static Screen ActiveScreen { get; private set; }
-
+namespace ProjectMazelike.Controller
+{
+    static class ScreenController
+    {
         public static Screen gameScreen;
         public static Screen pauseScreen;
         public static Screen mainMenuScreen;
 
         private static Dictionary<String, Screen> screens = new Dictionary<string, Screen>();
+        public static Screen ActiveScreen { get; private set; }
 
-        public static void Initialize() {
+        public static void Initialize()
+        {
             ProjectMazelike.Instance.OnGameStateChanged += OnGameStateChanged;
 
             //Setup screens
@@ -29,22 +31,30 @@ namespace ProjectMazelike.Controller {
             mainMenuScreen.SamplerState = SamplerState.PointClamp;
         }
 
-        public static void SetActiveScreen(String name) {
-            foreach (string n in screens.Keys) {
+        public static void SetActiveScreen(String name)
+        {
+            foreach (string n in screens.Keys)
+            {
                 screens[n].Visible = false;
                 screens[n].Enabled = false;
             }
 
-            if (screens.Keys.Contains(name)) {
+            if (screens.Keys.Contains(name))
+            {
                 ActiveScreen = screens[name];
                 ActiveScreen.Visible = true;
                 ActiveScreen.Enabled = true;
-            } else {
-                Debug.WriteLine(String.Format("Screen with name {0} was attempted to be set as active but does not exist", name));
+            }
+            else
+            {
+                Debug.WriteLine(
+                    String.Format("Screen with name {0} was attempted to be set as active but does not exist", name));
             }
         }
 
-        public static Screen AddScreen(String name, Boolean moveable = true, Boolean rotatable = true, Boolean scaleable = true) {
+        public static Screen AddScreen(String name, Boolean moveable = true, Boolean rotatable = true,
+            Boolean scaleable = true)
+        {
             Screen newScreen = new Screen(ProjectMazelike.Instance, moveable, rotatable, scaleable);
             newScreen.Visible = false;
             newScreen.Enabled = false;
@@ -53,17 +63,22 @@ namespace ProjectMazelike.Controller {
             return newScreen;
         }
 
-        public static Screen GetScreen(String name) {
-            if (screens.Keys.Contains(name)) {
+        public static Screen GetScreen(String name)
+        {
+            if (screens.Keys.Contains(name))
+            {
                 return screens[name];
             }
 
-            Debug.WriteLine(String.Format("Screen with name {0} was attempted to be retrieved but does not exist", name));
+            Debug.WriteLine(
+                String.Format("Screen with name {0} was attempted to be retrieved but does not exist", name));
             return null;
         }
 
-        static void OnGameStateChanged(ProjectMazelike.GameState newState) {
-            switch (newState) {
+        static void OnGameStateChanged(ProjectMazelike.GameState newState)
+        {
+            switch (newState)
+            {
                 case ProjectMazelike.GameState.Startup:
                     break;
                 case ProjectMazelike.GameState.MainMenu:

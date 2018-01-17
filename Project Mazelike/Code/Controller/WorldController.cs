@@ -1,28 +1,32 @@
 ﻿using ProjectMazelike.Model;
 using ProjectMazelike.View;
 
-namespace ProjectMazelike.Controller {
-    class WorldController {
+namespace ProjectMazelike.Controller
+{
+    class WorldController
+    {
         public static WorldController Instance;
-
-        public World world;
         public Map currentMap;
 
         ScreenComponentMap scm;
 
-        public WorldController() {
-            Instance = this;
+        public World world;
 
-            world = new World(SetMap);
-            world.OnMapChanged += SetMap;
-        }
-
-        public void SetMap(Map newMap) {
+        public void SetMap(Map newMap)
+        {
             currentMap = newMap;
 
             ScreenController.gameScreen.RemoveComponent(scm);
             scm = new ScreenComponentMap(newMap, ScreenController.gameScreen, DrawLayer.Background);
             ScreenController.gameScreen.AddComponent(scm);
+        }
+
+        public WorldController()
+        {
+            Instance = this;
+
+            world = new World(SetMap);
+            world.OnMapChanged += SetMap;
         }
     }
 }

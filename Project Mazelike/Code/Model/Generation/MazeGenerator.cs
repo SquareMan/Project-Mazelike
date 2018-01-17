@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ProjectMazelike.Model.Generation {
-    class MazeGenerator {
+namespace ProjectMazelike.Model.Generation
+{
+    class MazeGenerator
+    {
+        protected Cell currentCell;
 
         protected Maze maze;
-        protected Cell currentCell;
-        protected Stack<Cell> stack;
 
         protected Random rand;
+        protected Stack<Cell> stack;
 
-        public MazeGenerator(int randomSeed = -1) {
-            if(randomSeed == -1) {
-                randomSeed = Environment.TickCount;
-            }
-            rand = new Random(randomSeed);
-        }
-
-        public virtual Maze GenerateMaze(int width, int height) {
+        public virtual Maze GenerateMaze(int width, int height)
+        {
             maze = new Maze(width, height);
             stack = new Stack<Cell>();
 
@@ -27,9 +23,11 @@ namespace ProjectMazelike.Model.Generation {
 
             //Start main loop
             Boolean unvistedCells = true;
-            while(unvistedCells) {
+            while (unvistedCells)
+            {
                 List<Cell> currentNeighbors = currentCell.GetUnvisitedNeighbors();
-                if (currentNeighbors.Count > 0) {
+                if (currentNeighbors.Count > 0)
+                {
                     //We have at LEAST one unvisited neighbors
                     //Pick a random one and enter it
                     int index = rand.Next(currentNeighbors.Count);
@@ -38,23 +36,30 @@ namespace ProjectMazelike.Model.Generation {
                     EnterCell(currentCell, currentNeighbors[index]);
                     //Add new cell to the stack
                     stack.Push(currentCell);
-                } else if (stack.Count > 0) {
+                }
+                else if (stack.Count > 0)
+                {
                     //We can start backtracking
                     currentCell = stack.Pop();
-                } else {
+                }
+                else
+                {
                     //There are no unvisited neighbors and the stack is empty
                     //We can exit the loop
                     unvistedCells = false;
-                }                
+                }
             }
+
             return maze;
         }
 
-        public Maze GetMaze() {
+        public Maze GetMaze()
+        {
             return maze;
         }
-        
-        protected virtual void EnterCell(Cell current, Cell next) {
+
+        protected virtual void EnterCell(Cell current, Cell next)
+        {
             //Connect the two cells
             Cell.Connect(current, next);
 
@@ -63,6 +68,16 @@ namespace ProjectMazelike.Model.Generation {
 
             //Set our current cell to the be next cell
             this.currentCell = next;
+        }
+
+        public MazeGenerator(int randomSeed = -1)
+        {
+            if (randomSeed == -1)
+            {
+                randomSeed = Environment.TickCount;
+            }
+
+            rand = new Random(randomSeed);
         }
     }
 }

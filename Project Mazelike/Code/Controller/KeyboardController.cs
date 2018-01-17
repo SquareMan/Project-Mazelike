@@ -2,22 +2,25 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace ProjectMazelike.Controller {
-    static class KeyboardController {
-        public static KeyboardState currentState { get; private set; }
-        public static KeyboardState lastState { get; private set; }
-
+namespace ProjectMazelike.Controller
+{
+    static class KeyboardController
+    {
         static float rotationSpeed = MathHelper.Pi / 32;
 
         //delegate void UpdateFunc();
         //static UpdateFunc Update_CurrentFunc;
         private static Action<GameTime> updateFunc;
+        public static KeyboardState currentState { get; private set; }
+        public static KeyboardState lastState { get; private set; }
 
-        public static void Initialize() {
+        public static void Initialize()
+        {
             ProjectMazelike.Instance.OnGameStateChanged += OnGameStateChanged;
         }
 
-        public static void Update(GameTime gameTime) {
+        public static void Update(GameTime gameTime)
+        {
             //Store the state from the previous frame and get the new one
             lastState = currentState;
             currentState = Keyboard.GetState();
@@ -32,7 +35,8 @@ namespace ProjectMazelike.Controller {
                 ScreenController.ActiveScreen.Camera.Rotation -= rotationSpeed;
         }
 
-        static void Update_GameRunning(GameTime gameTime) {
+        static void Update_GameRunning(GameTime gameTime)
+        {
             //Player movement
             if (IsButtonReleased(Keys.Right))
                 WorldController.Instance.world.player.Move(Vector2.UnitX);
@@ -42,22 +46,27 @@ namespace ProjectMazelike.Controller {
                 WorldController.Instance.world.player.Move(Vector2.UnitY);
             if (IsButtonReleased(Keys.Up))
                 WorldController.Instance.world.player.Move(-Vector2.UnitY);
-            
+
             //Pause the game
-            if (IsButtonReleased(Keys.Escape)) {
+            if (IsButtonReleased(Keys.Escape))
+            {
                 ProjectMazelike.Instance.PauseGame();
             }
         }
 
-        static void Update_GamePaused(GameTime gameTime) {
+        static void Update_GamePaused(GameTime gameTime)
+        {
             //Unpause the game
-            if (IsButtonReleased(Keys.Escape)) {
+            if (IsButtonReleased(Keys.Escape))
+            {
                 ProjectMazelike.Instance.UnpauseGame();
             }
         }
 
-        static void OnGameStateChanged(ProjectMazelike.GameState newState) {
-            switch (newState) {
+        static void OnGameStateChanged(ProjectMazelike.GameState newState)
+        {
+            switch (newState)
+            {
                 case ProjectMazelike.GameState.Startup:
                     updateFunc = null;
                     break;
@@ -73,7 +82,8 @@ namespace ProjectMazelike.Controller {
             }
         }
 
-        public static Boolean IsButtonReleased(Keys key) {
+        public static Boolean IsButtonReleased(Keys key)
+        {
             return currentState.IsKeyUp(key) && lastState.IsKeyDown(key);
         }
     }

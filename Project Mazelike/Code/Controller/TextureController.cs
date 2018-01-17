@@ -8,13 +8,16 @@ using Microsoft.Xna.Framework.Graphics;
 using ProjectMazelike.Model;
 using ProjectMazelike.View;
 
-namespace ProjectMazelike.Controller {
-    static class TextureController {
+namespace ProjectMazelike.Controller
+{
+    static class TextureController
+    {
         static Dictionary<String, Texture2D> textureMap;
 
         private static String missingTexture = "MISSINGTEXTURE";
 
-        public static void LoadTextures(ContentManager content) {
+        public static void LoadTextures(ContentManager content)
+        {
             textureMap = new Dictionary<string, Texture2D>();
             textureMap.Add(missingTexture, content.Load<Texture2D>("Graphics\\Tiles\\MissingTile"));
             textureMap.Add("Player", content.Load<Texture2D>("Graphics\\Player"));
@@ -26,44 +29,57 @@ namespace ProjectMazelike.Controller {
             SetupMazeTextures();
         }
 
-        static void LoadTileTextures(ContentManager content) {
-            foreach (string name in Tile.tilePrototypes.Keys) {
-                try {
+        static void LoadTileTextures(ContentManager content)
+        {
+            foreach (string name in Tile.tilePrototypes.Keys)
+            {
+                try
+                {
                     textureMap.Add(name, content.Load<Texture2D>("Graphics\\Tiles\\" + name));
-                } catch {
+                }
+                catch
+                {
                     Debug.WriteLine("Texture for Tile: " + name + " Does not exist");
                 }
             }
         }
 
-        static void SetupMazeTextures() {
+        static void SetupMazeTextures()
+        {
             //Create Temporary Texture for a Cell
             Color[] data = new Color[ScreenComponentMaze.cellSize * ScreenComponentMaze.cellSize];
-            for (int i = 0; i < data.Length; i++) {
+            for (int i = 0; i < data.Length; i++)
+            {
                 data[i] = Color.White;
             }
 
-            Texture2D cellTexture = new Texture2D(ProjectMazelike.Instance.GraphicsDevice, ScreenComponentMaze.cellSize, ScreenComponentMaze.cellSize);
+            Texture2D cellTexture = new Texture2D(ProjectMazelike.Instance.GraphicsDevice, ScreenComponentMaze.cellSize,
+                ScreenComponentMaze.cellSize);
             cellTexture.SetData(data);
             textureMap.Add("Cell", cellTexture);
 
             //Create Temporary Texture for a Wall
             data = new Color[ScreenComponentMaze.wallSize * ScreenComponentMaze.wallSize];
-            for (int i = 0; i < data.Length; i++) {
+            for (int i = 0; i < data.Length; i++)
+            {
                 data[i] = Color.White;
             }
 
-            Texture2D wallTexture = new Texture2D(ProjectMazelike.Instance.GraphicsDevice, ScreenComponentMaze.wallSize, ScreenComponentMaze.wallSize);
+            Texture2D wallTexture = new Texture2D(ProjectMazelike.Instance.GraphicsDevice, ScreenComponentMaze.wallSize,
+                ScreenComponentMaze.wallSize);
             wallTexture.SetData(data);
             textureMap.Add("Maze Wall", wallTexture);
         }
 
-        public static Texture2D GetTexture(String name) {
-            if (textureMap.Keys.Contains(name)) {
+        public static Texture2D GetTexture(String name)
+        {
+            if (textureMap.Keys.Contains(name))
+            {
                 return textureMap[name];
             }
 
-            Debug.WriteLine(String.Format("Texture with name {0} was attempted to be retrieved but does not exist", name));
+            Debug.WriteLine(String.Format("Texture with name {0} was attempted to be retrieved but does not exist",
+                name));
             return textureMap[missingTexture];
         }
     }

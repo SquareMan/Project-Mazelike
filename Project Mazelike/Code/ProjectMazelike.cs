@@ -4,44 +4,44 @@ using ProjectMazelike.Controller;
 using ProjectMazelike.View;
 using ProjectMazelike.View.Scenes;
 
-namespace ProjectMazelike {
+namespace ProjectMazelike
+{
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class ProjectMazelike : Game {
-        public enum GameState { Startup, MainMenu, Running, Paused };
-
+    public class ProjectMazelike : Game
+    {
         public delegate void GameStateChangedDelegate(GameState newState);
-        public event GameStateChangedDelegate OnGameStateChanged;
+
+        public enum GameState
+        {
+            Startup,
+            MainMenu,
+            Running,
+            Paused
+        };
+
+        public static SpriteFont font;
 
         private GameState _currentState = GameState.Startup;
-        public GameState CurrentState {
-            get {
-                return _currentState;
-            }
-            protected set {
+
+        GraphicsDeviceManager graphics;
+
+        public SpriteBatch SpriteBatch;
+        WorldController worldManager;
+
+        public GameState CurrentState
+        {
+            get { return _currentState; }
+            protected set
+            {
                 _currentState = value;
                 OnGameStateChanged?.Invoke(_currentState);
             }
         }
 
         public static ProjectMazelike Instance { get; protected set; }
-        public static SpriteFont font;
-
-        public SpriteBatch SpriteBatch;
-
-        GraphicsDeviceManager graphics;
-        WorldController worldManager;
-
-        public ProjectMazelike() {
-            Instance = this;
-
-            graphics = new GraphicsDeviceManager(this);
-
-            Content.RootDirectory = "Content";
-
-            OnGameStateChanged += StateChanged;
-        }
+        public event GameStateChangedDelegate OnGameStateChanged;
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -49,7 +49,8 @@ namespace ProjectMazelike {
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
-        protected override void Initialize() {
+        protected override void Initialize()
+        {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             KeyboardController.Initialize();
@@ -67,19 +68,20 @@ namespace ProjectMazelike {
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
-        protected override void LoadContent() {
+        protected override void LoadContent()
+        {
             TextureController.LoadTextures(Content);
             font = Content.Load<SpriteFont>("Fonts/Font");
 
             //Pause Screen Components
             ScreenComponentButton quitGameButton = new ScreenComponentButton(
-                                           new Vector2(GraphicsDevice.Viewport.Width / 2 - 120,
-                                                       GraphicsDevice.Viewport.Height / 2 - 60),
-                                           240,
-                                           120,
-                                           ScreenController.pauseScreen,
-                                           DrawLayer.UI,
-                                           DrawSpace.Screen);
+                new Vector2(GraphicsDevice.Viewport.Width / 2 - 120,
+                    GraphicsDevice.Viewport.Height / 2 - 60),
+                240,
+                120,
+                ScreenController.pauseScreen,
+                DrawLayer.UI,
+                DrawSpace.Screen);
             quitGameButton.text = "Quit Game";
 
             //Make button change map the game
@@ -93,7 +95,8 @@ namespace ProjectMazelike {
         /// UnloadContent will be called once per game and is the place to unload
         /// game-specific content.
         /// </summary>
-        protected override void UnloadContent() {
+        protected override void UnloadContent()
+        {
             // TODO: Unload any non ContentManager content here
         }
 
@@ -102,7 +105,8 @@ namespace ProjectMazelike {
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime) {
+        protected override void Update(GameTime gameTime)
+        {
             MouseController.Update(gameTime);
             KeyboardController.Update(gameTime);
 
@@ -113,7 +117,8 @@ namespace ProjectMazelike {
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime) {
+        protected override void Draw(GameTime gameTime)
+        {
             //GraphicsDevice.Clear(Color.Black);
 
             base.Draw(gameTime);
@@ -126,7 +131,8 @@ namespace ProjectMazelike {
         /// <summary>
         /// Start a new game
         /// </summary>
-        public void StartGame() {
+        public void StartGame()
+        {
             if (CurrentState != GameState.MainMenu)
                 return;
             CurrentState = GameState.Running;
@@ -135,7 +141,8 @@ namespace ProjectMazelike {
         /// <summary>
         /// Puase the current game
         /// </summary>
-        public void PauseGame() {
+        public void PauseGame()
+        {
             if (CurrentState != GameState.Running)
                 return;
             CurrentState = GameState.Paused;
@@ -144,7 +151,8 @@ namespace ProjectMazelike {
         /// <summary>
         /// Unpause the current game
         /// </summary>
-        public void UnpauseGame() {
+        public void UnpauseGame()
+        {
             if (CurrentState != GameState.Paused)
                 return;
             CurrentState = GameState.Running;
@@ -154,8 +162,10 @@ namespace ProjectMazelike {
         /// Runs when the CurrentState is changed
         /// </summary>
         /// <param name="newState">the new GameState</param>
-        void StateChanged(GameState newState) {
-            switch(newState) {
+        void StateChanged(GameState newState)
+        {
+            switch (newState)
+            {
                 case GameState.Startup:
                     break;
                 case GameState.MainMenu:
@@ -165,6 +175,17 @@ namespace ProjectMazelike {
                 case GameState.Paused:
                     break;
             }
+        }
+
+        public ProjectMazelike()
+        {
+            Instance = this;
+
+            graphics = new GraphicsDeviceManager(this);
+
+            Content.RootDirectory = "Content";
+
+            OnGameStateChanged += StateChanged;
         }
     }
 }
