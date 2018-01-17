@@ -47,7 +47,7 @@ namespace ProjectMazelike.View
 
             //Create a new camera with origin at the top left corner
             Camera = new Camera(GraphicsDevice.Viewport,
-                Vector2.Zero + new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2))
+                Vector2.Zero + new Vector2(GraphicsDevice.Viewport.Width / 2.0f, GraphicsDevice.Viewport.Height / 2.0f))
             {
                 CanBeMoved = moveable,
                 CanBeRotated = rotatable,

@@ -17,7 +17,7 @@ namespace ProjectMazelike.View
         public override void Update(GameTime gameTime)
         {
             Screen.Camera.Position = _map.Player.Position.ToVector2() * ScreenComponentMaze.CellSize +
-                                     new Vector2(ScreenComponentMaze.CellSize / 2);
+                                     new Vector2(ScreenComponentMaze.CellSize / 2.0f);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
