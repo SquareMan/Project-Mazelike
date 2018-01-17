@@ -51,7 +51,6 @@
     <Compile Include="Code\Model\Generation\MazeGenerator.cs" />
     <Compile Include="Code\Model\Generation\MazeGeneratorImperfect.cs" />
     <Compile Include="Code\Model\Player.cs" />
-    <Compile Include="Code\Model\Room.cs" />
     <Compile Include="Code\Model\Tile.cs" />
     <Compile Include="Code\Model\TileStair.cs" />
     <Compile Include="Code\Model\World.cs" />
@@ -60,6 +59,7 @@
     <Compile Include="Code\Controller\ScreenController.cs" />
     <Compile Include="Code\View\IClickable.cs" />
     <Compile Include="Code\View\ITransformable.cs" />
+    <Compile Include="Code\View\Scenes\SceneMainMenu.cs" />
     <Compile Include="Code\View\ScreenComponentMap.cs" />
     <Compile Include="Code\View\Camera.cs" />
     <Compile Include="Code\View\Screen.cs" />

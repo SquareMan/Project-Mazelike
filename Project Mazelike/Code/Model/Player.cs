@@ -1,29 +1,20 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProjectMazelike.Model {
-    class Player : Entity {
-        public Player(Tile tile) : base(tile) {
+﻿namespace ProjectMazelike.Model
+{
+    internal class Player : Entity
+    {
+        public Player(Tile tile) : base(tile)
+        {
         }
 
-        public void SetMap(Map newMap) {
-            if (currentMap != null) {
-                currentMap.Player = null;
-            }
+        public void SetMap(Map newMap)
+        {
+            if (CurrentMap != null) CurrentMap.Player = null;
 
-            if(currentTile != null) {
-                currentTile.LeaveTile(this);
-            }
+            if (CurrentTile != null) CurrentTile.LeaveTile(this);
 
             newMap.Player = this;
-            currentTile = newMap.GetTile(newMap.PlayerStart.X, newMap.PlayerStart.Y);
-            currentTile.EnterTile(this);
+            CurrentTile = newMap.GetTile(newMap.PlayerStart.X, newMap.PlayerStart.Y);
+            CurrentTile.EnterTile(this);
         }
     }
 }

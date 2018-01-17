@@ -1,36 +1,32 @@
-﻿using Microsoft.Xna.Framework;
-using ProjectMazelike.Model;
+﻿using ProjectMazelike.Model;
 using ProjectMazelike.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProjectMazelike.Controller {
-    class WorldController {
+namespace ProjectMazelike.Controller
+{
+    internal class WorldController
+    {
         public static WorldController Instance;
 
-        public World world;
-        public Player player;
+        private ScreenComponentMap _scm;
+        public Map CurrentMap;
 
-        ScreenComponentMap scm;
+        public World World;
 
-        public WorldController() {
+        public WorldController()
+        {
             Instance = this;
 
-            player = new Player(null);
-            world = new World(player);
+            World = new World(SetMap);
+            World.OnMapChanged += SetMap;
         }
 
-        public void SetMap(Map newMap) {
-            ScreenController.gameScreen.RemoveComponent(scm);
-            scm = new ScreenComponentMap(newMap, ScreenController.gameScreen, DrawLayer.Background);
-            ScreenController.gameScreen.AddComponent(scm);
-        }
+        public void SetMap(Map newMap)
+        {
+            CurrentMap = newMap;
 
-        public void GenerateWorld() {
-
+            ScreenController.GameScreen.RemoveComponent(_scm);
+            _scm = new ScreenComponentMap(newMap, ScreenController.GameScreen, DrawLayer.Background);
+            ScreenController.GameScreen.AddComponent(_scm);
         }
     }
 }

@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProjectMazelike.Model.Generation
+﻿namespace ProjectMazelike.Model.Generation
 {
-    class DungeonGenerator {
-        Maze maze;
+    internal class DungeonGenerator
+    {
+        private readonly Maze _maze;
 
-        public DungeonGenerator(Maze baseMaze) {
-            this.maze = baseMaze;
+        public DungeonGenerator(Maze baseMaze)
+        {
+            _maze = baseMaze;
         }
 
-        public Maze GetMaze() {
-            return maze;
+        public Maze GetMaze()
+        {
+            return _maze;
         }
     }
 }

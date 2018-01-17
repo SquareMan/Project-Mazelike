@@ -1,69 +1,80 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using ProjectMazelike.View;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ProjectMazelike.View;
 
-namespace ProjectMazelike.Controller {
-    static class ScreenController {
+namespace ProjectMazelike.Controller
+{
+    internal static class ScreenController
+    {
+        public static Screen GameScreen;
+        public static Screen PauseScreen;
+        public static Screen MainMenuScreen;
+
+        private static readonly Dictionary<string, Screen> Screens = new Dictionary<string, Screen>();
         public static Screen ActiveScreen { get; private set; }
 
-        public static Screen gameScreen;
-        public static Screen pauseScreen;
-        public static Screen mainMenuScreen;
-
-        private static Dictionary<String, Screen> screens = new Dictionary<string, Screen>();
-
-        public static void Initialize() {
+        public static void Initialize()
+        {
             ProjectMazelike.Instance.OnGameStateChanged += OnGameStateChanged;
 
             //Setup screens
-            gameScreen = AddScreen("Game", true, false, true);
-            gameScreen.SamplerState = SamplerState.PointClamp;
-            pauseScreen = AddScreen("Pause", false, false, false);
-            pauseScreen.SamplerState = SamplerState.PointClamp;
-            mainMenuScreen = AddScreen("Main Menu", false, false, false);
-            mainMenuScreen.SamplerState = SamplerState.PointClamp;
+            GameScreen = AddScreen("Game", true, false);
+            GameScreen.SamplerState = SamplerState.PointClamp;
+            GameScreen.ClearColor = Color.Black;
+            PauseScreen = AddScreen("Pause", false, false, false);
+            PauseScreen.SamplerState = SamplerState.PointClamp;
+            MainMenuScreen = AddScreen("Main Menu", false, false, false);
+            MainMenuScreen.SamplerState = SamplerState.PointClamp;
         }
 
-        public static void SetActiveScreen(String name) {
-            foreach (string n in screens.Keys) {
-                screens[n].Visible = false;
-                screens[n].Enabled = false;
+        public static void SetActiveScreen(string name)
+        {
+            foreach (var n in Screens.Keys)
+            {
+                Screens[n].Visible = false;
+                Screens[n].Enabled = false;
             }
 
-            if (screens.Keys.Contains(name)) {
-                ActiveScreen = screens[name];
+            if (Screens.Keys.Contains(name))
+            {
+                ActiveScreen = Screens[name];
                 ActiveScreen.Visible = true;
                 ActiveScreen.Enabled = true;
-            } else {
-                Debug.WriteLine(String.Format("Screen with name {0} was attempted to be set as active but does not exist", name));
+            }
+            else
+            {
+                Debug.WriteLine(
+                    string.Format("Screen with name {0} was attempted to be set as active but does not exist", name));
             }
         }
 
-        public static Screen AddScreen(String name, Boolean moveable = true, Boolean rotatable = true, Boolean scaleable = true) {
-            Screen newScreen = new Screen(ProjectMazelike.Instance, moveable, rotatable, scaleable);
+        public static Screen AddScreen(string name, bool moveable = true, bool rotatable = true,
+            bool scaleable = true)
+        {
+            var newScreen = new Screen(ProjectMazelike.Instance, moveable, rotatable, scaleable);
             newScreen.Visible = false;
             newScreen.Enabled = false;
-            screens.Add(name, newScreen);
+            Screens.Add(name, newScreen);
             ProjectMazelike.Instance.Components.Add(newScreen);
             return newScreen;
         }
 
-        public static Screen GetScreen(String name) {
-            if (screens.Keys.Contains(name)) {
-                return screens[name];
-            }
+        public static Screen GetScreen(string name)
+        {
+            if (Screens.Keys.Contains(name)) return Screens[name];
 
-            Debug.WriteLine(String.Format("Screen with name {0} was attempted to be retrieved but does not exist", name));
+            Debug.WriteLine(
+                string.Format("Screen with name {0} was attempted to be retrieved but does not exist", name));
             return null;
         }
 
-        static void OnGameStateChanged(ProjectMazelike.GameState newState) {
-            switch (newState) {
+        private static void OnGameStateChanged(ProjectMazelike.GameState newState)
+        {
+            switch (newState)
+            {
                 case ProjectMazelike.GameState.Startup:
                     break;
                 case ProjectMazelike.GameState.MainMenu:

@@ -1,38 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace ProjectMazelike.Model.Generation
+{
+    internal class Maze
+    {
+        protected Cell[,] Cells;
 
-namespace ProjectMazelike.Model.Generation {
-    class Maze {
+        public int Width { get; protected set; }
 
-        protected Cell[,] cells;
-        private int width;
-        private int height;
+        public int Height { get; protected set; }
 
-        public int Width { get => width; protected set => width = value; }
-        public int Height { get => height; protected set => height = value; }
+        public Maze(int width, int height)
+        {
+            Width = width;
+            Height = height;
 
-        public Maze(int width, int height) {
-            this.width = width;
-            this.height = height;
-
-            cells = new Cell[width, height];
-            for (int i = 0; i < width; i++) {
-                for (int j = 0; j < height; j++) {
-                    cells[i, j] = new Cell(i, j, this);
-                }
-            }
+            Cells = new Cell[width, height];
+            for (var i = 0; i < width; i++)
+            for (var j = 0; j < height; j++)
+                Cells[i, j] = new Cell(i, j, this);
         }
 
-        public Cell GetCell(int x, int y) {
-            return cells[x, y];
+        public Cell GetCell(int x, int y)
+        {
+            return Cells[x, y];
         }
 
-        public Cell[,] GetCellArray() {
-            return cells;
+        public Cell[,] GetCellArray()
+        {
+            return Cells;
         }
     }
 }

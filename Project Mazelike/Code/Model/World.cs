@@ -1,55 +1,60 @@
-﻿using Microsoft.Xna.Framework;
-using ProjectMazelike.Controller;
-using ProjectMazelike.Model.Generation;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using ProjectMazelike.Model.Generation;
 
-namespace ProjectMazelike.Model {
-    class World {
-        public World(Player player) {
-            this.worldSeed = Environment.TickCount;
-            this.player = player;
+namespace ProjectMazelike.Model
+{
+    internal class World
+    {
+        // For the future when worlds are more complicated
+        // ReSharper disable once CollectionNeverQueried.Local
+        private readonly List<Map> _overworld = new List<Map>();
 
-            Map map1 = new MapGenerator(worldSeed + 1).GenerateMap();
+        //World needs to remember the seed for potential future usage
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
+        private readonly int _worldSeed;
+        // ReSharper disable once NotAccessedField.Local
+        private Map _currentMap;
+        public readonly Player Player;
+
+        public event Action<Map> OnMapChanged;
+
+        public World(Action<Map> callback)
+        {
+            _worldSeed = Environment.TickCount;
+            Player = new Player(null);
+            OnMapChanged += callback;
+
+            var map1 = new MapGenerator(_worldSeed + 1).GenerateMap();
             map1.PlayerStart = new Point(8, 5);
-            Overworld.Add(map1);
+            _overworld.Add(map1);
 
-            Map map2 = new MapGenerator(worldSeed + 2).GenerateMap();
+            var map2 = new MapGenerator(_worldSeed + 2).GenerateMap();
             map2.PlayerStart = new Point(2, 2);
-            Overworld.Add(map2);
+            _overworld.Add(map2);
 
             SetMap(map1);
 
-            map1.SetTile(9, 5, Tile.tileStair);
-            map1.GetTile(9, 5).OnTileEntered += (entity) => {
-                if (entity == player) {
-                    SetMap(map2);
-                }
+            map1.SetTile(9, 5, Tile.TileStair);
+            map1.GetTile(9, 5).OnTileEntered += entity =>
+            {
+                if (entity == Player) SetMap(map2);
             };
 
-            map2.SetTile(0, 5, Tile.tileStair);
-            map2.GetTile(0,5).OnTileEntered += (entity) => {
-                if (entity == player) {
-                    SetMap(map1);
-                }
+            map2.SetTile(0, 5, Tile.TileStair);
+            map2.GetTile(0, 5).OnTileEntered += entity =>
+            {
+                if (entity == Player) SetMap(map1);
             };
         }
 
-        int worldSeed;
+        private void SetMap(Map newMap)
+        {
+            Player.SetMap(newMap);
 
-        List<Map> Overworld = new List<Map>();
-
-        Map currentMap;
-        Player player;
-
-        public void SetMap(Map newMap) {
-            player.SetMap(newMap);
-            WorldController.Instance.SetMap(newMap);
-
-            currentMap = newMap;
+            _currentMap = newMap;
+            OnMapChanged?.Invoke(newMap);
         }
     }
 }
