@@ -21,7 +21,7 @@ namespace ProjectMazelike.Controller
             ProjectMazelike.Instance.OnGameStateChanged += OnGameStateChanged;
 
             //Setup screens
-            GameScreen = AddScreen("Game", true, false, true);
+            GameScreen = AddScreen("Game", true, false);
             GameScreen.SamplerState = SamplerState.PointClamp;
             GameScreen.ClearColor = Color.Black;
             PauseScreen = AddScreen("Pause", false, false, false);
