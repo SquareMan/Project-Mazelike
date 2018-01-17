@@ -37,7 +37,9 @@ namespace ProjectMazelike.Model
         /// <summary>
         ///     Copy Constructor for creating game tiles
         /// </summary>
-        /// <param name="t"></param>
+        /// <param name="t">Prototype Tile or Tile to copy</param>
+        /// <param name="map">Map the new tile will be in</param>
+        /// <param name="position">Position of the new tile in the map</param>
         public Tile(Tile t, Map map, Point position)
         {
             Id = t.Id;
