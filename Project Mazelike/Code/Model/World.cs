@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace ProjectMazelike.Model {
     class World {
-        public delegate void MapChangedDelegate(Map newMap);
-        public event MapChangedDelegate OnMapChanged;
+        public event Action<Map> OnMapChanged;
 
-        public World(MapChangedDelegate callback) {
+        public World(Action<Map> callback) {
             this.worldSeed = Environment.TickCount;
             this.player = new Player(null);
             OnMapChanged += callback;
