@@ -6,11 +6,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectMazelike.Model {
-    class World {
+namespace ProjectMazelike.Model
+{
+    class World
+    {
+        Map currentMap;
+
+        List<Map> Overworld = new List<Map>();
+        public Player player;
+
+        int worldSeed;
+
         public event Action<Map> OnMapChanged;
 
-        public World(Action<Map> callback) {
+        public void SetMap(Map newMap)
+        {
+            player.SetMap(newMap);
+
+            currentMap = newMap;
+            OnMapChanged?.Invoke(newMap);
+        }
+
+        public World(Action<Map> callback)
+        {
             this.worldSeed = Environment.TickCount;
             this.player = new Player(null);
             OnMapChanged += callback;
@@ -26,32 +44,22 @@ namespace ProjectMazelike.Model {
             SetMap(map1);
 
             map1.SetTile(9, 5, Tile.tileStair);
-            map1.GetTile(9, 5).OnTileEntered += (entity) => {
-                if (entity == player) {
+            map1.GetTile(9, 5).OnTileEntered += (entity) =>
+            {
+                if (entity == player)
+                {
                     SetMap(map2);
                 }
             };
 
             map2.SetTile(0, 5, Tile.tileStair);
-            map2.GetTile(0,5).OnTileEntered += (entity) => {
-                if (entity == player) {
+            map2.GetTile(0, 5).OnTileEntered += (entity) =>
+            {
+                if (entity == player)
+                {
                     SetMap(map1);
                 }
             };
-        }
-
-        int worldSeed;
-
-        List<Map> Overworld = new List<Map>();
-
-        Map currentMap;
-        public Player player;
-
-        public void SetMap(Map newMap) {
-            player.SetMap(newMap);
-
-            currentMap = newMap;
-            OnMapChanged?.Invoke(newMap);
         }
     }
 }
