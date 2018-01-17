@@ -33,7 +33,7 @@ namespace ProjectMazelike.View
 
         public Sprite(Texture2D texture, Vector2 position)
         {
-            this.Texture = texture;
+            Texture = texture;
             Position = position;
 
             Width = texture.Width;
@@ -42,9 +42,9 @@ namespace ProjectMazelike.View
 
         public Sprite(Texture2D texture, int width, int height, Vector2 position, float rotation = 0f, float scale = 1f)
         {
-            this.Texture = texture;
-            this.Width = width;
-            this.Height = height;
+            Texture = texture;
+            Width = width;
+            Height = height;
 
             Position = position;
             Rotation = rotation;

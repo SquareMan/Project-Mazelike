@@ -61,7 +61,7 @@ namespace ProjectMazelike.Model.Generation
         /// <param name="randomSeed">Seed for the random generator. -1 = random seed (default)</param>
         public MazeGeneratorImperfect(float chance = 0.5f, int randomSeed = -1) : base(randomSeed)
         {
-            this.Chance = MathHelper.Clamp(chance, 0f, 1f);
+            Chance = MathHelper.Clamp(chance, 0f, 1f);
         }
     }
 }

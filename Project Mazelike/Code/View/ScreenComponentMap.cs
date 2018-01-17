@@ -35,7 +35,7 @@ namespace ProjectMazelike.View
 
         public ScreenComponentMap(Map map, Screen screen, DrawLayer layer) : base(screen, layer)
         {
-            this._map = map;
+            _map = map;
         }
     }
 }

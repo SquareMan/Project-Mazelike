@@ -187,7 +187,7 @@ namespace ProjectMazelike.Model.Generation
         {
             X = x;
             Y = y;
-            this.Maze = maze;
+            Maze = maze;
 
             ConnectedCells = new List<Cell>();
         }

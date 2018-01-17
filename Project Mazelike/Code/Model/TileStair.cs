@@ -8,7 +8,7 @@ namespace ProjectMazelike.Model
 
         public void SetDestination(Tile destination)
         {
-            this.Destination = destination;
+            Destination = destination;
         }
 
         protected TileStair(string id, TileType type) : base(id, type)

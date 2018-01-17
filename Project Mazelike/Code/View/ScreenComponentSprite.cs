@@ -21,7 +21,7 @@ namespace ProjectMazelike.View
         public ScreenComponentSprite(Sprite sprite, Screen screen, DrawLayer layer, DrawSpace space = DrawSpace.World) :
             base(screen, layer, space)
         {
-            this._sprite = sprite;
+            _sprite = sprite;
         }
     }
 }

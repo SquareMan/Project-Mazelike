@@ -63,10 +63,10 @@ namespace ProjectMazelike.View
         public SpriteNineSlice(Texture2D texture, Vector2 position, int width, int height, int leftSlice,
             int rightSlice, int topSlice, int bottomSlice) : base(texture, width, height, position)
         {
-            this._leftSlice = leftSlice;
-            this._rightSlice = rightSlice;
-            this._topSlice = topSlice;
-            this._bottomSlice = bottomSlice;
+            _leftSlice = leftSlice;
+            _rightSlice = rightSlice;
+            _topSlice = topSlice;
+            _bottomSlice = bottomSlice;
             _sourcePatches = CreatePatches(new Rectangle(0, 0, texture.Width, texture.Height));
         }
     }

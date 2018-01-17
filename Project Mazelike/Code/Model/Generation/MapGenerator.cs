@@ -59,7 +59,7 @@ namespace ProjectMazelike.Model.Generation
 
         public MapGenerator(int seed)
         {
-            this._seed = seed;
+            _seed = seed;
         }
     }
 }

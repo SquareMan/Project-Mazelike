@@ -60,7 +60,7 @@ namespace ProjectMazelike.View
 
         public ScreenComponentMaze(Maze maze, Screen screen, DrawLayer layer) : base(screen, layer)
         {
-            this._maze = maze;
+            _maze = maze;
         }
     }
 }

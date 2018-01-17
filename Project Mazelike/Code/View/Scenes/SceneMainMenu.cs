@@ -35,7 +35,7 @@ namespace ProjectMazelike.View.Scenes
 
         public SceneMainMenu(ProjectMazelike game)
         {
-            this._game = game;
+            _game = game;
             _screen = ScreenController.GetScreen("Main Menu");
 
             //Main Components

@@ -61,7 +61,7 @@ namespace ProjectMazelike.Model
         protected Tile(string id, TileType type)
         {
             TilePrototypes.Add(id, this);
-            this.Id = id;
+            Id = id;
             TileType = type;
         }
 
@@ -73,8 +73,8 @@ namespace ProjectMazelike.Model
         {
             Id = t.Id;
             TileType = t.TileType;
-            this.Map = map;
-            this.Position = position;
+            Map = map;
+            Position = position;
         }
     }
 
