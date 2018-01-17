@@ -7,9 +7,7 @@ namespace ProjectMazelike.Controller
     internal static class KeyboardController
     {
         private static readonly float rotationSpeed = MathHelper.Pi / 32;
-
-        //delegate void UpdateFunc();
-        //static UpdateFunc Update_CurrentFunc;
+        
         private static Action<GameTime> updateFunc;
         public static KeyboardState currentState { get; private set; }
         public static KeyboardState lastState { get; private set; }
