@@ -10,9 +10,8 @@ namespace ProjectMazelike.Model {
         public Entity(Tile tile) {
             currentTile = tile;
         }
-
-        public delegate void EntityDiedDelegate();
-        public event EntityDiedDelegate OnDeath;
+        
+        public event Action OnDeath;
 
         public Tile currentTile;
         public Map currentMap {
