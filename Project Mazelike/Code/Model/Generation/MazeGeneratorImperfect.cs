@@ -8,7 +8,7 @@ namespace ProjectMazelike.Model.Generation
     //finding dead ends and entering a neighbor from them
     internal class MazeGeneratorImperfect : MazeGenerator
     {
-        public float Chance;
+        private readonly float _chanceToRemoveDeadEnd;
 
         public override Maze GenerateMaze(int width, int height)
         {
@@ -18,7 +18,7 @@ namespace ProjectMazelike.Model.Generation
             var deadEnds = new List<Cell>();
             foreach (var cell in Maze.GetCellArray())
                 if (cell.GetNumberOfWalls() >= 3)
-                    if (Rand.NextDouble() < Chance)
+                    if (Rand.NextDouble() < _chanceToRemoveDeadEnd)
                     {
                         var neighbors = cell.GetWalledNeighbors();
                         EnterCell(cell, neighbors[Rand.Next(neighbors.Count)]);
@@ -57,11 +57,11 @@ namespace ProjectMazelike.Model.Generation
         /// <summary>
         ///     Constructor
         /// </summary>
-        /// <param name="chance">Chance to remove dead end from 0-1. Default = 0.5</param>
+        /// <param name="chance">_chanceToRemoveDeadEnd to remove dead end from 0-1. Default = 0.5</param>
         /// <param name="randomSeed">Seed for the random generator. -1 = random seed (default)</param>
         public MazeGeneratorImperfect(float chance = 0.5f, int randomSeed = -1) : base(randomSeed)
         {
-            Chance = MathHelper.Clamp(chance, 0f, 1f);
+            _chanceToRemoveDeadEnd = MathHelper.Clamp(chance, 0f, 1f);
         }
     }
 }
