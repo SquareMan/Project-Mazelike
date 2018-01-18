@@ -28,6 +28,7 @@ namespace ProjectMazelike
         //These objects are currently not accessed here but need to exist
         // ReSharper disable once NotAccessedField.Local
         private GraphicsDeviceManager _graphics;
+
         // ReSharper disable once NotAccessedField.Local
         private WorldController _worldManager;
 

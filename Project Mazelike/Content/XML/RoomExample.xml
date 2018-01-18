@@ -1,23 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <XnaContent>
-  <Asset>
-    <room width="10" height=" 10">
-      <tile type="Wall" x="0" y="0" />
-      <tile type="Wall" x="0" y="1" />
-      <tile type="Wall" x="0" y="2" />
-      <tile type="Wall" x="0" y="3" />
-      <tile type="Wall" x="1" y="0" />
-      <tile type="Wall" x="1" y="4" />
-      <tile type="Wall" x="2" y="0" />
-      <tile type="Wall" x="3" y="0" />
-      <tile type="Wall" x="3" y="4" />
-      <tile type="Wall" x="4" y="0" />
-      <tile type="Wall" x="4" y="4" />
-      <tile type="Wall" x="5" y="0" />
-      <tile type="Wall" x="5" y="1" />
-      <tile type="Wall" x="5" y="2" />
-      <tile type="Wall" x="5" y="3" />
-      <enemy x="9" y="8" />
-    </room>
-  </Asset>
+    <Asset>
+        <room width="10" height=" 10">
+            <tile type="Wall" x="0" y="0" />
+            <tile type="Wall" x="0" y="1" />
+            <tile type="Wall" x="0" y="2" />
+            <tile type="Wall" x="0" y="3" />
+            <tile type="Wall" x="1" y="0" />
+            <tile type="Wall" x="1" y="4" />
+            <tile type="Wall" x="2" y="0" />
+            <tile type="Wall" x="3" y="0" />
+            <tile type="Wall" x="3" y="4" />
+            <tile type="Wall" x="4" y="0" />
+            <tile type="Wall" x="4" y="4" />
+            <tile type="Wall" x="5" y="0" />
+            <tile type="Wall" x="5" y="1" />
+            <tile type="Wall" x="5" y="2" />
+            <tile type="Wall" x="5" y="3" />
+            <enemy x="9" y="8" />
+        </room>
+    </Asset>
 </XnaContent>
