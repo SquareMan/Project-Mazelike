@@ -14,9 +14,10 @@ namespace ProjectMazelike.Model
         //World needs to remember the seed for potential future usage
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly int _worldSeed;
+        public readonly Player Player;
+
         // ReSharper disable once NotAccessedField.Local
         private Map _currentMap;
-        public readonly Player Player;
 
         public event Action<Map> OnMapChanged;
 
