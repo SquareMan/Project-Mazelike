@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProjectMazelike.Controller;
 using ProjectMazelike.Model;
@@ -71,7 +71,11 @@ namespace ProjectMazelike
 
             KeyboardController.Initialize();
             ScreenController.Initialize();
-            _worldManager = new WorldController();
+            
+            var player = new Player(null);
+            var world = new World(player);
+            _worldManager = new WorldController(world);
+            world.OnMapChanged += _worldManager.SetMap;
 
             IsMouseVisible = true;
 

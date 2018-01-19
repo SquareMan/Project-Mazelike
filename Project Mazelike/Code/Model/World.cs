@@ -21,13 +21,17 @@ namespace ProjectMazelike.Model
 
         public event Action<Map> OnMapChanged;
 
-        public World(Player player, Action<Map> newMapCallback)
+        public World(Player player)
         {
             _worldSeed = Environment.TickCount;
             //Player = new Player(null);
             Player = player;
-            OnMapChanged += newMapCallback;
 
+            ProjectMazelike.Instance.OnGameStateChanged += OnGameStateChanged;
+        }
+
+        private void OnStartGame()
+        {
             var map1 = new MapGenerator(_worldSeed + 1).GenerateMap();
             map1.PlayerStart = new Point(8, 5);
             _overworld.Add(map1);
@@ -57,6 +61,13 @@ namespace ProjectMazelike.Model
 
             _currentMap = newMap;
             OnMapChanged?.Invoke(newMap);
+        }
+
+        private void OnGameStateChanged(ProjectMazelike.GameState previousState, ProjectMazelike.GameState state)
+        {
+            //TODO: Make this state change better
+            if (previousState == ProjectMazelike.GameState.MainMenu && state == ProjectMazelike.GameState.Running)
+                OnStartGame();
         }
     }
 }

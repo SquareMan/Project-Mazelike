@@ -16,9 +16,7 @@ namespace ProjectMazelike.Controller
         {
             Instance = this;
 
-            //World = new World(SetMap);
             World = world;
-            World.OnMapChanged += SetMap;
         }
 
         public void SetMap(Map newMap)
