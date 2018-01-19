@@ -12,11 +12,12 @@ namespace ProjectMazelike.Controller
 
         public World World;
 
-        public WorldController()
+        public WorldController(World world)
         {
             Instance = this;
 
-            World = new World(SetMap);
+            //World = new World(SetMap);
+            World = world;
             World.OnMapChanged += SetMap;
         }
 
@@ -24,6 +25,7 @@ namespace ProjectMazelike.Controller
         {
             CurrentMap = newMap;
 
+            //TODO: GameScreen could subscribe to OnMapChanged callback and handle this
             ScreenController.GameScreen.RemoveComponent(_scm);
             _scm = new ScreenComponentMap(newMap, ScreenController.GameScreen, DrawLayer.Background);
             ScreenController.GameScreen.AddComponent(_scm);

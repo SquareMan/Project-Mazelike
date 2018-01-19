@@ -21,11 +21,12 @@ namespace ProjectMazelike.Model
 
         public event Action<Map> OnMapChanged;
 
-        public World(Action<Map> callback)
+        public World(Player player, Action<Map> newMapCallback)
         {
             _worldSeed = Environment.TickCount;
-            Player = new Player(null);
-            OnMapChanged += callback;
+            //Player = new Player(null);
+            Player = player;
+            OnMapChanged += newMapCallback;
 
             var map1 = new MapGenerator(_worldSeed + 1).GenerateMap();
             map1.PlayerStart = new Point(8, 5);
