@@ -71,7 +71,7 @@ namespace ProjectMazelike.Controller
             return null;
         }
 
-        private static void OnGameStateChanged(ProjectMazelike.GameState newState)
+        private static void OnGameStateChanged(ProjectMazelike.GameState previousState, ProjectMazelike.GameState newState)
         {
             switch (newState)
             {

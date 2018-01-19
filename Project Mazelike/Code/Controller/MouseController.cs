@@ -61,7 +61,8 @@ namespace ProjectMazelike.Controller
             return currentState.ScrollWheelValue - lastState.ScrollWheelValue;
         }
 
-        private static void OnGameStateChanged(ProjectMazelike.GameState newState)
+        private static void OnGameStateChanged(ProjectMazelike.GameState previousState,
+            ProjectMazelike.GameState newState)
         {
             switch (newState)
             {

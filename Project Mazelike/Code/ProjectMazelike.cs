@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProjectMazelike.Controller;
+using ProjectMazelike.Model;
 using ProjectMazelike.View;
 using ProjectMazelike.View.Scenes;
 
@@ -11,7 +12,7 @@ namespace ProjectMazelike
     /// </summary>
     public class ProjectMazelike : Game
     {
-        public delegate void GameStateChangedDelegate(GameState newState);
+        public delegate void GameStateChangedDelegate(GameState previousState, GameState newState);
 
         public enum GameState
         {
@@ -39,8 +40,8 @@ namespace ProjectMazelike
             get => _currentState;
             protected set
             {
+                OnGameStateChanged?.Invoke(_currentState, value);
                 _currentState = value;
-                OnGameStateChanged?.Invoke(_currentState);
             }
         }
 
@@ -164,8 +165,9 @@ namespace ProjectMazelike
         /// <summary>
         ///     Runs when the CurrentState is changed
         /// </summary>
+        /// <param name="previousState">the previous GameState</param>
         /// <param name="newState">the new GameState</param>
-        private void StateChanged(GameState newState)
+        private void StateChanged(GameState previousState, GameState newState)
         {
             switch (newState)
             {

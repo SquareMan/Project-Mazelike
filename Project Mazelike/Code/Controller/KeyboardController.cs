@@ -55,7 +55,8 @@ namespace ProjectMazelike.Controller
             if (IsButtonReleased(Keys.Escape)) ProjectMazelike.Instance.UnpauseGame();
         }
 
-        private static void OnGameStateChanged(ProjectMazelike.GameState newState)
+        private static void OnGameStateChanged(ProjectMazelike.GameState previousState,
+            ProjectMazelike.GameState newState)
         {
             switch (newState)
             {
