@@ -31,7 +31,7 @@ namespace ProjectMazelike
         private GraphicsDeviceManager _graphics;
 
         // ReSharper disable once NotAccessedField.Local
-        private WorldController _worldManager;
+        private WorldController _worldController;
 
         public SpriteBatch SpriteBatch;
 
@@ -74,8 +74,8 @@ namespace ProjectMazelike
             
             var player = new Player(null);
             var world = new World(player);
-            _worldManager = new WorldController(world);
-            world.OnMapChanged += _worldManager.SetMap;
+            _worldController = new WorldController(world);
+            world.OnMapChanged += _worldController.SetMap;
 
             IsMouseVisible = true;
 
